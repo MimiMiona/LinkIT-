@@ -31,5 +31,10 @@ namespace LinkIT_
             }
         }
 
+        private void bOrganizadores_Click(object sender, EventArgs e)
+        {
+            Organizadores f = new Organizadores();
+            f.ShowDialog();
+        }
     }
 }

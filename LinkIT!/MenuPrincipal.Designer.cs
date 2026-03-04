@@ -40,7 +40,7 @@
             // 
             bUsuarios.BackColor = Color.PaleGoldenrod;
             bUsuarios.FlatStyle = FlatStyle.Popup;
-            bUsuarios.Location = new Point(162, 70);
+            bUsuarios.Location = new Point(156, 69);
             bUsuarios.Name = "bUsuarios";
             bUsuarios.Size = new Size(148, 54);
             bUsuarios.TabIndex = 0;
@@ -51,18 +51,19 @@
             // 
             bOrganizadores.BackColor = Color.PaleGoldenrod;
             bOrganizadores.FlatStyle = FlatStyle.Popup;
-            bOrganizadores.Location = new Point(87, 130);
+            bOrganizadores.Location = new Point(81, 129);
             bOrganizadores.Name = "bOrganizadores";
             bOrganizadores.Size = new Size(148, 54);
             bOrganizadores.TabIndex = 1;
             bOrganizadores.Text = "Organizadores";
             bOrganizadores.UseVisualStyleBackColor = false;
+            bOrganizadores.Click += bOrganizadores_Click;
             // 
             // bInscripciones
             // 
             bInscripciones.BackColor = Color.PaleGoldenrod;
             bInscripciones.FlatStyle = FlatStyle.Popup;
-            bInscripciones.Location = new Point(241, 130);
+            bInscripciones.Location = new Point(235, 129);
             bInscripciones.Name = "bInscripciones";
             bInscripciones.Size = new Size(149, 55);
             bInscripciones.TabIndex = 2;
@@ -73,7 +74,7 @@
             // 
             bReportes.BackColor = Color.PaleGoldenrod;
             bReportes.FlatStyle = FlatStyle.Popup;
-            bReportes.Location = new Point(241, 190);
+            bReportes.Location = new Point(235, 189);
             bReportes.Name = "bReportes";
             bReportes.Size = new Size(149, 54);
             bReportes.TabIndex = 3;
@@ -84,7 +85,7 @@
             // 
             bEventos.BackColor = Color.PaleGoldenrod;
             bEventos.FlatStyle = FlatStyle.Popup;
-            bEventos.Location = new Point(87, 190);
+            bEventos.Location = new Point(81, 189);
             bEventos.Name = "bEventos";
             bEventos.Size = new Size(148, 54);
             bEventos.TabIndex = 4;

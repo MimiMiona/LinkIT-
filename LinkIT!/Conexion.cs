@@ -1,21 +1,23 @@
 ﻿using Microsoft.Data.SqlClient;
-
-public class Conexion
+namespace LinkIT_
 {
-    private SqlConnection conexion = new SqlConnection(
-        @"Server=(localdb)\MSSQLLocalDB;Database=LinkIT;Trusted_Connection=True;");
-
-    public SqlConnection AbrirConexion()
+    public class Conexion
     {
-        if (conexion.State == System.Data.ConnectionState.Closed)
-            conexion.Open();
-        return conexion;
-    }
+        private SqlConnection conexion = new SqlConnection(
+            @"Server=(localdb)\MSSQLLocalDB;Database=LinkIT;Trusted_Connection=True;");
 
-    public SqlConnection CerrarConexion()
-    {
-        if (conexion.State == System.Data.ConnectionState.Open)
-            conexion.Close();
-        return conexion;
+        public SqlConnection AbrirConexion()
+        {
+            if (conexion.State == System.Data.ConnectionState.Closed)
+                conexion.Open();
+            return conexion;
+        }
+
+        public SqlConnection CerrarConexion()
+        {
+            if (conexion.State == System.Data.ConnectionState.Open)
+                conexion.Close();
+            return conexion;
+        }
     }
 }
