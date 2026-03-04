@@ -1,6 +1,6 @@
 ﻿namespace LinkIT_
 {
-    partial class FormJefeEventos
+    partial class FormUsuario
     {
         /// <summary>
         /// Required designer variable.
@@ -37,7 +37,7 @@
             panel2 = new Panel();
             Nombre = new Label();
             pictureBox1 = new PictureBox();
-            panelJefeEvento = new Panel();
+            panelUsuario = new Panel();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -52,11 +52,10 @@
             panel1.Controls.Add(buttonCerrarSesion);
             panel1.Controls.Add(BotonMisEventos);
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(1, -2);
+            panel1.Location = new Point(1, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(200, 697);
-            panel1.TabIndex = 0;
-            panel1.Paint += panel1_Paint;
+            panel1.Size = new Size(208, 694);
+            panel1.TabIndex = 1;
             // 
             // buttonCalendario
             // 
@@ -69,11 +68,8 @@
             buttonCalendario.Name = "buttonCalendario";
             buttonCalendario.Size = new Size(169, 33);
             buttonCalendario.TabIndex = 8;
-            buttonCalendario.Text = "Calendario";
+            buttonCalendario.Text = "🗓️ Calendario";
             buttonCalendario.UseVisualStyleBackColor = false;
-            buttonCalendario.Click += buttonCalendario_Click;
-            buttonCalendario.MouseEnter += buttonCalendario_MouseEnter;
-            buttonCalendario.MouseLeave += buttonCalendario_MouseLeave;
             // 
             // buttonInscriptos
             // 
@@ -86,11 +82,8 @@
             buttonInscriptos.Name = "buttonInscriptos";
             buttonInscriptos.Size = new Size(169, 33);
             buttonInscriptos.TabIndex = 7;
-            buttonInscriptos.Text = "Inscriptos";
+            buttonInscriptos.Text = "❤️ Mis Eventos";
             buttonInscriptos.UseVisualStyleBackColor = false;
-            buttonInscriptos.Click += buttonInscriptos_Click;
-            buttonInscriptos.MouseEnter += buttonInscriptos_MouseEnter;
-            buttonInscriptos.MouseLeave += buttonInscriptos_MouseLeave;
             // 
             // label2
             // 
@@ -124,11 +117,9 @@
             BotonMisEventos.Name = "BotonMisEventos";
             BotonMisEventos.Size = new Size(169, 33);
             BotonMisEventos.TabIndex = 0;
-            BotonMisEventos.Text = "Mis Eventos";
+            BotonMisEventos.Text = "🔍 Explorar Eventos ";
             BotonMisEventos.UseVisualStyleBackColor = true;
             BotonMisEventos.Click += BotonMisEventos_Click;
-            BotonMisEventos.MouseEnter += BotonMisEventos_MouseEnter;
-            BotonMisEventos.MouseLeave += BotonMisEventos_MouseLeave;
             // 
             // panel2
             // 
@@ -159,25 +150,25 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // panelJefeEvento
+            // panelUsuario
             // 
-            panelJefeEvento.Location = new Point(198, -2);
-            panelJefeEvento.Name = "panelJefeEvento";
-            panelJefeEvento.Size = new Size(1173, 697);
-            panelJefeEvento.TabIndex = 1;
+            panelUsuario.Location = new Point(204, 0);
+            panelUsuario.Name = "panelUsuario";
+            panelUsuario.Size = new Size(1173, 697);
+            panelUsuario.TabIndex = 2;
             // 
-            // FormJefeEventos
+            // FormUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1370, 692);
-            Controls.Add(panelJefeEvento);
+            ClientSize = new Size(1208, 692);
+            Controls.Add(panelUsuario);
             Controls.Add(panel1);
-            Name = "FormJefeEventos";
+            Name = "FormUsuario";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Link it!";
+            Text = "FormUsuario";
             WindowState = FormWindowState.Maximized;
-            Load += FormJefeEventos_Load;
+            Load += FormUsuario_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -189,14 +180,14 @@
         #endregion
 
         private Panel panel1;
-        private Panel panel2;
-        private PictureBox pictureBox1;
-        private Panel panelJefeEvento;
-        private Label Nombre;
+        private Button buttonCalendario;
+        private Button buttonInscriptos;
         private Label label2;
         private Button buttonCerrarSesion;
         private Button BotonMisEventos;
-        private Button buttonCalendario;
-        private Button buttonInscriptos;
+        private Panel panel2;
+        private Label Nombre;
+        private PictureBox pictureBox1;
+        private Panel panelUsuario;
     }
 }

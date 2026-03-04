@@ -1,6 +1,6 @@
 ﻿namespace LinkIT_
 {
-    partial class UCCalendario
+    partial class UCExplorarEventos
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -28,40 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            monthCalendar1 = new MonthCalendar();
-            listBox1 = new ListBox();
-            panel1 = new Panel();
             labelPrincipal = new Label();
             labelSubtitulo = new Label();
-            panel1.SuspendLayout();
+            textBoxBucar = new TextBox();
+            flowEventos = new FlowLayoutPanel();
             SuspendLayout();
-            // 
-            // monthCalendar1
-            // 
-            monthCalendar1.CalendarDimensions = new Size(3, 4);
-            monthCalendar1.Location = new Point(9, 85);
-            monthCalendar1.MaxDate = new DateTime(2026, 12, 31, 0, 0, 0, 0);
-            monthCalendar1.MinDate = new DateTime(2026, 1, 1, 0, 0, 0, 0);
-            monthCalendar1.Name = "monthCalendar1";
-            monthCalendar1.ShowToday = false;
-            monthCalendar1.TabIndex = 0;
-            monthCalendar1.DateChanged += monthCalendar1_DateChanged;
-            // 
-            // listBox1
-            // 
-            listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(10, 0);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(397, 544);
-            listBox1.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(listBox1);
-            panel1.Location = new Point(730, 115);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(407, 544);
-            panel1.TabIndex = 2;
             // 
             // labelPrincipal
             // 
@@ -69,9 +40,9 @@
             labelPrincipal.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelPrincipal.Location = new Point(20, 20);
             labelPrincipal.Name = "labelPrincipal";
-            labelPrincipal.Size = new Size(137, 32);
-            labelPrincipal.TabIndex = 3;
-            labelPrincipal.Text = "Calendario";
+            labelPrincipal.Size = new Size(206, 32);
+            labelPrincipal.TabIndex = 4;
+            labelPrincipal.Text = "Explorar Eventos";
             // 
             // labelSubtitulo
             // 
@@ -80,33 +51,51 @@
             labelSubtitulo.ForeColor = SystemColors.ActiveCaptionText;
             labelSubtitulo.Location = new Point(23, 55);
             labelSubtitulo.Name = "labelSubtitulo";
-            labelSubtitulo.Size = new Size(224, 17);
-            labelSubtitulo.TabIndex = 4;
-            labelSubtitulo.Text = "Vista anual de eventos programados";
+            labelSubtitulo.Size = new Size(380, 17);
+            labelSubtitulo.TabIndex = 5;
+            labelSubtitulo.Text = "Descubre los eventos disponibles y unete a los que te interesen";
             // 
-            // UCCalendario
+            // textBoxBucar
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
-            AutoScaleMode = AutoScaleMode.Dpi;
-            BackColor = Color.White;
+            textBoxBucar.Font = new Font("Segoe UI", 10F);
+            textBoxBucar.ForeColor = SystemColors.AppWorkspace;
+            textBoxBucar.Location = new Point(23, 90);
+            textBoxBucar.Name = "textBoxBucar";
+            textBoxBucar.Size = new Size(1118, 25);
+            textBoxBucar.TabIndex = 6;
+            textBoxBucar.Text = "🔍 Buscar eventos por titulos o descripcion...";
+            // 
+            // flowEventos
+            // 
+            flowEventos.AutoScroll = true;
+            flowEventos.BackColor = Color.White;
+            flowEventos.FlowDirection = FlowDirection.TopDown;
+            flowEventos.Location = new Point(0, 120);
+            flowEventos.Name = "flowEventos";
+            flowEventos.Size = new Size(1173, 697);
+            flowEventos.TabIndex = 7;
+            flowEventos.WrapContents = false;
+            // 
+            // UCExplorarEventos
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(flowEventos);
+            Controls.Add(textBoxBucar);
             Controls.Add(labelSubtitulo);
             Controls.Add(labelPrincipal);
-            Controls.Add(panel1);
-            Controls.Add(monthCalendar1);
-            Name = "UCCalendario";
+            Name = "UCExplorarEventos";
             Size = new Size(1173, 697);
-            Load += UCCalendario_Load;
-            panel1.ResumeLayout(false);
+            Load += UCExplorarEventos_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private MonthCalendar monthCalendar1;
-        private ListBox listBox1;
-        private Panel panel1;
         private Label labelPrincipal;
         private Label labelSubtitulo;
+        private TextBox textBoxBucar;
+        private FlowLayoutPanel flowEventos;
     }
 }

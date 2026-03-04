@@ -49,13 +49,13 @@
             panel1.Controls.Add(label1);
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(924, 123);
+            panel1.Size = new Size(1173, 123);
             panel1.TabIndex = 0;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(852, 57);
+            label4.Location = new Point(1101, 57);
             label4.Name = "label4";
             label4.Size = new Size(38, 15);
             label4.TabIndex = 4;
@@ -64,7 +64,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(764, 57);
+            label3.Location = new Point(1031, 57);
             label3.Name = "label3";
             label3.Size = new Size(38, 15);
             label3.TabIndex = 3;
@@ -74,7 +74,7 @@
             // 
             progressBar1.Location = new Point(29, 97);
             progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(874, 18);
+            progressBar1.Size = new Size(1110, 18);
             progressBar1.TabIndex = 2;
             // 
             // label2
@@ -101,7 +101,7 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(29, 121);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(880, 347);
+            dataGridView1.Size = new Size(1110, 558);
             dataGridView1.TabIndex = 1;
             // 
             // UCInscriptos
@@ -112,7 +112,7 @@
             Controls.Add(dataGridView1);
             Controls.Add(panel1);
             Name = "UCInscriptos";
-            Size = new Size(924, 480);
+            Size = new Size(1173, 697);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

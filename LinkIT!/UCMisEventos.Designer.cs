@@ -39,7 +39,7 @@
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(644, 392);
+            flowLayoutPanel1.Size = new Size(1173, 697);
             flowLayoutPanel1.TabIndex = 3;
             flowLayoutPanel1.WrapContents = false;
             // 
@@ -49,7 +49,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(flowLayoutPanel1);
             Name = "UCMisEventos";
-            Size = new Size(644, 392);
+            Size = new Size(1173, 697);
             Load += UCMisEventos_Load;
             ResumeLayout(false);
         }

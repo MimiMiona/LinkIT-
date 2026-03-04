@@ -10,6 +10,7 @@ namespace LinkIT_
 {
     public partial class UCCalendario : UserControl
     {
+        private Color colorGrisTexto = Color.FromArgb(100, 100, 100);
         public UCCalendario()
         {
             InitializeComponent();
@@ -18,6 +19,11 @@ namespace LinkIT_
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
 
+        }
+
+        private void UCCalendario_Load(object sender, EventArgs e)
+        {
+            labelSubtitulo.ForeColor = colorGrisTexto;
         }
     }
 }
