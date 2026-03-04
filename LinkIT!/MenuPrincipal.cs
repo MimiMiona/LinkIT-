@@ -1,18 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace LinkIT_
 {
     public partial class MenuPrincipal : Form
     {
-        public MenuPrincipal()
+        private string perfilUsuario;
+
+        public MenuPrincipal(string perfil)
         {
             InitializeComponent();
+            perfilUsuario = perfil;
+            ConfigurarPermisos();
         }
+        private void MenuPrincipal_Load(object sender, EventArgs e)
+        {
+        }
+        private void ConfigurarPermisos()
+        {
+            if (perfilUsuario == "Consulta")
+            {
+                bOrganizadores.Enabled = false;
+                bEventos.Enabled = false;
+                bInscripciones.Enabled = false;
+            }
+
+            if (perfilUsuario == "Organizador")
+            {
+                bUsuarios.Enabled = false;
+            }
+        }
+
     }
 }

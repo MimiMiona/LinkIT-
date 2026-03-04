@@ -27,6 +27,9 @@ namespace LinkIT_
             {
                 string perfil = reader["Perfil"]?.ToString() ?? "";
                 MessageBox.Show("Bienvenido - Perfil: " + perfil);
+                MenuPrincipal menu = new MenuPrincipal(perfil);
+                menu.Show();
+                this.Hide();
             }
             else
             {
