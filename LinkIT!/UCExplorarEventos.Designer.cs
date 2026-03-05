@@ -28,32 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            labelPrincipal = new Label();
-            labelSubtitulo = new Label();
             textBoxBucar = new TextBox();
             flowEventos = new FlowLayoutPanel();
+            label1 = new Label();
+            labelSubtitulo = new Label();
             SuspendLayout();
-            // 
-            // labelPrincipal
-            // 
-            labelPrincipal.AutoSize = true;
-            labelPrincipal.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelPrincipal.Location = new Point(20, 20);
-            labelPrincipal.Name = "labelPrincipal";
-            labelPrincipal.Size = new Size(206, 32);
-            labelPrincipal.TabIndex = 4;
-            labelPrincipal.Text = "Explorar Eventos";
-            // 
-            // labelSubtitulo
-            // 
-            labelSubtitulo.AutoSize = true;
-            labelSubtitulo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelSubtitulo.ForeColor = SystemColors.ActiveCaptionText;
-            labelSubtitulo.Location = new Point(23, 55);
-            labelSubtitulo.Name = "labelSubtitulo";
-            labelSubtitulo.Size = new Size(380, 17);
-            labelSubtitulo.TabIndex = 5;
-            labelSubtitulo.Text = "Descubre los eventos disponibles y unete a los que te interesen";
             // 
             // textBoxBucar
             // 
@@ -76,14 +55,35 @@
             flowEventos.TabIndex = 7;
             flowEventos.WrapContents = false;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(20, 20);
+            label1.Name = "label1";
+            label1.Size = new Size(206, 32);
+            label1.TabIndex = 6;
+            label1.Text = "Explorar Eventos";
+            // 
+            // labelSubtitulo
+            // 
+            labelSubtitulo.AutoSize = true;
+            labelSubtitulo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelSubtitulo.ForeColor = SystemColors.ActiveCaptionText;
+            labelSubtitulo.Location = new Point(23, 55);
+            labelSubtitulo.Name = "labelSubtitulo";
+            labelSubtitulo.Size = new Size(380, 17);
+            labelSubtitulo.TabIndex = 8;
+            labelSubtitulo.Text = "Descubre los eventos disponibles y unete a los que te interesen";
+            // 
             // UCExplorarEventos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(labelSubtitulo);
+            Controls.Add(label1);
             Controls.Add(flowEventos);
             Controls.Add(textBoxBucar);
-            Controls.Add(labelSubtitulo);
-            Controls.Add(labelPrincipal);
             Name = "UCExplorarEventos";
             Size = new Size(1173, 697);
             Load += UCExplorarEventos_Load;
@@ -92,10 +92,9 @@
         }
 
         #endregion
-
-        private Label labelPrincipal;
-        private Label labelSubtitulo;
         private TextBox textBoxBucar;
         private FlowLayoutPanel flowEventos;
+        private Label label1;
+        private Label labelSubtitulo;
     }
 }
