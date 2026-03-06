@@ -47,7 +47,7 @@
             // flowEventos
             // 
             flowEventos.AutoScroll = true;
-            flowEventos.BackColor = Color.White;
+            flowEventos.BackColor = Color.Ivory;
             flowEventos.FlowDirection = FlowDirection.TopDown;
             flowEventos.Location = new Point(0, 120);
             flowEventos.Name = "flowEventos";

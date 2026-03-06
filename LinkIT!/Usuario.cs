@@ -8,25 +8,30 @@ using System.Windows.Forms;
 
 namespace LinkIT_
 {
-    public partial class FormAdministrador : Form
+    public partial class Usuario : Form
     {
-        public FormAdministrador()
+        public Usuario()
         {
             InitializeComponent();
         }
 
         private void LoadUserControl(UserControl uc)
         {
-            panelAdministrador.Controls.Clear();
+            panelUsuario.Controls.Clear();
             uc.Dock = DockStyle.Fill;
-            panelAdministrador.Controls.Add(uc);
+            panelUsuario.Controls.Add(uc);
 
         }
 
-        private void FormAdministrador_Load(object sender, EventArgs e)
+        private void FormUsuario_Load(object sender, EventArgs e)
         {
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            LoadUserControl(new UCDashboard());
+            LoadUserControl(new UCExplorarEventos());
+        }
+
+        private void BotonMisEventos_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UCExplorarEventos());
         }
     }
 }

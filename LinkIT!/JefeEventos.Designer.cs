@@ -1,6 +1,6 @@
 ﻿namespace LinkIT_
 {
-    partial class FormJefeEventos
+    partial class JefeEventos
     {
         /// <summary>
         /// Required designer variable.

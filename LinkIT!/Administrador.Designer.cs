@@ -1,6 +1,6 @@
 ﻿namespace LinkIT_
 {
-    partial class FormAdministrador
+    partial class Administrador
     {
         /// <summary>
         /// Required designer variable.
@@ -30,11 +30,12 @@
         {
             panel1 = new Panel();
             button1 = new Button();
-            buttonCalendario = new Button();
-            buttonInscriptos = new Button();
+            bJefeEventos = new Button();
+            bUsuarios = new Button();
+            bEventos = new Button();
             label2 = new Label();
             buttonCerrarSesion = new Button();
-            BotonMisEventos = new Button();
+            bDashboard = new Button();
             panel2 = new Panel();
             Nombre = new Label();
             pictureBox1 = new PictureBox();
@@ -48,11 +49,12 @@
             // 
             panel1.BackColor = Color.MintCream;
             panel1.Controls.Add(button1);
-            panel1.Controls.Add(buttonCalendario);
-            panel1.Controls.Add(buttonInscriptos);
+            panel1.Controls.Add(bJefeEventos);
+            panel1.Controls.Add(bUsuarios);
+            panel1.Controls.Add(bEventos);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(buttonCerrarSesion);
-            panel1.Controls.Add(BotonMisEventos);
+            panel1.Controls.Add(bDashboard);
             panel1.Controls.Add(panel2);
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -66,40 +68,57 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(12, 214);
+            button1.Location = new Point(12, 450);
             button1.Name = "button1";
             button1.Size = new Size(169, 33);
-            button1.TabIndex = 9;
-            button1.Text = "\U0001f91d Jefe de Eventos";
+            button1.TabIndex = 10;
+            button1.Text = "Usuarios Total";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
-            // buttonCalendario
+            // bJefeEventos
             // 
-            buttonCalendario.BackColor = Color.MediumSeaGreen;
-            buttonCalendario.FlatAppearance.BorderSize = 0;
-            buttonCalendario.FlatStyle = FlatStyle.Flat;
-            buttonCalendario.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonCalendario.ForeColor = Color.White;
-            buttonCalendario.Location = new Point(11, 175);
-            buttonCalendario.Name = "buttonCalendario";
-            buttonCalendario.Size = new Size(169, 33);
-            buttonCalendario.TabIndex = 8;
-            buttonCalendario.Text = "👤 Usuarios";
-            buttonCalendario.UseVisualStyleBackColor = false;
+            bJefeEventos.BackColor = Color.MediumSeaGreen;
+            bJefeEventos.FlatAppearance.BorderSize = 0;
+            bJefeEventos.FlatStyle = FlatStyle.Flat;
+            bJefeEventos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bJefeEventos.ForeColor = Color.White;
+            bJefeEventos.Location = new Point(12, 214);
+            bJefeEventos.Name = "bJefeEventos";
+            bJefeEventos.Size = new Size(169, 33);
+            bJefeEventos.TabIndex = 9;
+            bJefeEventos.Text = "\U0001f91d Jefe de Eventos";
+            bJefeEventos.UseVisualStyleBackColor = true;
             // 
-            // buttonInscriptos
+            // bUsuarios
             // 
-            buttonInscriptos.BackColor = Color.MediumSeaGreen;
-            buttonInscriptos.FlatAppearance.BorderSize = 0;
-            buttonInscriptos.FlatStyle = FlatStyle.Flat;
-            buttonInscriptos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonInscriptos.ForeColor = Color.White;
-            buttonInscriptos.Location = new Point(11, 136);
-            buttonInscriptos.Name = "buttonInscriptos";
-            buttonInscriptos.Size = new Size(169, 33);
-            buttonInscriptos.TabIndex = 7;
-            buttonInscriptos.Text = "🗓️ Eventos";
-            buttonInscriptos.UseVisualStyleBackColor = false;
+            bUsuarios.BackColor = Color.MediumSeaGreen;
+            bUsuarios.FlatAppearance.BorderSize = 0;
+            bUsuarios.FlatStyle = FlatStyle.Flat;
+            bUsuarios.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bUsuarios.ForeColor = Color.White;
+            bUsuarios.Location = new Point(11, 175);
+            bUsuarios.Name = "bUsuarios";
+            bUsuarios.Size = new Size(169, 33);
+            bUsuarios.TabIndex = 8;
+            bUsuarios.Text = "👤 Usuarios Inscriptos";
+            bUsuarios.UseVisualStyleBackColor = false;
+            bUsuarios.Click += bUsuarios_Click;
+            // 
+            // bEventos
+            // 
+            bEventos.BackColor = Color.MediumSeaGreen;
+            bEventos.FlatAppearance.BorderSize = 0;
+            bEventos.FlatStyle = FlatStyle.Flat;
+            bEventos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bEventos.ForeColor = Color.White;
+            bEventos.Location = new Point(11, 136);
+            bEventos.Name = "bEventos";
+            bEventos.Size = new Size(169, 33);
+            bEventos.TabIndex = 7;
+            bEventos.Text = "🗓️ Eventos";
+            bEventos.UseVisualStyleBackColor = false;
+            bEventos.Click += bEventos_Click;
             // 
             // label2
             // 
@@ -122,19 +141,20 @@
             buttonCerrarSesion.Text = "Cerrar Sesion ";
             buttonCerrarSesion.UseVisualStyleBackColor = false;
             // 
-            // BotonMisEventos
+            // bDashboard
             // 
-            BotonMisEventos.BackColor = Color.MediumSeaGreen;
-            BotonMisEventos.FlatAppearance.BorderSize = 0;
-            BotonMisEventos.FlatStyle = FlatStyle.Flat;
-            BotonMisEventos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BotonMisEventos.ForeColor = Color.White;
-            BotonMisEventos.Location = new Point(11, 97);
-            BotonMisEventos.Name = "BotonMisEventos";
-            BotonMisEventos.Size = new Size(169, 33);
-            BotonMisEventos.TabIndex = 0;
-            BotonMisEventos.Text = "💻 Dashboard";
-            BotonMisEventos.UseVisualStyleBackColor = true;
+            bDashboard.BackColor = Color.MediumSeaGreen;
+            bDashboard.FlatAppearance.BorderSize = 0;
+            bDashboard.FlatStyle = FlatStyle.Flat;
+            bDashboard.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bDashboard.ForeColor = Color.White;
+            bDashboard.Location = new Point(11, 97);
+            bDashboard.Name = "bDashboard";
+            bDashboard.Size = new Size(169, 33);
+            bDashboard.TabIndex = 0;
+            bDashboard.Text = "💻 Dashboard";
+            bDashboard.UseVisualStyleBackColor = true;
+            bDashboard.Click += bDashboard_Click;
             // 
             // panel2
             // 
@@ -173,14 +193,14 @@
             panelAdministrador.Size = new Size(1173, 697);
             panelAdministrador.TabIndex = 3;
             // 
-            // FormAdministrador
+            // Administrador
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1370, 692);
             Controls.Add(panelAdministrador);
             Controls.Add(panel1);
-            Name = "FormAdministrador";
+            Name = "Administrador";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormAdministrador";
             WindowState = FormWindowState.Maximized;
@@ -196,15 +216,16 @@
         #endregion
 
         private Panel panel1;
-        private Button buttonCalendario;
-        private Button buttonInscriptos;
+        private Button bUsuarios;
+        private Button bEventos;
         private Label label2;
         private Button buttonCerrarSesion;
-        private Button BotonMisEventos;
+        private Button bDashboard;
         private Panel panel2;
         private Label Nombre;
         private PictureBox pictureBox1;
         private Panel panelAdministrador;
+        private Button bJefeEventos;
         private Button button1;
     }
 }

@@ -20,9 +20,9 @@ namespace LinkIT_
     tambien se le agrego un efecto hover a los botones del menu lateral para mejorar la experiencia del usuario, cambiando el color de fondo del boton cuando el mouse entra y sale del area del boton.
 
      */
-    public partial class FormJefeEventos : Form
+    public partial class JefeEventos : Form
     {
-        public FormJefeEventos()
+        public JefeEventos()
         {
             InitializeComponent();
         }

@@ -47,6 +47,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Ivory;
             Controls.Add(flowLayoutPanel1);
             Name = "UCMisEventos";
             Size = new Size(1173, 697);

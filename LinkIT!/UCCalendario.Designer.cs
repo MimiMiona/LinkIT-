@@ -88,7 +88,7 @@
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            BackColor = Color.White;
+            BackColor = Color.Ivory;
             Controls.Add(labelSubtitulo);
             Controls.Add(labelPrincipal);
             Controls.Add(panel1);

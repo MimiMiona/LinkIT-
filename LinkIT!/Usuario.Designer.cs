@@ -1,6 +1,6 @@
 ﻿namespace LinkIT_
 {
-    partial class FormUsuario
+    partial class Usuario
     {
         /// <summary>
         /// Required designer variable.
