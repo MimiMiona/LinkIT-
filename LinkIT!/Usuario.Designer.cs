@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            lblUsuario = new Label();
             buttonCalendario = new Button();
             buttonInscriptos = new Button();
-            label2 = new Label();
+            panel3 = new Panel();
+            label1 = new Label();
             buttonCerrarSesion = new Button();
             BotonMisEventos = new Button();
             panel2 = new Panel();
@@ -39,6 +41,7 @@
             pictureBox1 = new PictureBox();
             panelUsuario = new Panel();
             panel1.SuspendLayout();
+            panel3.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -46,9 +49,10 @@
             // panel1
             // 
             panel1.BackColor = Color.MintCream;
+            panel1.Controls.Add(lblUsuario);
             panel1.Controls.Add(buttonCalendario);
             panel1.Controls.Add(buttonInscriptos);
-            panel1.Controls.Add(label2);
+            panel1.Controls.Add(panel3);
             panel1.Controls.Add(buttonCerrarSesion);
             panel1.Controls.Add(BotonMisEventos);
             panel1.Controls.Add(panel2);
@@ -56,6 +60,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(208, 694);
             panel1.TabIndex = 1;
+            // 
+            // lblUsuario
+            // 
+            lblUsuario.AutoSize = true;
+            lblUsuario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblUsuario.Location = new Point(23, 592);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(40, 15);
+            lblUsuario.TabIndex = 9;
+            lblUsuario.Text = "label2";
             // 
             // buttonCalendario
             // 
@@ -85,14 +99,24 @@
             buttonInscriptos.Text = "❤️ Mis Eventos";
             buttonInscriptos.UseVisualStyleBackColor = false;
             // 
-            // label2
+            // panel3
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(20, 624);
-            label2.Name = "label2";
-            label2.Size = new Size(38, 15);
-            label2.TabIndex = 0;
-            label2.Text = "label2";
+            panel3.BackColor = Color.Honeydew;
+            panel3.Controls.Add(label1);
+            panel3.Location = new Point(3, 581);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(205, 65);
+            panel3.TabIndex = 10;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = SystemColors.WindowFrame;
+            label1.Location = new Point(20, 39);
+            label1.Name = "label1";
+            label1.Size = new Size(47, 15);
+            label1.TabIndex = 13;
+            label1.Text = "Usuario";
             // 
             // buttonCerrarSesion
             // 
@@ -157,20 +181,22 @@
             panelUsuario.Size = new Size(1173, 697);
             panelUsuario.TabIndex = 2;
             // 
-            // FormUsuario
+            // Usuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1208, 692);
             Controls.Add(panelUsuario);
             Controls.Add(panel1);
-            Name = "FormUsuario";
+            Name = "Usuario";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormUsuario";
             WindowState = FormWindowState.Maximized;
             Load += FormUsuario_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -182,12 +208,14 @@
         private Panel panel1;
         private Button buttonCalendario;
         private Button buttonInscriptos;
-        private Label label2;
         private Button buttonCerrarSesion;
         private Button BotonMisEventos;
         private Panel panel2;
         private Label Nombre;
         private PictureBox pictureBox1;
         private Panel panelUsuario;
+        private Label lblUsuario;
+        private Panel panel3;
+        private Label label1;
     }
 }

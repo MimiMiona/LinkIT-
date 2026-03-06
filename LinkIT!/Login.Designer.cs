@@ -32,7 +32,7 @@
             label1 = new Label();
             label2 = new Label();
             txtClave = new TextBox();
-            txtUsuario = new TextBox();
+            txtCorreo = new TextBox();
             bIngresar = new Button();
             pictureBox1 = new PictureBox();
             bEliminar = new Button();
@@ -46,9 +46,9 @@
             label1.Font = new Font("Segoe UI", 15F);
             label1.Location = new Point(80, 72);
             label1.Name = "label1";
-            label1.Size = new Size(79, 28);
+            label1.Size = new Size(72, 28);
             label1.TabIndex = 0;
-            label1.Text = "Usuario";
+            label1.Text = "Correo";
             // 
             // label2
             // 
@@ -68,12 +68,12 @@
             txtClave.Size = new Size(130, 23);
             txtClave.TabIndex = 2;
             // 
-            // txtUsuario
+            // txtCorreo
             // 
-            txtUsuario.Location = new Point(184, 72);
-            txtUsuario.Name = "txtUsuario";
-            txtUsuario.Size = new Size(130, 23);
-            txtUsuario.TabIndex = 3;
+            txtCorreo.Location = new Point(184, 72);
+            txtCorreo.Name = "txtCorreo";
+            txtCorreo.Size = new Size(130, 23);
+            txtCorreo.TabIndex = 3;
             // 
             // bIngresar
             // 
@@ -137,7 +137,7 @@
             Controls.Add(bEliminar);
             Controls.Add(pictureBox1);
             Controls.Add(bIngresar);
-            Controls.Add(txtUsuario);
+            Controls.Add(txtCorreo);
             Controls.Add(txtClave);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -155,7 +155,7 @@
         private Label label1;
         private Label label2;
         private TextBox txtClave;
-        private TextBox txtUsuario;
+        private TextBox txtCorreo;
         private Button bIngresar;
         private PictureBox pictureBox1;
         private Button bEliminar;

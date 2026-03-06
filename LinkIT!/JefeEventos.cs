@@ -38,6 +38,7 @@ namespace LinkIT_
         private void FormJefeEventos_Load(object sender, EventArgs e)
         {
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            lblUsuario.Text = "Usuario: " + Login.Sesion.Nombre;
             LoadUserControl(new UCMisEventos());
         }
 

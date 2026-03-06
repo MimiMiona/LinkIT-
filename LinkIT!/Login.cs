@@ -1,72 +1,143 @@
-using System;
 using Microsoft.Data.SqlClient;
+using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace LinkIT_
 {
     public partial class Login : Form
     {
+        public static class Sesion
+        {
+            public static int IdUsuario { get; set; }
+            public static string Nombre { get; set; }
+            public static string Rol { get; set; }
+        }
+
         public Login()
         {
             InitializeComponent();
         }
 
+        public static void CerrarSesion()
+        {
+            Sesion.IdUsuario = 0;
+            Sesion.Nombre = null;
+            Sesion.Rol = null;
+        }
+
+        public string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+
+                foreach (byte b in bytes)
+                    builder.Append(b.ToString("x2"));
+
+                return builder.ToString();
+            }
+        }
+
         private void bIngresar_Click(object sender, EventArgs e)
         {
-            Conexion con = new Conexion();
-            SqlCommand cmd = new SqlCommand(
-            "SELECT IdUsuario, Perfil FROM Usuarios WHERE Usuario=@user AND Clave=@pass",
-            con.AbrirConexion());
+            string correo = txtCorreo.Text.Trim();
+            string contraseña = txtClave.Text.Trim();
 
-            cmd.Parameters.AddWithValue("@user", txtUsuario.Text);
-            cmd.Parameters.AddWithValue("@pass", txtClave.Text);
-
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            if (reader.Read())
+            if (string.IsNullOrEmpty(correo) || string.IsNullOrEmpty(contraseña))
             {
-                int id = Convert.ToInt32(reader["IdUsuario"]);
-                string perfil = reader["Perfil"]?.ToString() ?? "";
+                MessageBox.Show("Por favor ingrese correo y contraseña.");
+                return;
+            }
 
-                Form formDestino = null;
+            try
+            {
+                Conexion con = new Conexion();
 
-                if (id == 1) 
+                SqlCommand cmd = new SqlCommand(@"
+                SELECT 
+                    u.id_usuario,
+                    u.nombre,
+                    u.contraseña,
+                    r.nombre AS rol
+                FROM Usuario u
+                INNER JOIN Rol r ON u.id_rol = r.id_rol
+                WHERE u.correo = @correo AND u.activo = 1
+                ", con.AbrirConexion());
+
+                cmd.Parameters.AddWithValue("@correo", correo);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
                 {
-                    formDestino = new Administrador();
+                    int idUsuario = Convert.ToInt32(reader["id_usuario"]);
+                    string nombre = reader["nombre"].ToString();
+                    string contraseñaHash = reader["contraseña"].ToString().ToLower();
+                    string rol = reader["rol"].ToString();
+
+                    if (contraseñaHash == HashPassword(contraseña))
+                    {
+                        Sesion.IdUsuario = idUsuario;
+                        Sesion.Nombre = nombre;
+                        Sesion.Rol = rol;
+
+                        MessageBox.Show($"Bienvenido {nombre}");
+
+                        Form formDestino = null;
+
+                        switch (rol)
+                        {
+                            case "Administrador":
+                                formDestino = new Administrador();
+                                break;
+
+                            case "Jefe de Eventos":
+                                formDestino = new JefeEventos();
+                                break;
+
+                            case "Usuario":
+                                formDestino = new Usuario();
+                                break;
+
+                            default:
+                                MessageBox.Show("Rol no reconocido");
+                                return;
+                        }
+
+                        formDestino.FormClosed += (s, args) =>
+                        {
+                            this.Show();
+                            txtCorreo.Clear();
+                            txtClave.Clear();
+                        };
+
+                        formDestino.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Contraseña incorrecta");
+                    }
                 }
                 else
                 {
-                    switch (perfil)
-                    {
-                        case "Organizadores":
-                            formDestino = new JefeEventos();
-                            break;
-
-                        case "Usuarios":
-                            formDestino = new Usuario();
-                            break;
-
-                        default:
-                            MessageBox.Show("Perfil no reconocido");
-                            return;
-                    }
+                    MessageBox.Show("Usuario no encontrado o inactivo");
                 }
 
-                formDestino.Show();
-                this.Hide();
+                con.CerrarConexion();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Usuario o contraseña incorrectos");
+                MessageBox.Show("Error de conexión: " + ex.Message);
             }
-
-            con.CerrarConexion();
-
         }
 
         private void bEliminar_Click(object sender, EventArgs e)
         {
-            txtUsuario.Clear();
+            txtCorreo.Clear();
             txtClave.Clear();
         }
 

@@ -29,26 +29,32 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            button1 = new Button();
+            bUsuarios = new Button();
             buttonCalendario = new Button();
             buttonInscriptos = new Button();
-            label2 = new Label();
             buttonCerrarSesion = new Button();
             BotonMisEventos = new Button();
             panel2 = new Panel();
             Nombre = new Label();
             pictureBox1 = new PictureBox();
             panelJefeEvento = new Panel();
+            panel3 = new Panel();
+            label1 = new Label();
+            lblUsuario = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.MintCream;
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(bUsuarios);
             panel1.Controls.Add(buttonCalendario);
             panel1.Controls.Add(buttonInscriptos);
-            panel1.Controls.Add(label2);
             panel1.Controls.Add(buttonCerrarSesion);
             panel1.Controls.Add(BotonMisEventos);
             panel1.Controls.Add(panel2);
@@ -57,6 +63,34 @@
             panel1.Size = new Size(200, 697);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.MediumSeaGreen;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(11, 253);
+            button1.Name = "button1";
+            button1.Size = new Size(169, 33);
+            button1.TabIndex = 10;
+            button1.Text = "Consultas";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // bUsuarios
+            // 
+            bUsuarios.BackColor = Color.MediumSeaGreen;
+            bUsuarios.FlatAppearance.BorderSize = 0;
+            bUsuarios.FlatStyle = FlatStyle.Flat;
+            bUsuarios.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bUsuarios.ForeColor = Color.White;
+            bUsuarios.Location = new Point(11, 214);
+            bUsuarios.Name = "bUsuarios";
+            bUsuarios.Size = new Size(169, 33);
+            bUsuarios.TabIndex = 9;
+            bUsuarios.Text = "Solicitudes de Registro";
+            bUsuarios.UseVisualStyleBackColor = false;
             // 
             // buttonCalendario
             // 
@@ -91,15 +125,6 @@
             buttonInscriptos.Click += buttonInscriptos_Click;
             buttonInscriptos.MouseEnter += buttonInscriptos_MouseEnter;
             buttonInscriptos.MouseLeave += buttonInscriptos_MouseLeave;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(20, 624);
-            label2.Name = "label2";
-            label2.Size = new Size(38, 15);
-            label2.TabIndex = 0;
-            label2.Text = "label2";
             // 
             // buttonCerrarSesion
             // 
@@ -166,23 +191,55 @@
             panelJefeEvento.Size = new Size(1173, 697);
             panelJefeEvento.TabIndex = 1;
             // 
-            // FormJefeEventos
+            // panel3
+            // 
+            panel3.BackColor = Color.Honeydew;
+            panel3.Controls.Add(lblUsuario);
+            panel3.Controls.Add(label1);
+            panel3.Location = new Point(1, 579);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(200, 65);
+            panel3.TabIndex = 12;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = SystemColors.WindowFrame;
+            label1.Location = new Point(20, 39);
+            label1.Name = "label1";
+            label1.Size = new Size(87, 15);
+            label1.TabIndex = 13;
+            label1.Text = "Jefe de Eventos";
+            // 
+            // lblUsuario
+            // 
+            lblUsuario.AutoSize = true;
+            lblUsuario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblUsuario.Location = new Point(20, 13);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(40, 15);
+            lblUsuario.TabIndex = 14;
+            lblUsuario.Text = "label2";
+            // 
+            // JefeEventos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1370, 692);
+            Controls.Add(panel3);
             Controls.Add(panelJefeEvento);
             Controls.Add(panel1);
-            Name = "FormJefeEventos";
+            Name = "JefeEventos";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Link it!";
             WindowState = FormWindowState.Maximized;
             Load += FormJefeEventos_Load;
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -193,10 +250,14 @@
         private PictureBox pictureBox1;
         private Panel panelJefeEvento;
         private Label Nombre;
-        private Label label2;
         private Button buttonCerrarSesion;
         private Button BotonMisEventos;
         private Button buttonCalendario;
         private Button buttonInscriptos;
+        private Button button1;
+        private Button bUsuarios;
+        private Panel panel3;
+        private Label label1;
+        private Label lblUsuario;
     }
 }

@@ -29,52 +29,88 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            button1 = new Button();
+            bRestaurarBackup = new Button();
+            bHacerBackup = new Button();
+            bUsuarioTotales = new Button();
             bJefeEventos = new Button();
-            bUsuarios = new Button();
             bEventos = new Button();
-            label2 = new Label();
-            buttonCerrarSesion = new Button();
+            lblUsuario = new Label();
+            bCerrarSesion = new Button();
             bDashboard = new Button();
             panel2 = new Panel();
             Nombre = new Label();
             pictureBox1 = new PictureBox();
+            panel3 = new Panel();
+            label1 = new Label();
             panelAdministrador = new Panel();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.MintCream;
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(bRestaurarBackup);
+            panel1.Controls.Add(bHacerBackup);
+            panel1.Controls.Add(bUsuarioTotales);
             panel1.Controls.Add(bJefeEventos);
-            panel1.Controls.Add(bUsuarios);
             panel1.Controls.Add(bEventos);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(buttonCerrarSesion);
+            panel1.Controls.Add(lblUsuario);
+            panel1.Controls.Add(bCerrarSesion);
             panel1.Controls.Add(bDashboard);
             panel1.Controls.Add(panel2);
+            panel1.Controls.Add(panel3);
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(208, 694);
             panel1.TabIndex = 2;
             // 
-            // button1
+            // bRestaurarBackup
             // 
-            button1.BackColor = Color.MediumSeaGreen;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(12, 450);
-            button1.Name = "button1";
-            button1.Size = new Size(169, 33);
-            button1.TabIndex = 10;
-            button1.Text = "Usuarios Total";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            bRestaurarBackup.BackColor = Color.MediumSeaGreen;
+            bRestaurarBackup.FlatAppearance.BorderSize = 0;
+            bRestaurarBackup.FlatStyle = FlatStyle.Flat;
+            bRestaurarBackup.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bRestaurarBackup.ForeColor = Color.White;
+            bRestaurarBackup.Location = new Point(11, 292);
+            bRestaurarBackup.Name = "bRestaurarBackup";
+            bRestaurarBackup.Size = new Size(169, 33);
+            bRestaurarBackup.TabIndex = 12;
+            bRestaurarBackup.Text = "🔼 Restaurar Backup";
+            bRestaurarBackup.UseVisualStyleBackColor = true;
+            bRestaurarBackup.Click += bRestaurarBackup_Click;
+            // 
+            // bHacerBackup
+            // 
+            bHacerBackup.BackColor = Color.MediumSeaGreen;
+            bHacerBackup.FlatAppearance.BorderSize = 0;
+            bHacerBackup.FlatStyle = FlatStyle.Flat;
+            bHacerBackup.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bHacerBackup.ForeColor = Color.White;
+            bHacerBackup.Location = new Point(12, 253);
+            bHacerBackup.Name = "bHacerBackup";
+            bHacerBackup.Size = new Size(169, 33);
+            bHacerBackup.TabIndex = 11;
+            bHacerBackup.Text = "💾 Hacer Backup";
+            bHacerBackup.UseVisualStyleBackColor = true;
+            bHacerBackup.Click += bBackup_Click;
+            // 
+            // bUsuarioTotales
+            // 
+            bUsuarioTotales.BackColor = Color.MediumSeaGreen;
+            bUsuarioTotales.FlatAppearance.BorderSize = 0;
+            bUsuarioTotales.FlatStyle = FlatStyle.Flat;
+            bUsuarioTotales.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bUsuarioTotales.ForeColor = Color.White;
+            bUsuarioTotales.Location = new Point(11, 214);
+            bUsuarioTotales.Name = "bUsuarioTotales";
+            bUsuarioTotales.Size = new Size(169, 33);
+            bUsuarioTotales.TabIndex = 10;
+            bUsuarioTotales.Text = "👤 Usuarios Totales";
+            bUsuarioTotales.UseVisualStyleBackColor = true;
+            bUsuarioTotales.Click += bUsuarioTotales_Click;
             // 
             // bJefeEventos
             // 
@@ -83,27 +119,13 @@
             bJefeEventos.FlatStyle = FlatStyle.Flat;
             bJefeEventos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             bJefeEventos.ForeColor = Color.White;
-            bJefeEventos.Location = new Point(12, 214);
+            bJefeEventos.Location = new Point(12, 175);
             bJefeEventos.Name = "bJefeEventos";
             bJefeEventos.Size = new Size(169, 33);
             bJefeEventos.TabIndex = 9;
             bJefeEventos.Text = "\U0001f91d Jefe de Eventos";
             bJefeEventos.UseVisualStyleBackColor = true;
-            // 
-            // bUsuarios
-            // 
-            bUsuarios.BackColor = Color.MediumSeaGreen;
-            bUsuarios.FlatAppearance.BorderSize = 0;
-            bUsuarios.FlatStyle = FlatStyle.Flat;
-            bUsuarios.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bUsuarios.ForeColor = Color.White;
-            bUsuarios.Location = new Point(11, 175);
-            bUsuarios.Name = "bUsuarios";
-            bUsuarios.Size = new Size(169, 33);
-            bUsuarios.TabIndex = 8;
-            bUsuarios.Text = "👤 Usuarios Inscriptos";
-            bUsuarios.UseVisualStyleBackColor = false;
-            bUsuarios.Click += bUsuarios_Click;
+            bJefeEventos.Click += bJefeEventos_Click;
             // 
             // bEventos
             // 
@@ -120,26 +142,28 @@
             bEventos.UseVisualStyleBackColor = false;
             bEventos.Click += bEventos_Click;
             // 
-            // label2
+            // lblUsuario
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(20, 624);
-            label2.Name = "label2";
-            label2.Size = new Size(38, 15);
-            label2.TabIndex = 0;
-            label2.Text = "label2";
+            lblUsuario.AutoSize = true;
+            lblUsuario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblUsuario.Location = new Point(23, 592);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(40, 15);
+            lblUsuario.TabIndex = 0;
+            lblUsuario.Text = "label2";
             // 
-            // buttonCerrarSesion
+            // bCerrarSesion
             // 
-            buttonCerrarSesion.BackColor = Color.Transparent;
-            buttonCerrarSesion.FlatStyle = FlatStyle.Flat;
-            buttonCerrarSesion.ForeColor = Color.Black;
-            buttonCerrarSesion.Location = new Point(11, 652);
-            buttonCerrarSesion.Name = "buttonCerrarSesion";
-            buttonCerrarSesion.Size = new Size(169, 33);
-            buttonCerrarSesion.TabIndex = 5;
-            buttonCerrarSesion.Text = "Cerrar Sesion ";
-            buttonCerrarSesion.UseVisualStyleBackColor = false;
+            bCerrarSesion.BackColor = Color.Transparent;
+            bCerrarSesion.FlatStyle = FlatStyle.Flat;
+            bCerrarSesion.ForeColor = Color.Black;
+            bCerrarSesion.Location = new Point(11, 652);
+            bCerrarSesion.Name = "bCerrarSesion";
+            bCerrarSesion.Size = new Size(169, 33);
+            bCerrarSesion.TabIndex = 5;
+            bCerrarSesion.Text = "Cerrar Sesion ";
+            bCerrarSesion.UseVisualStyleBackColor = false;
+            bCerrarSesion.Click += bCerrarSesion_Click;
             // 
             // bDashboard
             // 
@@ -185,6 +209,25 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
+            // panel3
+            // 
+            panel3.BackColor = Color.Honeydew;
+            panel3.Controls.Add(label1);
+            panel3.Location = new Point(3, 581);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(205, 65);
+            panel3.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = SystemColors.WindowFrame;
+            label1.Location = new Point(20, 39);
+            label1.Name = "label1";
+            label1.Size = new Size(83, 15);
+            label1.TabIndex = 13;
+            label1.Text = "Administrador";
+            // 
             // panelAdministrador
             // 
             panelAdministrador.BackColor = Color.White;
@@ -210,22 +253,27 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panel1;
-        private Button bUsuarios;
         private Button bEventos;
-        private Label label2;
-        private Button buttonCerrarSesion;
+        private Label lblUsuario;
+        private Button bCerrarSesion;
         private Button bDashboard;
         private Panel panel2;
         private Label Nombre;
         private PictureBox pictureBox1;
         private Panel panelAdministrador;
         private Button bJefeEventos;
-        private Button button1;
+        private Button bUsuarioTotales;
+        private Button bHacerBackup;
+        private Button bRestaurarBackup;
+        private Panel panel3;
+        private Label label1;
     }
 }
