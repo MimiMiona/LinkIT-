@@ -32,7 +32,6 @@
             button1 = new Button();
             bUsuarios = new Button();
             buttonCalendario = new Button();
-            buttonInscriptos = new Button();
             buttonCerrarSesion = new Button();
             BotonMisEventos = new Button();
             panel2 = new Panel();
@@ -40,8 +39,8 @@
             pictureBox1 = new PictureBox();
             panelJefeEvento = new Panel();
             panel3 = new Panel();
-            label1 = new Label();
             lblUsuario = new Label();
+            label1 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -54,7 +53,6 @@
             panel1.Controls.Add(button1);
             panel1.Controls.Add(bUsuarios);
             panel1.Controls.Add(buttonCalendario);
-            panel1.Controls.Add(buttonInscriptos);
             panel1.Controls.Add(buttonCerrarSesion);
             panel1.Controls.Add(BotonMisEventos);
             panel1.Controls.Add(panel2);
@@ -71,7 +69,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(11, 253);
+            button1.Location = new Point(11, 214);
             button1.Name = "button1";
             button1.Size = new Size(169, 33);
             button1.TabIndex = 10;
@@ -85,7 +83,7 @@
             bUsuarios.FlatStyle = FlatStyle.Flat;
             bUsuarios.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             bUsuarios.ForeColor = Color.White;
-            bUsuarios.Location = new Point(11, 214);
+            bUsuarios.Location = new Point(11, 175);
             bUsuarios.Name = "bUsuarios";
             bUsuarios.Size = new Size(169, 33);
             bUsuarios.TabIndex = 9;
@@ -99,7 +97,7 @@
             buttonCalendario.FlatStyle = FlatStyle.Flat;
             buttonCalendario.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonCalendario.ForeColor = Color.White;
-            buttonCalendario.Location = new Point(11, 175);
+            buttonCalendario.Location = new Point(11, 136);
             buttonCalendario.Name = "buttonCalendario";
             buttonCalendario.Size = new Size(169, 33);
             buttonCalendario.TabIndex = 8;
@@ -108,23 +106,6 @@
             buttonCalendario.Click += buttonCalendario_Click;
             buttonCalendario.MouseEnter += buttonCalendario_MouseEnter;
             buttonCalendario.MouseLeave += buttonCalendario_MouseLeave;
-            // 
-            // buttonInscriptos
-            // 
-            buttonInscriptos.BackColor = Color.MediumSeaGreen;
-            buttonInscriptos.FlatAppearance.BorderSize = 0;
-            buttonInscriptos.FlatStyle = FlatStyle.Flat;
-            buttonInscriptos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonInscriptos.ForeColor = Color.White;
-            buttonInscriptos.Location = new Point(11, 136);
-            buttonInscriptos.Name = "buttonInscriptos";
-            buttonInscriptos.Size = new Size(169, 33);
-            buttonInscriptos.TabIndex = 7;
-            buttonInscriptos.Text = "Inscriptos";
-            buttonInscriptos.UseVisualStyleBackColor = false;
-            buttonInscriptos.Click += buttonInscriptos_Click;
-            buttonInscriptos.MouseEnter += buttonInscriptos_MouseEnter;
-            buttonInscriptos.MouseLeave += buttonInscriptos_MouseLeave;
             // 
             // buttonCerrarSesion
             // 
@@ -137,6 +118,7 @@
             buttonCerrarSesion.TabIndex = 5;
             buttonCerrarSesion.Text = "Cerrar Sesion ";
             buttonCerrarSesion.UseVisualStyleBackColor = false;
+            buttonCerrarSesion.Click += buttonCerrarSesion_Click;
             // 
             // BotonMisEventos
             // 
@@ -201,16 +183,6 @@
             panel3.Size = new Size(200, 65);
             panel3.TabIndex = 12;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.WindowFrame;
-            label1.Location = new Point(20, 39);
-            label1.Name = "label1";
-            label1.Size = new Size(87, 15);
-            label1.TabIndex = 13;
-            label1.Text = "Jefe de Eventos";
-            // 
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
@@ -220,6 +192,16 @@
             lblUsuario.Size = new Size(40, 15);
             lblUsuario.TabIndex = 14;
             lblUsuario.Text = "label2";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = SystemColors.WindowFrame;
+            label1.Location = new Point(20, 39);
+            label1.Name = "label1";
+            label1.Size = new Size(87, 15);
+            label1.TabIndex = 13;
+            label1.Text = "Jefe de Eventos";
             // 
             // JefeEventos
             // 
@@ -253,7 +235,6 @@
         private Button buttonCerrarSesion;
         private Button BotonMisEventos;
         private Button buttonCalendario;
-        private Button buttonInscriptos;
         private Button button1;
         private Button bUsuarios;
         private Panel panel3;

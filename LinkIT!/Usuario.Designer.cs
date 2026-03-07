@@ -98,6 +98,7 @@
             buttonInscriptos.TabIndex = 7;
             buttonInscriptos.Text = "❤️ Mis Eventos";
             buttonInscriptos.UseVisualStyleBackColor = false;
+            buttonInscriptos.Click += buttonInscriptos_Click;
             // 
             // panel3
             // 

@@ -26,6 +26,7 @@ namespace LinkIT_
         private void FormUsuario_Load(object sender, EventArgs e)
         {
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            lblUsuario.Text = "Usuario: " + Login.Sesion.Nombre;
             LoadUserControl(new UCExplorarEventos());
         }
 
@@ -34,6 +35,9 @@ namespace LinkIT_
             LoadUserControl(new UCExplorarEventos());
         }
 
-        
+        private void buttonInscriptos_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UCMisEventos("Usuario"));
+        }
     }
 }

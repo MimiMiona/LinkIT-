@@ -40,15 +40,11 @@ namespace LinkIT_
 
         private void bEventos_Click(object sender, EventArgs e)
         {
-            UCMisEventos uc = new UCMisEventos();
-            LoadUserControl(uc);
+            
+            
         }
 
-        private void bUsuarios_Click(object sender, EventArgs e)
-        {
-            UCInscriptos uc = new UCInscriptos();
-            LoadUserControl(uc);
-        }
+        
 
         private void bUsuarioTotales_Click(object sender, EventArgs e)
         {

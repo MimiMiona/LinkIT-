@@ -27,7 +27,7 @@ namespace LinkIT_
             InitializeComponent();
         }
 
-        private void LoadUserControl(UserControl uc)
+        public void LoadUserControl(UserControl uc)
         {
             panelJefeEvento.Controls.Clear();
             uc.Dock = DockStyle.Fill;
@@ -39,7 +39,7 @@ namespace LinkIT_
         {
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             lblUsuario.Text = "Usuario: " + Login.Sesion.Nombre;
-            LoadUserControl(new UCMisEventos());
+            LoadUserControl(new UCMisEventos("Jefe de Eventos"));
         }
 
         private void BotonMisEventos_MouseEnter(object sender, EventArgs e)
@@ -52,16 +52,9 @@ namespace LinkIT_
             BotonMisEventos.BackColor = Color.MediumSeaGreen;
         }
 
-        private void buttonInscriptos_MouseEnter(object sender, EventArgs e)
-        {
-            buttonInscriptos.BackColor = Color.SeaGreen;
-        }
+        
 
-        private void buttonInscriptos_MouseLeave(object sender, EventArgs e)
-        {
-            buttonInscriptos.BackColor = Color.MediumSeaGreen;
-        }
-
+        
         private void buttonCalendario_MouseEnter(object sender, EventArgs e)
         {
             //aca se cambia el color de fondo del boton del calendario cuando el mouse entra en el area del boton, para dar un efecto hover.
@@ -76,7 +69,7 @@ namespace LinkIT_
 
         private void BotonMisEventos_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new UCMisEventos());
+            LoadUserControl(new UCMisEventos("Jefe de Eventos"));
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -84,14 +77,26 @@ namespace LinkIT_
 
         }
 
-        private void buttonInscriptos_Click(object sender, EventArgs e)
-        {
-            LoadUserControl(new UCInscriptos());
-        }
+    
 
         private void buttonCalendario_Click(object sender, EventArgs e)
         { // aca se carga el UserControl del calendario, que es el que muestra el calendario con los eventos y las fechas.
             LoadUserControl(new UCCalendario());
+        }
+
+        private void buttonCerrarSesion_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "¿Seguro que desea cerrar sesión?",
+                "Confirmación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
     }
 }

@@ -1,225 +1,369 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace LinkIT_
 {
     public partial class UCMisEventos : UserControl
     {
-        // Definimos los colores principales para mantener la consistencia
-        private Color colorVerdePrincipal = Color.FromArgb(76, 175, 80); // Verde estilo web
+        private string rolVista;
+        private Color colorVerdePrincipal = Color.MediumSeaGreen;
         private Color colorGrisTexto = Color.FromArgb(100, 100, 100);
-        private Color colorBorde = Color.FromArgb(220, 220, 220);
 
-        public UCMisEventos()
+        public UCMisEventos(string rol)
         {
             InitializeComponent();
-        }
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
+            rolVista = rol;
         }
 
         private void UCMisEventos_Load(object sender, EventArgs e)
         {
-            // Ajustamos el FlowLayoutPanel para que deje espacio arriba para la cabecera
-            flowLayoutPanel1.Location = new Point(0, 100);
-            flowLayoutPanel1.Size = new Size(this.Width, this.Height - 100);
-            flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            flowLayoutPanel1.AutoScroll = true;
-
             ConfigurarCabecera();
             CargarEventos();
         }
 
+
+
         private void ConfigurarCabecera()
         {
-            // 1. Creamos el panel que actuará como fondo de la cabecera
-            Panel panelCabecera = new Panel();
-            panelCabecera.BackColor = Color.White; // ¡Fondo blanco!
-            panelCabecera.Location = new Point(0, 0);
-            panelCabecera.Size = new Size(this.Width, 100);
-            panelCabecera.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-
-            // Título principal
-            Label lblTituloPrincipal = new Label();
-            lblTituloPrincipal.Text = "Mis Eventos";
-            lblTituloPrincipal.Font = new Font("Segoe UI", 18, FontStyle.Bold);
-            lblTituloPrincipal.Location = new Point(20, 20);
-            lblTituloPrincipal.AutoSize = true;
-
-            // Subtítulo
-            Label lblSubtitulo = new Label();
-            lblSubtitulo.Text = "3 eventos bajo tu responsabilidad";
-            lblSubtitulo.Font = new Font("Segoe UI", 10);
-            lblSubtitulo.ForeColor = colorGrisTexto;
-            lblSubtitulo.Location = new Point(23, 55);
-            lblSubtitulo.AutoSize = true;
-
-            // Botón Crear Evento
-            Button btnCrearEvento = new Button();
-            btnCrearEvento.Text = "+ Crear Evento";
-            btnCrearEvento.Font = new Font("Segoe UI", 9, FontStyle.Bold);
-            btnCrearEvento.BackColor = colorVerdePrincipal;
-            btnCrearEvento.ForeColor = Color.White;
-            btnCrearEvento.FlatStyle = FlatStyle.Flat;
-            btnCrearEvento.FlatAppearance.BorderSize = 0;
-            btnCrearEvento.Size = new Size(120, 35);
-            btnCrearEvento.Cursor = Cursors.Hand;
-
-            // Lo posicionamos basándonos en el ancho del panel
-            btnCrearEvento.Location = new Point(panelCabecera.Width - 150, 20);
-            btnCrearEvento.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
-            // 2. Agregamos los textos y el botón AL PANEL (no a 'this')
-            panelCabecera.Controls.Add(lblTituloPrincipal);
-            panelCabecera.Controls.Add(lblSubtitulo);
-            panelCabecera.Controls.Add(btnCrearEvento);
-
-            // 3. Agregamos el panel completo al UserControl
-            this.Controls.Add(panelCabecera);
+            if (rolVista == "Usuario")
+            {
+                labelSubtitulo.Text = "Eventos en los que estás inscripto";
+                BotonCrearEvento.Visible = false;
+            }
+            else
+            {
+                labelSubtitulo.Text = "Eventos bajo tu responsabilidad";
+                BotonCrearEvento.Visible = true;
+            }
         }
-        // Clase auxiliar para manejar mejor los datos del evento
+
+      
+
         public class Evento
         {
+            public int IdEvento { get; set; }
             public string Titulo { get; set; }
-            public string Estado { get; set; }
             public string Descripcion { get; set; }
-            public string Fecha { get; set; }
-            public string Horario { get; set; }
-            public int Inscriptos { get; set; }
+            public DateTime Fecha { get; set; }
+            public TimeSpan HoraInicio { get; set; }
+            public TimeSpan HoraFin { get; set; }
             public int Capacidad { get; set; }
+            public int Inscriptos { get; set; }
+            public string Estado { get; set; }
             public int PorcentajeOcupacion => Capacidad > 0 ? (Inscriptos * 100) / Capacidad : 0;
         }
 
         private void CargarEventos()
         {
-            flowLayoutPanel1.Controls.Clear();
+            panelEventos.Controls.Clear();
+            int y = 10;
 
-            // Simulamos los datos que vendrían de la base de datos
-            List<Evento> eventos = new List<Evento>
+            Conexion con = new Conexion();
+            string query = rolVista == "Jefe de Eventos"
+            ? @"SELECT e.*, 
+               (SELECT COUNT(*) 
+                FROM Inscripcion i 
+                WHERE i.id_evento = e.id_evento 
+                AND i.estado = 'Activo') AS inscriptos
+            FROM Evento e
+            WHERE e.id_usuario = @id"
+
+            : @"SELECT e.*, 
+               (SELECT COUNT(*) 
+                FROM Inscripcion i 
+                WHERE i.id_evento = e.id_evento 
+                AND i.estado = 'Activo') AS inscriptos
+            FROM Evento e
+            INNER JOIN Inscripcion ins ON e.id_evento = ins.id_evento
+            WHERE ins.id_usuario = @id 
+            AND ins.estado = 'Activo'";
+
+            SqlCommand cmd = new SqlCommand(query, con.AbrirConexion());
+            cmd.Parameters.AddWithValue("@id", Login.Sesion.IdUsuario);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            bool hayEventos = false;
+
+            while (reader.Read())
             {
-                new Evento { Titulo = "Seminario de Inteligencia Artificial", Estado = "Activo", Descripcion = "Seminario introductorio sobre las bases de la IA y sus aplicaciones en la vida académica.", Fecha = "2026-03-15", Horario = "09:00 - 12:00", Inscriptos = 42, Capacidad = 50 },
-                new Evento { Titulo = "Taller de Desarrollo Web", Estado = "Activo", Descripcion = "Taller práctico de desarrollo web con React, Next.js y Tailwind CSS.", Fecha = "2026-03-22", Horario = "14:00 - 18:00", Inscriptos = 28, Capacidad = 30 },
-                new Evento { Titulo = "Workshop de UX/UI Design", Estado = "Finalizado", Descripcion = "Taller intensivo de diseño de interfaces y experiencia de usuario.", Fecha = "2026-02-10", Horario = "09:00 - 17:00", Inscriptos = 25, Capacidad = 25 }
+                hayEventos = true;
+                Evento evento = MapearEvento(reader);
+
+                Panel card = CrearCard(evento);
+                card.Location = new Point(10, y);
+                panelEventos.Controls.Add(card);
+
+                y += card.Height + 10;
+            }
+
+            reader.Close();
+            con.CerrarConexion();
+
+            if (!hayEventos)
+                MostrarMensajeSinEventos();
+        }
+
+        private Evento MapearEvento(SqlDataReader reader)
+        {
+
+            return new Evento
+            {
+                IdEvento = Convert.ToInt32(reader["id_evento"]),
+                Titulo = reader["titulo"].ToString(),
+                Descripcion = reader["descripcion"].ToString(),
+                Fecha = Convert.ToDateTime(reader["fecha_evento"]),
+                HoraInicio = reader["horario_inicio"] != DBNull.Value
+                     ? ((DateTime)reader["horario_inicio"]).TimeOfDay
+                     : TimeSpan.Zero,
+                HoraFin = reader["horario_fin"] != DBNull.Value
+                      ? ((DateTime)reader["horario_fin"]).TimeOfDay
+                      : TimeSpan.Zero,
+                Capacidad = Convert.ToInt32(reader["capacidad_maxima"]),
+                Inscriptos = Convert.ToInt32(reader["inscriptos"]),
+                Estado = reader["estado"].ToString()
+            };
+        }
+
+       
+
+        private void MostrarMensajeSinEventos()
+        {
+            Panel panelMensaje = new Panel
+            {
+                Width = panelEventos.Width - 20,
+                Height = 200,
+                BackColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle,
+                Location = new Point(10, 10)
             };
 
-            foreach (var evento in eventos)
+            Label titulo = new Label
             {
-                Panel card = CrearCard(evento);
-                flowLayoutPanel1.Controls.Add(card);
-            }
+                Font = new Font("Segoe UI", 14, FontStyle.Bold),
+                AutoSize = false,
+                Width = panelMensaje.Width,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Location = new Point(0, 50),
+                Text = rolVista == "Usuario" ? "No estás inscripto a ningún evento" : "No hay eventos creados"
+            };
+
+            Label subtitulo = new Label
+            {
+                Font = new Font("Segoe UI", 10),
+                ForeColor = Color.Gray,
+                AutoSize = false,
+                Width = panelMensaje.Width,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Location = new Point(0, 90),
+                Text = rolVista == "Usuario" ? "Explora eventos disponibles para participar." : "Crea tu primer evento para comenzar."
+            };
+
+
+            panelMensaje.Controls.Add(titulo);
+            panelMensaje.Controls.Add(subtitulo);
+
+            panelEventos.Controls.Add(panelMensaje);
         }
 
         private Panel CrearCard(Evento evento)
         {
-            Panel card = new Panel();
-            card.Width = 850; // Más ancho para que entren todos los elementos
-            card.Height = 130;
-            card.BackColor = Color.White;
-            card.Margin = new Padding(20, 10, 20, 10);
-            card.BorderStyle = BorderStyle.FixedSingle;
-
-            // --- SECCIÓN IZQUIERDA (Textos) ---
-
-            Label lblTitulo = new Label();
-            lblTitulo.Text = evento.Titulo;
-            lblTitulo.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-            lblTitulo.Location = new Point(15, 15);
-            lblTitulo.AutoSize = true;
-
-            // Badge de Estado (Activo/Finalizado)
-            Label lblEstado = new Label();
-            lblEstado.Text = evento.Estado;
-            lblEstado.Font = new Font("Segoe UI", 8, FontStyle.Bold);
-            lblEstado.AutoSize = true;
-            lblEstado.Padding = new Padding(5, 2, 5, 2); // Simular "badge"
-            if (evento.Estado == "Activo")
+            Panel card = new Panel
             {
-                lblEstado.BackColor = Color.FromArgb(230, 245, 230); // Fondo verde claro
-                lblEstado.ForeColor = colorVerdePrincipal;
+                Width = 1126,
+                Height = 130,
+                BackColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle,
+                Margin = new Padding(20, 10, 20, 10)
+            };
+
+            // --- Título ---
+            Label lblTitulo = new Label
+            {
+                Text = evento.Titulo,
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                Location = new Point(15, 15),
+                AutoSize = true,
+                MaximumSize = new Size(500, 30),
+                AutoEllipsis = true
+            };
+
+            // --- Badge de Estado ---
+            Label lblEstado = new Label
+            {
+                Text = evento.Estado,
+                Font = new Font("Segoe UI", 8, FontStyle.Bold),
+                AutoSize = true,
+                Padding = new Padding(5, 2, 5, 2),
+                BackColor = evento.Estado == "Activo" ? Color.FromArgb(230, 245, 230) : Color.FromArgb(255, 240, 230),
+                ForeColor = evento.Estado == "Activo" ? colorVerdePrincipal : Color.DarkOrange
+            };
+
+            // --- Descripción ---
+            Label lblDescripcion = new Label
+            {
+                Text = evento.Descripcion,
+                Font = new Font("Segoe UI", 9.5f),
+                ForeColor = Color.FromArgb(64, 64, 64),
+                Location = new Point(15, 45),
+                AutoSize = true
+            };
+
+            // --- Información inferior (fecha, hora, inscritos) ---
+            Label lblInfo = new Label
+            {
+                Text = $"📅 {evento.Fecha:dd/MM/yyyy}    🕒 {evento.HoraInicio:hh\\:mm}-{evento.HoraFin:hh\\:mm}    👥 {evento.Inscriptos}/{evento.Capacidad}",
+                Font = new Font("Segoe UI", 9),
+                ForeColor = colorGrisTexto,
+                Location = new Point(15, 90),
+                AutoSize = true
+            };
+
+            // --- Sección derecha (ocupación y botones) ---
+            int derechaX = card.Width - 240; // margen dinámico
+
+            if (rolVista == "Usuario")
+            {
+                // --- Botón Dar de baja ---
+                Button btnDarBaja = new Button
+                {
+                    Text = "❌ Dar de baja",
+                    Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                    FlatStyle = FlatStyle.Flat,
+                    FlatAppearance = { BorderSize = 0 },
+                    BackColor = Color.IndianRed,
+                    ForeColor = Color.White,
+                    Size = new Size(120, 32),
+                    Location = new Point(derechaX + 70, 50),
+                    Cursor = Cursors.Hand
+                };
+
+                btnDarBaja.Click += (s, e) =>
+                {
+                    DialogResult result = MessageBox.Show(
+                        "¿Deseás darte de baja de este evento?",
+                        "Confirmar",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning
+                    );
+
+                    if (result == DialogResult.Yes)
+                    {
+                        Conexion con = new Conexion();
+
+                        SqlCommand cmd = new SqlCommand(
+                            "UPDATE Inscripcion SET estado = 'Cancelado' WHERE id_evento = @idEvento AND id_usuario = @idUsuario",
+                            con.AbrirConexion()
+                        );
+
+                        cmd.Parameters.AddWithValue("@idEvento", evento.IdEvento);
+                        cmd.Parameters.AddWithValue("@idUsuario", Login.Sesion.IdUsuario);
+
+                        cmd.ExecuteNonQuery();
+                        con.CerrarConexion();
+
+                        MessageBox.Show(
+                            "Te has dado de baja del evento.",
+                            "Éxito",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+
+                        CargarEventos(); // recargar lista
+                    }
+                };
+
+                card.Controls.Add(btnDarBaja);
             }
             else
             {
-                lblEstado.BackColor = Color.FromArgb(255, 240, 230); // Fondo naranja claro
-                lblEstado.ForeColor = Color.DarkOrange;
+                // --- Solo para roles distintos a Usuario: Editar e Inscriptos + ocupación ---
+                Label lblOcupacion = new Label
+                {
+                    Text = $"Ocupación {evento.PorcentajeOcupacion}%",
+                    Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                    ForeColor = evento.PorcentajeOcupacion >= 100 ? Color.DarkOrange : colorVerdePrincipal,
+                    AutoSize = true,
+                    Location = new Point(derechaX + 50, 15)
+                };
+
+                ProgressBar progress = new ProgressBar
+                {
+                    Value = evento.PorcentajeOcupacion,
+                    Width = 180,
+                    Height = 10,
+                    Location = new Point(derechaX, 35)
+                };
+
+                Button btnEditar = new Button
+                {
+                    Text = "✏️ Editar",
+                    Font = new Font("Segoe UI", 9),
+                    FlatStyle = FlatStyle.Flat,
+                    FlatAppearance = { BorderColor = colorGrisTexto },
+                    BackColor = Color.White,
+                    Size = new Size(90, 32),
+                    Location = new Point(derechaX, 65),
+                    Cursor = Cursors.Hand
+                };
+
+                btnEditar.Click += (s, e) =>
+                {
+                    FormularioEvento formEvento = new FormularioEvento(evento);
+                    formEvento.ShowDialog();
+                    CargarEventos();
+                };
+
+                Button btnInscriptos = new Button
+                {
+                    Text = "👁️ Inscriptos",
+                    Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                    FlatStyle = FlatStyle.Flat,
+                    FlatAppearance = { BorderSize = 0 },
+                    BackColor = colorVerdePrincipal,
+                    ForeColor = Color.White,
+                    Size = new Size(120, 32),
+                    Location = new Point(derechaX + 100, 65),
+                    Cursor = Cursors.Hand
+                };
+
+
+                // Cuando se hace click, abrimos el UCInscripto
+                btnInscriptos.Click += (s, e) =>
+                {
+                    JefeEventos form = (JefeEventos)this.FindForm();
+                    form.LoadUserControl(new UCInscriptos(evento));
+                };
+
+                card.Controls.Add(lblOcupacion);
+                card.Controls.Add(progress);
+                card.Controls.Add(btnEditar);
+                card.Controls.Add(btnInscriptos);
             }
-            card.Controls.Add(lblTitulo);
-            // Posicionamos el estado justo después del título
-            lblEstado.Location = new Point(lblTitulo.Right + 300, 18); // Ajuste temporal, lo calculamos mejor abajo
 
-            Label lblDescripcion = new Label();
-            lblDescripcion.Text = evento.Descripcion;
-            lblDescripcion.Font = new Font("Segoe UI", 9.5f);
-            lblDescripcion.ForeColor = Color.FromArgb(64, 64, 64);
-            lblDescripcion.Location = new Point(15, 45);
-            lblDescripcion.AutoSize = true;
+            // --- Ajuste dinámico del badge de estado ---
+            card.Layout += (s, e) =>
+            {
+                lblEstado.Location = new Point(lblTitulo.Right + 10, lblTitulo.Top + (lblTitulo.Height - lblEstado.Height) / 2);
+            };
 
-            // Fila de información inferior (Fecha, Horario, Inscriptos)
-            Label lblInfo = new Label();
-            lblInfo.Text = $"📅 {evento.Fecha}    🕒 {evento.Horario}    👥 {evento.Inscriptos} / {evento.Capacidad}";
-            lblInfo.Font = new Font("Segoe UI", 9);
-            lblInfo.ForeColor = colorGrisTexto;
-            lblInfo.Location = new Point(15, 90);
-            lblInfo.AutoSize = true;
-
-
-            // --- SECCIÓN DERECHA (Progreso y Botones) ---
-
-            int panelDerechoX = 600; // Punto de inicio para los elementos de la derecha
-
-            Label lblOcupacion = new Label();
-            lblOcupacion.Text = $"Ocupación          {evento.PorcentajeOcupacion}%";
-            lblOcupacion.Font = new Font("Segoe UI", 9, FontStyle.Bold);
-            lblOcupacion.ForeColor = evento.PorcentajeOcupacion >= 100 ? Color.DarkOrange : colorVerdePrincipal;
-            lblOcupacion.AutoSize = true;
-            lblOcupacion.Location = new Point(panelDerechoX + 50, 15);
-
-            ProgressBar progress = new ProgressBar();
-            progress.Value = evento.PorcentajeOcupacion;
-            progress.Width = 220;
-            progress.Height = 10;
-            progress.Location = new Point(panelDerechoX, 35);
-
-            // Botón Editar (Blanco con borde gris)
-            Button btnEditar = new Button();
-            btnEditar.Text = "✏️ Editar";
-            btnEditar.Font = new Font("Segoe UI", 9);
-            btnEditar.FlatStyle = FlatStyle.Flat;
-            btnEditar.FlatAppearance.BorderColor = colorBorde;
-            btnEditar.BackColor = Color.White;
-            btnEditar.Size = new Size(90, 32);
-            btnEditar.Location = new Point(panelDerechoX, 65);
-            btnEditar.Cursor = Cursors.Hand;
-
-            // Botón Inscriptos (Verde)
-            Button btnInscriptos = new Button();
-            btnInscriptos.Text = "👁️ Inscriptos";
-            btnInscriptos.Font = new Font("Segoe UI", 9, FontStyle.Bold);
-            btnInscriptos.FlatStyle = FlatStyle.Flat;
-            btnInscriptos.FlatAppearance.BorderSize = 0;
-            btnInscriptos.BackColor = colorVerdePrincipal;
-            btnInscriptos.ForeColor = Color.White;
-            btnInscriptos.Size = new Size(120, 32);
-            btnInscriptos.Location = new Point(panelDerechoX + 100, 65);
-            btnInscriptos.Cursor = Cursors.Hand;
-
-            // Ajustamos la posición del Badge de estado de manera dinámica al título
-            lblTitulo.Tag = lblEstado; // Guardar referencia
-            card.Layout += (s, e) => { lblEstado.Location = new Point(lblTitulo.Right + 10, 18); };
-
-            // Añadir todo a la card
             card.Controls.Add(lblTitulo);
             card.Controls.Add(lblEstado);
             card.Controls.Add(lblDescripcion);
             card.Controls.Add(lblInfo);
-            card.Controls.Add(lblOcupacion);
-            card.Controls.Add(progress);
-            card.Controls.Add(btnEditar);
-            card.Controls.Add(btnInscriptos);
 
             return card;
+        }
+
+
+
+        private void BotonCrearEvento_Click(object sender, EventArgs e)
+        {
+            FormularioEvento formEvento = new FormularioEvento(); // formulario vacío
+            formEvento.ShowDialog(); // Modal
+            CargarEventos();
         }
     }
 }
