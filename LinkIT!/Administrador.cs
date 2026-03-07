@@ -58,7 +58,7 @@ namespace LinkIT_
 
         private void bJefeEventos_Click(object sender, EventArgs e)
         {
-            UCUsuarios uc = new UCUsuarios("JefeEventos");
+            UCUsuarios uc = new UCUsuarios("Jefe de Eventos");
             LoadUserControl(uc);
         }
 

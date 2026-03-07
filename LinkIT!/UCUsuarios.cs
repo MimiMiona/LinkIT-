@@ -25,7 +25,7 @@ namespace LinkIT_
 
         private void ConfigurarVista()
         {
-            if (rolVista == "JefeEventos")
+            if (rolVista == "Jefe de Eventos")
             {
                 labelClave.Visible = true;
                 textClave.Visible = true;
