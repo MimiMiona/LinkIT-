@@ -86,8 +86,22 @@ namespace LinkIT_
         // Evento al hacer click en botón Dar de Baja
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex == 3) // Columna del botón
+            if (e.RowIndex >= 0 && e.ColumnIndex == 3) // columna Dar de Baja
             {
+                // 🔹 verificar si el evento ya finalizó
+                DateTime finEvento = eventoActual.Fecha.Date + eventoActual.HoraFin;
+
+                if (DateTime.Now > finEvento)
+                {
+                    MessageBox.Show(
+                        "No se pueden modificar inscripciones porque el evento ya finalizó.",
+                        "Evento finalizado",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
+
                 DataGridViewRow fila = dataGridView1.Rows[e.RowIndex];
                 int idUsuario = (int)fila.Tag;
 
@@ -105,12 +119,13 @@ namespace LinkIT_
                         "UPDATE Inscripcion SET estado = 'Cancelado' WHERE id_usuario = @idUsuario AND id_evento = @idEvento",
                         con.AbrirConexion()
                     );
+
                     cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
                     cmd.Parameters.AddWithValue("@idEvento", eventoActual.IdEvento);
+
                     cmd.ExecuteNonQuery();
                     con.CerrarConexion();
 
-                    // Recarga la lista
                     CargarEncabezado();
                     CargarInscriptos();
                 }

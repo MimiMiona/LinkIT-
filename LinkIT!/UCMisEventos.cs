@@ -63,53 +63,57 @@ namespace LinkIT_
 
             Conexion con = new Conexion();
             string query = rolVista == "Jefe de Eventos"
-            ? @"SELECT 
-               e.id_evento,
-               e.titulo,
-               e.descripcion,
-               e.fecha_evento,
-               e.horario_inicio,
-               e.horario_fin,
-               e.capacidad_maxima,
+        ? @"SELECT 
+           e.id_evento,
+           e.titulo,
+           e.descripcion,
+           e.fecha_evento,
+           e.horario_inicio,
+           e.horario_fin,
+           e.capacidad_maxima,
 
-               CASE 
-                   WHEN e.estado = 'Cancelado' THEN 'Cancelado'
-                   WHEN e.fecha_evento < GETDATE() THEN 'Finalizado'
-                   ELSE 'Activo'
-               END AS estado,
+           CASE 
+               WHEN e.estado = 'Cancelado' THEN 'Cancelado'
+               WHEN e.fecha_evento < GETDATE() THEN 'Finalizado'
+               ELSE 'Activo'
+           END AS estado,
 
-               (SELECT COUNT(*) 
-                FROM Inscripcion i 
-                WHERE i.id_evento = e.id_evento 
-                AND i.estado = 'Activo') AS inscriptos
+           (SELECT COUNT(*) 
+            FROM Inscripcion i 
+            WHERE i.id_evento = e.id_evento 
+            AND i.estado = 'Activo') AS inscriptos
 
-            FROM Evento e
-            WHERE e.id_usuario = @id"
+        FROM Evento e
+        WHERE e.id_usuario = @id"
 
-            : @"SELECT 
-               e.id_evento,
-               e.titulo,
-               e.descripcion,
-               e.fecha_evento,
-               e.horario_inicio,
-               e.horario_fin,
-               e.capacidad_maxima,
+        : @"SELECT 
+            e.id_evento,
+            e.titulo,
+            e.descripcion,
+            e.fecha_evento,
+            e.horario_inicio,
+            e.horario_fin,
+            e.capacidad_maxima,
 
-               CASE 
-                   WHEN e.estado = 'Cancelado' THEN 'Cancelado'
-                   WHEN DATEADD(SECOND, DATEDIFF(SECOND,'00:00:00', e.horario_fin), e.fecha_evento) < GETDATE()
-                   ELSE 'Activo'
-               END AS estado,
+            CASE 
+                WHEN e.estado = 'Cancelado' THEN 'Cancelado'
+                WHEN e.fecha_evento < GETDATE() THEN 'Finalizado'
+                ELSE 'Activo'
+            END AS estado,
 
-               (SELECT COUNT(*) 
-                FROM Inscripcion i 
-                WHERE i.id_evento = e.id_evento 
-                AND i.estado = 'Activo') AS inscriptos
+            (SELECT COUNT(*) 
+             FROM Inscripcion i 
+             WHERE i.id_evento = e.id_evento 
+             AND i.estado = 'Activo') AS inscriptos
 
-            FROM Evento e
-            INNER JOIN Inscripcion ins ON e.id_evento = ins.id_evento
-            WHERE ins.id_usuario = @id 
-            AND ins.estado = 'Activo'";
+        FROM Evento e
+        INNER JOIN Inscripcion ins ON e.id_evento = ins.id_evento
+
+        WHERE ins.id_usuario = @id 
+        AND ins.estado = 'Activo'
+
+        -- 👇 ESTA ES LA LINEA IMPORTANTE
+        AND e.fecha_evento >= CAST(GETDATE() AS DATE)";
 
             SqlCommand cmd = new SqlCommand(query, con.AbrirConexion());
             cmd.Parameters.AddWithValue("@id", Login.Sesion.IdUsuario);
@@ -231,6 +235,7 @@ namespace LinkIT_
                 ForeColor = evento.Estado == "Activo" ? colorVerdePrincipal :
                             evento.Estado == "Finalizado" ? Color.Gray :
                             Color.DarkOrange,
+
             };
 
             // --- Descripción ---
