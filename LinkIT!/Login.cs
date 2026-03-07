@@ -1,4 +1,5 @@
 using Microsoft.Data.SqlClient;
+using Microsoft.Win32;
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -144,6 +145,14 @@ namespace LinkIT_
         private void bSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void bRegistro_Click(object sender, EventArgs e)
+        {
+            Registro registro = new Registro();
+            registro.Show();
+
+            this.Hide();
         }
     }
 }

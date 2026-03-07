@@ -37,6 +37,7 @@
             pictureBox1 = new PictureBox();
             bEliminar = new Button();
             bSalir = new Button();
+            bRegistro = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -44,7 +45,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 15F);
-            label1.Location = new Point(80, 72);
+            label1.Location = new Point(79, 51);
             label1.Name = "label1";
             label1.Size = new Size(72, 28);
             label1.TabIndex = 0;
@@ -54,7 +55,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 15F);
-            label2.Location = new Point(80, 110);
+            label2.Location = new Point(79, 89);
             label2.Name = "label2";
             label2.Size = new Size(59, 28);
             label2.TabIndex = 1;
@@ -62,7 +63,7 @@
             // 
             // txtClave
             // 
-            txtClave.Location = new Point(184, 110);
+            txtClave.Location = new Point(183, 89);
             txtClave.Name = "txtClave";
             txtClave.PasswordChar = '*';
             txtClave.Size = new Size(130, 23);
@@ -70,7 +71,7 @@
             // 
             // txtCorreo
             // 
-            txtCorreo.Location = new Point(184, 72);
+            txtCorreo.Location = new Point(183, 51);
             txtCorreo.Name = "txtCorreo";
             txtCorreo.Size = new Size(130, 23);
             txtCorreo.TabIndex = 3;
@@ -81,7 +82,7 @@
             bIngresar.FlatAppearance.BorderColor = Color.White;
             bIngresar.FlatStyle = FlatStyle.Popup;
             bIngresar.Font = new Font("Segoe UI", 11F);
-            bIngresar.Location = new Point(63, 177);
+            bIngresar.Location = new Point(62, 156);
             bIngresar.Name = "bIngresar";
             bIngresar.Size = new Size(96, 34);
             bIngresar.TabIndex = 4;
@@ -105,7 +106,7 @@
             bEliminar.FlatAppearance.BorderColor = Color.White;
             bEliminar.FlatStyle = FlatStyle.Popup;
             bEliminar.Font = new Font("Segoe UI", 11F);
-            bEliminar.Location = new Point(211, 177);
+            bEliminar.Location = new Point(210, 156);
             bEliminar.Name = "bEliminar";
             bEliminar.Size = new Size(103, 34);
             bEliminar.TabIndex = 7;
@@ -119,7 +120,7 @@
             bSalir.FlatAppearance.BorderColor = Color.White;
             bSalir.FlatStyle = FlatStyle.Popup;
             bSalir.Font = new Font("Segoe UI", 11F);
-            bSalir.Location = new Point(136, 231);
+            bSalir.Location = new Point(135, 210);
             bSalir.Name = "bSalir";
             bSalir.Size = new Size(103, 34);
             bSalir.TabIndex = 8;
@@ -127,12 +128,27 @@
             bSalir.UseVisualStyleBackColor = false;
             bSalir.Click += bSalir_Click;
             // 
+            // bRegistro
+            // 
+            bRegistro.BackColor = Color.PaleGoldenrod;
+            bRegistro.FlatAppearance.BorderColor = Color.White;
+            bRegistro.FlatStyle = FlatStyle.Popup;
+            bRegistro.Font = new Font("Segoe UI", 11F);
+            bRegistro.Location = new Point(143, 272);
+            bRegistro.Name = "bRegistro";
+            bRegistro.Size = new Size(88, 30);
+            bRegistro.TabIndex = 9;
+            bRegistro.Text = "Registro";
+            bRegistro.UseVisualStyleBackColor = false;
+            bRegistro.Click += bRegistro_Click;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Ivory;
             ClientSize = new Size(639, 308);
+            Controls.Add(bRegistro);
             Controls.Add(bSalir);
             Controls.Add(bEliminar);
             Controls.Add(pictureBox1);
@@ -160,5 +176,6 @@
         private PictureBox pictureBox1;
         private Button bEliminar;
         private Button bSalir;
+        private Button bRegistro;
     }
 }
