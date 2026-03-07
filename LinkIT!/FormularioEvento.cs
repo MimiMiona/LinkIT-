@@ -21,7 +21,7 @@ namespace LinkIT_
         private void InicializarComboEstado()
         {
             comboBoxEstado.Items.Clear();
-            comboBoxEstado.Items.AddRange(new string[] { "Activo", "Cancelado", "Finalizado" });
+            comboBoxEstado.Items.AddRange(new string[] { "Activo", "Cancelado"});
 
             // Evitar que el usuario escriba
             comboBoxEstado.DropDownStyle = ComboBoxStyle.DropDownList;

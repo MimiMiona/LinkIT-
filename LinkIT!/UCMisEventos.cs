@@ -63,19 +63,49 @@ namespace LinkIT_
 
             Conexion con = new Conexion();
             string query = rolVista == "Jefe de Eventos"
-            ? @"SELECT e.*, 
+            ? @"SELECT 
+               e.id_evento,
+               e.titulo,
+               e.descripcion,
+               e.fecha_evento,
+               e.horario_inicio,
+               e.horario_fin,
+               e.capacidad_maxima,
+
+               CASE 
+                   WHEN e.estado = 'Cancelado' THEN 'Cancelado'
+                   WHEN e.fecha_evento < GETDATE() THEN 'Finalizado'
+                   ELSE 'Activo'
+               END AS estado,
+
                (SELECT COUNT(*) 
                 FROM Inscripcion i 
                 WHERE i.id_evento = e.id_evento 
                 AND i.estado = 'Activo') AS inscriptos
+
             FROM Evento e
             WHERE e.id_usuario = @id"
 
-            : @"SELECT e.*, 
+            : @"SELECT 
+               e.id_evento,
+               e.titulo,
+               e.descripcion,
+               e.fecha_evento,
+               e.horario_inicio,
+               e.horario_fin,
+               e.capacidad_maxima,
+
+               CASE 
+                   WHEN e.estado = 'Cancelado' THEN 'Cancelado'
+                   WHEN DATEADD(SECOND, DATEDIFF(SECOND,'00:00:00', e.horario_fin), e.fecha_evento) < GETDATE()
+                   ELSE 'Activo'
+               END AS estado,
+
                (SELECT COUNT(*) 
                 FROM Inscripcion i 
                 WHERE i.id_evento = e.id_evento 
                 AND i.estado = 'Activo') AS inscriptos
+
             FROM Evento e
             INNER JOIN Inscripcion ins ON e.id_evento = ins.id_evento
             WHERE ins.id_usuario = @id 
@@ -198,7 +228,9 @@ namespace LinkIT_
                 AutoSize = true,
                 Padding = new Padding(5, 2, 5, 2),
                 BackColor = evento.Estado == "Activo" ? Color.FromArgb(230, 245, 230) : Color.FromArgb(255, 240, 230),
-                ForeColor = evento.Estado == "Activo" ? colorVerdePrincipal : Color.DarkOrange
+                ForeColor = evento.Estado == "Activo" ? colorVerdePrincipal :
+                            evento.Estado == "Finalizado" ? Color.Gray :
+                            Color.DarkOrange,
             };
 
             // --- Descripción ---
