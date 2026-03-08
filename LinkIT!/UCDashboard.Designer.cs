@@ -1,4 +1,6 @@
-﻿namespace LinkIT_
+﻿using System.Windows.Forms.DataVisualization.Charting;
+
+namespace LinkIT_
 {
     partial class UCDashboard
     {
@@ -28,18 +30,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            ChartArea chartArea1 = new ChartArea();
+            Legend legend1 = new Legend();
+            Series series1 = new Series();
+            ChartArea chartArea2 = new ChartArea();
+            Legend legend2 = new Legend();
+            Series series2 = new Series();
             label1 = new Label();
             labelSubtitulo = new Label();
-            chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            chartEventosMes = new Chart();
+            chartAsistenciaMensual = new Chart();
             panel1 = new Panel();
+            label2 = new Label();
+            label10 = new Label();
             panel2 = new Panel();
+            label11 = new Label();
+            label15 = new Label();
             panel3 = new Panel();
             labelSubtituloTotalEventos = new Label();
             pictureBox1 = new PictureBox();
@@ -72,8 +78,8 @@
             labelSubtituloJefesEventos = new Label();
             label6 = new Label();
             pictureBox5 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)chart2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)chartEventosMes).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)chartAsistenciaMensual).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -115,61 +121,107 @@
             labelSubtitulo.TabIndex = 8;
             labelSubtitulo.Text = "Resumen general del sistema de eventos";
             // 
-            // chart1
+            // chartEventosMes
             // 
             chartArea1.Name = "ChartArea1";
-            chart1.ChartAreas.Add(chartArea1);
+            chartEventosMes.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            chart1.Legends.Add(legend1);
-            chart1.Location = new Point(3, 73);
-            chart1.Name = "chart1";
+            chartEventosMes.Legends.Add(legend1);
+            chartEventosMes.Location = new Point(-1, 70);
+            chartEventosMes.Name = "chartEventosMes";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            chart1.Series.Add(series1);
-            chart1.Size = new Size(584, 216);
-            chart1.TabIndex = 9;
-            chart1.Text = "chart1";
+            chartEventosMes.Series.Add(series1);
+            chartEventosMes.Size = new Size(528, 227);
+            chartEventosMes.TabIndex = 9;
+            chartEventosMes.Text = "chart1";
             // 
-            // chart2
+            // chartAsistenciaMensual
             // 
             chartArea2.Name = "ChartArea1";
-            chart2.ChartAreas.Add(chartArea2);
+            chartAsistenciaMensual.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
-            chart2.Legends.Add(legend2);
-            chart2.Location = new Point(3, 59);
-            chart2.Name = "chart2";
+            chartAsistenciaMensual.Legends.Add(legend2);
+            chartAsistenciaMensual.Location = new Point(-1, 70);
+            chartAsistenciaMensual.Name = "chartAsistenciaMensual";
             series2.ChartArea = "ChartArea1";
             series2.Legend = "Legend1";
             series2.Name = "Series1";
-            chart2.Series.Add(series2);
-            chart2.Size = new Size(414, 227);
-            chart2.TabIndex = 10;
-            chart2.Text = "chart2";
+            chartAsistenciaMensual.Series.Add(series2);
+            chartAsistenciaMensual.Size = new Size(528, 227);
+            chartAsistenciaMensual.TabIndex = 10;
+            chartAsistenciaMensual.Text = "chart2";
             // 
             // panel1
             // 
-            panel1.BackColor = Color.WhiteSmoke;
+            panel1.BackColor = Color.PaleGreen;
             panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(chart1);
-            panel1.Location = new Point(38, 381);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(chartEventosMes);
+            panel1.Controls.Add(label10);
+            panel1.Location = new Point(20, 372);
             panel1.Name = "panel1";
-            panel1.Size = new Size(590, 289);
+            panel1.Size = new Size(528, 298);
             panel1.TabIndex = 11;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.ActiveCaptionText;
+            label2.Location = new Point(2, 35);
+            label2.Name = "label2";
+            label2.Size = new Size(272, 17);
+            label2.TabIndex = 16;
+            label2.Text = "Total de Eventos registrado por mes en 2026";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.Location = new Point(2, 10);
+            label10.Name = "label10";
+            label10.Size = new Size(159, 25);
+            label10.TabIndex = 15;
+            label10.Text = "Eventos por Mes";
             // 
             // panel2
             // 
-            panel2.BackColor = Color.WhiteSmoke;
+            panel2.BackColor = Color.PaleGreen;
             panel2.BorderStyle = BorderStyle.FixedSingle;
-            panel2.Controls.Add(chart2);
-            panel2.Location = new Point(699, 381);
+            panel2.Controls.Add(label11);
+            panel2.Controls.Add(chartAsistenciaMensual);
+            panel2.Controls.Add(label15);
+            panel2.Location = new Point(582, 372);
             panel2.Name = "panel2";
-            panel2.Size = new Size(411, 286);
+            panel2.Size = new Size(528, 298);
             panel2.TabIndex = 12;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label11.ForeColor = SystemColors.ActiveCaptionText;
+            label11.Location = new Point(3, 35);
+            label11.Name = "label11";
+            label11.Size = new Size(393, 17);
+            label11.TabIndex = 18;
+            label11.Text = "Cantidad de inscriptos en los 5 eventos mas concurrido en el mes";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label15.Location = new Point(3, 10);
+            label15.Name = "label15";
+            label15.Size = new Size(202, 25);
+            label15.TabIndex = 17;
+            label15.Text = "Inscriptos por Evento";
             // 
             // panel3
             // 
-            panel3.BackColor = Color.SeaGreen;
+            panel3.BackColor = Color.PaleGreen;
             panel3.BorderStyle = BorderStyle.FixedSingle;
             panel3.Controls.Add(labelSubtituloTotalEventos);
             panel3.Controls.Add(pictureBox1);
@@ -182,9 +234,10 @@
             // labelSubtituloTotalEventos
             // 
             labelSubtituloTotalEventos.AutoSize = true;
-            labelSubtituloTotalEventos.Location = new Point(83, 50);
+            labelSubtituloTotalEventos.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelSubtituloTotalEventos.Location = new Point(72, 40);
             labelSubtituloTotalEventos.Name = "labelSubtituloTotalEventos";
-            labelSubtituloTotalEventos.Size = new Size(38, 15);
+            labelSubtituloTotalEventos.Size = new Size(57, 21);
             labelSubtituloTotalEventos.TabIndex = 15;
             labelSubtituloTotalEventos.Text = "label2";
             // 
@@ -201,8 +254,9 @@
             // labelTotalEventos
             // 
             labelTotalEventos.AutoSize = true;
-            labelTotalEventos.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelTotalEventos.Location = new Point(72, 15);
+            labelTotalEventos.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelTotalEventos.ForeColor = SystemColors.WindowFrame;
+            labelTotalEventos.Location = new Point(71, 15);
             labelTotalEventos.Name = "labelTotalEventos";
             labelTotalEventos.Size = new Size(98, 15);
             labelTotalEventos.TabIndex = 15;
@@ -223,16 +277,18 @@
             // labelSubtituloEventoActivo
             // 
             labelSubtituloEventoActivo.AutoSize = true;
-            labelSubtituloEventoActivo.Location = new Point(72, 50);
+            labelSubtituloEventoActivo.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            labelSubtituloEventoActivo.Location = new Point(72, 40);
             labelSubtituloEventoActivo.Name = "labelSubtituloEventoActivo";
-            labelSubtituloEventoActivo.Size = new Size(44, 15);
+            labelSubtituloEventoActivo.Size = new Size(66, 21);
             labelSubtituloEventoActivo.TabIndex = 16;
             labelSubtituloEventoActivo.Text = "label10";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.WindowFrame;
             label3.Location = new Point(72, 15);
             label3.Name = "label3";
             label3.Size = new Size(95, 15);
@@ -251,7 +307,7 @@
             // 
             // panel5
             // 
-            panel5.BackColor = Color.PaleGoldenrod;
+            panel5.BackColor = Color.PaleGreen;
             panel5.BorderStyle = BorderStyle.FixedSingle;
             panel5.Controls.Add(labelSubtituloEventoFinalizado);
             panel5.Controls.Add(label4);
@@ -264,9 +320,10 @@
             // labelSubtituloEventoFinalizado
             // 
             labelSubtituloEventoFinalizado.AutoSize = true;
-            labelSubtituloEventoFinalizado.Location = new Point(72, 50);
+            labelSubtituloEventoFinalizado.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            labelSubtituloEventoFinalizado.Location = new Point(72, 44);
             labelSubtituloEventoFinalizado.Name = "labelSubtituloEventoFinalizado";
-            labelSubtituloEventoFinalizado.Size = new Size(44, 15);
+            labelSubtituloEventoFinalizado.Size = new Size(66, 21);
             labelSubtituloEventoFinalizado.TabIndex = 17;
             labelSubtituloEventoFinalizado.Text = "label11";
             // 
@@ -274,6 +331,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label4.ForeColor = SystemColors.WindowFrame;
             label4.Location = new Point(72, 15);
             label4.Name = "label4";
             label4.Size = new Size(108, 15);
@@ -292,6 +350,7 @@
             // 
             // panel6
             // 
+            panel6.BackColor = Color.PaleGreen;
             panel6.BorderStyle = BorderStyle.FixedSingle;
             panel6.Controls.Add(labelSubtituloTasaOcupacion);
             panel6.Controls.Add(label5);
@@ -304,9 +363,10 @@
             // labelSubtituloTasaOcupacion
             // 
             labelSubtituloTasaOcupacion.AutoSize = true;
-            labelSubtituloTasaOcupacion.Location = new Point(72, 50);
+            labelSubtituloTasaOcupacion.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            labelSubtituloTasaOcupacion.Location = new Point(72, 44);
             labelSubtituloTasaOcupacion.Name = "labelSubtituloTasaOcupacion";
-            labelSubtituloTasaOcupacion.Size = new Size(44, 15);
+            labelSubtituloTasaOcupacion.Size = new Size(66, 21);
             labelSubtituloTasaOcupacion.TabIndex = 26;
             labelSubtituloTasaOcupacion.Text = "label16";
             // 
@@ -314,6 +374,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label5.ForeColor = SystemColors.WindowFrame;
             label5.Location = new Point(72, 15);
             label5.Name = "label5";
             label5.Size = new Size(108, 15);
@@ -332,6 +393,7 @@
             // 
             // panel7
             // 
+            panel7.BackColor = Color.PaleGreen;
             panel7.BorderStyle = BorderStyle.FixedSingle;
             panel7.Controls.Add(labelSubtituloEventoMayorAsistencia);
             panel7.Controls.Add(label9);
@@ -343,10 +405,12 @@
             // 
             // labelSubtituloEventoMayorAsistencia
             // 
-            labelSubtituloEventoMayorAsistencia.AutoSize = true;
-            labelSubtituloEventoMayorAsistencia.Location = new Point(77, 49);
+            labelSubtituloEventoMayorAsistencia.AutoEllipsis = true;
+            labelSubtituloEventoMayorAsistencia.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelSubtituloEventoMayorAsistencia.Location = new Point(71, 38);
+            labelSubtituloEventoMayorAsistencia.MaximumSize = new Size(166, 40);
             labelSubtituloEventoMayorAsistencia.Name = "labelSubtituloEventoMayorAsistencia";
-            labelSubtituloEventoMayorAsistencia.Size = new Size(44, 15);
+            labelSubtituloEventoMayorAsistencia.Size = new Size(166, 40);
             labelSubtituloEventoMayorAsistencia.TabIndex = 18;
             labelSubtituloEventoMayorAsistencia.Text = "label12";
             // 
@@ -354,6 +418,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label9.ForeColor = SystemColors.WindowFrame;
             label9.Location = new Point(72, 14);
             label9.Name = "label9";
             label9.Size = new Size(165, 15);
@@ -372,7 +437,7 @@
             // 
             // panel8
             // 
-            panel8.BackColor = Color.PaleGoldenrod;
+            panel8.BackColor = Color.PaleGreen;
             panel8.BorderStyle = BorderStyle.FixedSingle;
             panel8.Controls.Add(labelSubtituloTotalUsuarios);
             panel8.Controls.Add(label8);
@@ -385,9 +450,10 @@
             // labelSubtituloTotalUsuarios
             // 
             labelSubtituloTotalUsuarios.AutoSize = true;
-            labelSubtituloTotalUsuarios.Location = new Point(72, 49);
+            labelSubtituloTotalUsuarios.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            labelSubtituloTotalUsuarios.Location = new Point(72, 41);
             labelSubtituloTotalUsuarios.Name = "labelSubtituloTotalUsuarios";
-            labelSubtituloTotalUsuarios.Size = new Size(44, 15);
+            labelSubtituloTotalUsuarios.Size = new Size(66, 21);
             labelSubtituloTotalUsuarios.TabIndex = 23;
             labelSubtituloTotalUsuarios.Text = "label13";
             // 
@@ -395,6 +461,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label8.ForeColor = SystemColors.WindowFrame;
             label8.Location = new Point(72, 14);
             label8.Name = "label8";
             label8.Size = new Size(101, 15);
@@ -426,9 +493,10 @@
             // labelSubtituloSolicitudesPendientes
             // 
             labelSubtituloSolicitudesPendientes.AutoSize = true;
-            labelSubtituloSolicitudesPendientes.Location = new Point(72, 49);
+            labelSubtituloSolicitudesPendientes.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            labelSubtituloSolicitudesPendientes.Location = new Point(72, 43);
             labelSubtituloSolicitudesPendientes.Name = "labelSubtituloSolicitudesPendientes";
-            labelSubtituloSolicitudesPendientes.Size = new Size(44, 15);
+            labelSubtituloSolicitudesPendientes.Size = new Size(66, 21);
             labelSubtituloSolicitudesPendientes.TabIndex = 24;
             labelSubtituloSolicitudesPendientes.Text = "label14";
             // 
@@ -436,6 +504,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label7.ForeColor = SystemColors.WindowFrame;
             label7.Location = new Point(72, 14);
             label7.Name = "label7";
             label7.Size = new Size(132, 15);
@@ -454,7 +523,7 @@
             // 
             // panel10
             // 
-            panel10.BackColor = Color.SeaGreen;
+            panel10.BackColor = Color.PaleGreen;
             panel10.BorderStyle = BorderStyle.FixedSingle;
             panel10.Controls.Add(labelSubtituloJefesEventos);
             panel10.Controls.Add(label6);
@@ -467,9 +536,10 @@
             // labelSubtituloJefesEventos
             // 
             labelSubtituloJefesEventos.AutoSize = true;
-            labelSubtituloJefesEventos.Location = new Point(72, 49);
+            labelSubtituloJefesEventos.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            labelSubtituloJefesEventos.Location = new Point(72, 41);
             labelSubtituloJefesEventos.Name = "labelSubtituloJefesEventos";
-            labelSubtituloJefesEventos.Size = new Size(44, 15);
+            labelSubtituloJefesEventos.Size = new Size(66, 21);
             labelSubtituloJefesEventos.TabIndex = 25;
             labelSubtituloJefesEventos.Text = "label15";
             // 
@@ -477,6 +547,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label6.ForeColor = SystemColors.WindowFrame;
             label6.Location = new Point(72, 14);
             label6.Name = "label6";
             label6.Size = new Size(100, 15);
@@ -513,10 +584,12 @@
             Name = "UCDashboard";
             Size = new Size(1173, 697);
             Load += UCDashboard_Load;
-            ((System.ComponentModel.ISupportInitialize)chart1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)chart2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)chartEventosMes).EndInit();
+            ((System.ComponentModel.ISupportInitialize)chartAsistenciaMensual).EndInit();
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -548,8 +621,8 @@
         #endregion
         private Label label1;
         private Label labelSubtitulo;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartEventosMes;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartAsistenciaMensual;
         private Panel panel1;
         private Panel panel2;
         private Panel panel3;
@@ -587,5 +660,9 @@
         private Label labelSubtituloEventoMayorAsistencia;
         private Label labelSubtituloTotalUsuarios;
         private Label labelSubtituloSolicitudesPendientes;
+        private Label label2;
+        private Label label10;
+        private Label label11;
+        private Label label15;
     }
 }

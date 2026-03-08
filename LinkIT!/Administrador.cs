@@ -40,8 +40,9 @@ namespace LinkIT_
 
         private void bEventos_Click(object sender, EventArgs e)
         {
-            
-            
+            UCEventoAdministrador uc = new UCEventoAdministrador();
+            LoadUserControl(uc);
+
         }
 
         
