@@ -64,7 +64,7 @@ namespace LinkIT_
                            (SELECT COUNT(*) 
                             FROM Inscripcion i 
                             WHERE i.id_evento = e.id_evento 
-                            AND i.estado = 'Activa') AS inscriptos
+                            AND i.estado = 'inscripto') AS inscriptos
 
                         FROM Evento e
                         WHERE CAST(e.fecha_evento AS DATE) >= CAST(GETDATE() AS DATE)
@@ -84,13 +84,13 @@ namespace LinkIT_
                                (SELECT COUNT(*) 
                                 FROM Inscripcion i2 
                                 WHERE i2.id_evento = e.id_evento 
-                                AND i2.estado = 'Inscripto') AS inscriptos
+                                AND i2.estado = 'inscripto') AS inscriptos
 
                         FROM Evento e
                         INNER JOIN Inscripcion i ON e.id_evento = i.id_evento
 
                         WHERE i.id_usuario = @idUsuario
-                        AND i.estado = 'Inscripto'   -- 🔴 ESTA LINEA FALTABA
+                        AND i.estado = 'inscripto'   -- 🔴 ESTA LINEA FALTABA
                         AND CAST(e.fecha_evento AS DATE) >= CAST(GETDATE() AS DATE) 
                         AND e.estado <> 'Cancelado';", conexion);
 

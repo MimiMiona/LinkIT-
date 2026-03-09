@@ -39,7 +39,7 @@ namespace LinkIT_
         {
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             lblUsuario.Text = "Usuario: " + Login.Sesion.Nombre;
-            LoadUserControl(new UCMisEventos("Jefe de Eventos"));
+            LoadUserControl(new UCDashboardJefeEvento(Login.Sesion.IdUsuario));
         }
 
         private void BotonMisEventos_MouseEnter(object sender, EventArgs e)
@@ -111,7 +111,7 @@ namespace LinkIT_
 
         private void bDashboard_Click(object sender, EventArgs e)
         {
-            
+            LoadUserControl(new UCDashboardJefeEvento(Login.Sesion.IdUsuario));
         }
     }
 }

@@ -30,12 +30,12 @@ namespace LinkIT_
         /// </summary>
         private void InitializeComponent()
         {
-            ChartArea chartArea3 = new ChartArea();
-            Legend legend3 = new Legend();
-            Series series3 = new Series();
-            ChartArea chartArea4 = new ChartArea();
-            Legend legend4 = new Legend();
-            Series series4 = new Series();
+            ChartArea chartArea1 = new ChartArea();
+            Legend legend1 = new Legend();
+            Series series1 = new Series();
+            ChartArea chartArea2 = new ChartArea();
+            Legend legend2 = new Legend();
+            Series series2 = new Series();
             label1 = new Label();
             labelSubtitulo = new Label();
             chartEventosMes = new Chart();
@@ -123,32 +123,32 @@ namespace LinkIT_
             // 
             // chartEventosMes
             // 
-            chartArea3.Name = "ChartArea1";
-            chartEventosMes.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            chartEventosMes.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            chartEventosMes.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            chartEventosMes.Legends.Add(legend1);
             chartEventosMes.Location = new Point(-1, 70);
             chartEventosMes.Name = "chartEventosMes";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            chartEventosMes.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            chartEventosMes.Series.Add(series1);
             chartEventosMes.Size = new Size(528, 227);
             chartEventosMes.TabIndex = 9;
             chartEventosMes.Text = "chart1";
             // 
             // chartAsistenciaMensual
             // 
-            chartArea4.Name = "ChartArea1";
-            chartAsistenciaMensual.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            chartAsistenciaMensual.Legends.Add(legend4);
+            chartArea2.Name = "ChartArea1";
+            chartAsistenciaMensual.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            chartAsistenciaMensual.Legends.Add(legend2);
             chartAsistenciaMensual.Location = new Point(-1, 70);
             chartAsistenciaMensual.Name = "chartAsistenciaMensual";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            chartAsistenciaMensual.Series.Add(series4);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            chartAsistenciaMensual.Series.Add(series2);
             chartAsistenciaMensual.Size = new Size(528, 227);
             chartAsistenciaMensual.TabIndex = 10;
             chartAsistenciaMensual.Text = "chart2";
