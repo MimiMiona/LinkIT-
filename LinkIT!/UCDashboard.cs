@@ -58,7 +58,7 @@ namespace LinkIT_
         private void CargarEventosFinalizados()
         {
             Conexion con = new Conexion();
-            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Evento WHERE estado = 'Finalizado'", con.AbrirConexion());
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Evento WHERE fecha_evento < GETDATE() AND estado != 'Finalizado'", con.AbrirConexion());
             labelSubtituloEventoFinalizado.Text = cmd.ExecuteScalar().ToString();
             con.CerrarConexion();
         }

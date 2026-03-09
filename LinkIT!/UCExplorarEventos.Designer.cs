@@ -68,6 +68,7 @@
             // 
             // panelEventos
             // 
+            panelEventos.AutoScroll = true;
             panelEventos.Location = new Point(23, 121);
             panelEventos.Name = "panelEventos";
             panelEventos.Size = new Size(1118, 551);

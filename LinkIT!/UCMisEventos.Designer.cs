@@ -28,7 +28,7 @@
             panelEventos.BackColor = Color.White;
             panelEventos.Location = new Point(0, 132);
             panelEventos.Name = "panelEventos";
-            panelEventos.Size = new Size(1173, 565);
+            panelEventos.Size = new Size(1170, 565);
             panelEventos.TabIndex = 0;
             // 
             // labelSubtitulo

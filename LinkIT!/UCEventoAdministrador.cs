@@ -123,7 +123,7 @@ namespace LinkIT_
                 -- Cuenta inscriptos
                 (SELECT COUNT(*) 
                  FROM Inscripcion i 
-                 WHERE i.id_evento = e.id_evento AND i.estado = 'Activa') AS inscriptos,
+                 WHERE i.id_evento = e.id_evento AND i.estado = 'inscripto') AS inscriptos,
 
                 -- Trae el nombre del responsable
                 u.nombre AS responsable

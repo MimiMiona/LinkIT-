@@ -80,7 +80,7 @@ namespace LinkIT_
                  WHERE i.id_evento = e.id_evento 
                  AND i.estado = 'Inscripto') AS inscriptos
             FROM Evento e
-            WHERE e.estado <> 'Cancelado'
+            WHERE e.estado = 'Activo' AND fecha_evento > GETDATE()
             AND e.titulo LIKE @filtro
             ORDER BY e.fecha_evento";
 

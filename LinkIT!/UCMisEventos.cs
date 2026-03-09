@@ -198,7 +198,7 @@ namespace LinkIT_
         {
             Panel panelMensaje = new Panel
             {
-                Width = panelEventos.Width - 20,
+                Width = panelEventos.Width - 40,
                 Height = 200,
                 BackColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,

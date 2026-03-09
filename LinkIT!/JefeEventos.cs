@@ -38,6 +38,7 @@ namespace LinkIT_
         // Evento que ocurre cuando se carga el formulario
         private void FormJefeEventos_Load(object sender, EventArgs e)
         {
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             lblUsuario.Text = "Usuario: " + Login.Sesion.Nombre;  // Muestra el nombre del usuario actual en el label
             LoadUserControl(new UCDashboardJefeEvento(Login.Sesion.IdUsuario));  // Carga el UserControl del dashboard
         }
