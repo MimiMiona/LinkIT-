@@ -10,17 +10,19 @@ namespace LinkIT_
         // Colores que usamos en la interfaz
         Color colorVerdePrincipal = Color.MediumSeaGreen;
         Color colorGrisTexto = Color.FromArgb(100, 100, 100);
+        // Lista para almacenar los eventos cargados desde la base de datos
         private List<Evento> eventosLista; 
         public UCEventoAdministrador()
         {
             InitializeComponent();
         }
 
+        // Evento que se dispara al cargar el UserControl, donde se cargan los eventos
         private void UCEventoAdministrador_Load(object sender, EventArgs e)
         {
             CargarEventos();
         }
-
+        // Evento que se dispara al escribir en el campo de búsqueda, filtrando los eventos mostrados
         private void textBoxBuscar_TextChanged(object sender, EventArgs e)
         {
             if (eventosLista == null) return;
@@ -44,9 +46,9 @@ namespace LinkIT_
                     Panel card = CrearCard(evento);
                     card.Location = new Point(x, y);
                     panelEventos.Controls.Add(card);
-
+                    // Incrementamos la columna para organizar las cards
                     columna++;
-
+                    // Cada 3 cards bajamos una fila
                     if (columna == 3)
                     {
                         columna = 0;
@@ -54,13 +56,14 @@ namespace LinkIT_
                         y += card.Height + espacioY;
                     }
                     else
-                    {
+                    {// Si no es la tercera card, simplemente movemos a la derecha
                         x += cardWidth + espacioX;
                     }
                 }
             }
         }
 
+        // Clase que representa un evento con sus propiedades
         public class Evento
         {
             public int IdEvento { get; set; }

@@ -11,14 +11,14 @@ namespace LinkIT_
     {
         private Color colorGrisTexto = Color.FromArgb(100, 100, 100);
 
-        // Asegúrate de que tu clase Evento tenga estas propiedades: 
-        // Inscriptos (int) y CapacidadMaxima (int)
+        // Lista para almacenar los eventos
         private List<UCMisEventos.Evento> listaEventos = new List<UCMisEventos.Evento>();
 
         private string rolUsuario;
         private int idUsuario;
         private int posicionY = 10;
 
+        // Constructor para inicializar los valores de rol y usuario
         public UCCalendario(string rol, int idUser)
         {
             InitializeComponent();
@@ -26,6 +26,7 @@ namespace LinkIT_
             idUsuario = idUser;
         }
 
+        // Evento que se dispara cuando el UserControl se carga
         private void UCCalendario_Load(object sender, EventArgs e)
         {
             labelSubtitulo.ForeColor = colorGrisTexto;
@@ -34,6 +35,7 @@ namespace LinkIT_
             MostrarEventosDelDia(DateTime.Today);
         }
 
+        // Método que carga los eventos desde la base de datos
         private void CargarEventosDesdeBD()
         {
             listaEventos.Clear();
@@ -43,7 +45,7 @@ namespace LinkIT_
             {
                 SqlCommand cmd;
 
-                // Consulta unificada: Ambos roles necesitan saber la ocupación ahora
+                // Consulta dependiendo del rol del usuario
                 if (rolUsuario == "Jefe de Eventos")
                 {
                     cmd = new SqlCommand(@"
@@ -72,7 +74,7 @@ namespace LinkIT_
                 }
                 else
                 {
-                    // Para usuarios regulares, filtramos sus inscripciones pero traemos la info general del evento
+                    // Para usuarios regulares, se filtra por inscripciones
                     cmd = new SqlCommand(@"
                         SELECT e.id_evento, e.titulo, e.fecha_evento, e.horario_inicio, e.horario_fin, 
                                e.capacidad_maxima,
@@ -90,7 +92,7 @@ namespace LinkIT_
                         INNER JOIN Inscripcion i ON e.id_evento = i.id_evento
 
                         WHERE i.id_usuario = @idUsuario
-                        AND i.estado = 'inscripto'   -- 🔴 ESTA LINEA FALTABA
+                        AND i.estado = 'inscripto'   
                         AND CAST(e.fecha_evento AS DATE) >= CAST(GETDATE() AS DATE) 
                         AND e.estado <> 'Cancelado';", conexion);
 
@@ -101,23 +103,20 @@ namespace LinkIT_
 
                 while (reader.Read())
                 {
-                    UCMisEventos.Evento ev = new UCMisEventos.Evento();
-
-                    ev.IdEvento = Convert.ToInt32(reader["id_evento"]);
-                    ev.Titulo = reader["titulo"].ToString();
-                    ev.Fecha = Convert.ToDateTime(reader["fecha_evento"]);
-
-                    // Nuevas propiedades necesarias para la Card
-                    ev.Capacidad = Convert.ToInt32(reader["capacidad_maxima"]);
-                    ev.Inscriptos = Convert.ToInt32(reader["inscriptos"]);
-
-                    ev.HoraInicio = reader["horario_inicio"] != DBNull.Value
-                        ? ((DateTime)reader["horario_inicio"]).TimeOfDay
-                        : TimeSpan.Zero;
-
-                    ev.HoraFin = reader["horario_fin"] != DBNull.Value
-                        ? ((DateTime)reader["horario_fin"]).TimeOfDay
-                        : TimeSpan.Zero;
+                    UCMisEventos.Evento ev = new UCMisEventos.Evento
+                    {
+                        IdEvento = Convert.ToInt32(reader["id_evento"]),
+                        Titulo = reader["titulo"].ToString(),
+                        Fecha = Convert.ToDateTime(reader["fecha_evento"]),
+                        Capacidad = Convert.ToInt32(reader["capacidad_maxima"]),
+                        Inscriptos = Convert.ToInt32(reader["inscriptos"]),
+                        HoraInicio = reader["horario_inicio"] != DBNull.Value
+                            ? ((DateTime)reader["horario_inicio"]).TimeOfDay
+                            : TimeSpan.Zero,
+                        HoraFin = reader["horario_fin"] != DBNull.Value
+                            ? ((DateTime)reader["horario_fin"]).TimeOfDay
+                            : TimeSpan.Zero
+                    };
 
                     listaEventos.Add(ev);
                 }
@@ -125,6 +124,7 @@ namespace LinkIT_
             }
         }
 
+        // Método que marca los días en el calendario que tienen eventos
         private void MarcarDiasConEventos()
         {
             DateTime[] fechasEventos = listaEventos
@@ -135,11 +135,13 @@ namespace LinkIT_
             CalendarioEvento.BoldedDates = fechasEventos;
         }
 
+        // Evento que se dispara cuando el usuario cambia la fecha en el calendario
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
             MostrarEventosDelDia(e.Start);
         }
 
+        // Muestra los eventos del día seleccionado
         private void MostrarEventosDelDia(DateTime fecha)
         {
             labelEventosDia.Text = "Eventos del día: " + fecha.ToString("d 'de' MMMM");
@@ -173,6 +175,7 @@ namespace LinkIT_
             }
         }
 
+        // Crea una tarjeta (panel) para mostrar la información del evento
         private Panel CrearCardEvento(UCMisEventos.Evento evento)
         {
             Panel card = new Panel
@@ -191,7 +194,7 @@ namespace LinkIT_
                 Location = new Point(15, 10)
             };
 
-            // REEMPLAZO: Ahora muestra la relación de inscriptos vs capacidad
+            // Muestra la relación de inscriptos vs capacidad
             Label ocupacion = new Label
             {
                 Text = $"👤 {evento.Inscriptos} / {evento.Capacidad} inscriptos",
@@ -209,7 +212,7 @@ namespace LinkIT_
             };
 
             card.Controls.Add(titulo);
-            card.Controls.Add(ocupacion); // Se agrega la nueva etiqueta de ocupación
+            card.Controls.Add(ocupacion);  // Se agrega la nueva etiqueta de ocupación
             card.Controls.Add(horario);
 
             return card;

@@ -22,14 +22,13 @@ namespace LinkIT_
         {
             labelSubtitulo.ForeColor = colorGrisTexto;
 
-            // Carga de indicadores
+            // Cargar indicadores
             CargarTotalEventos();
             CargarEventosActivos();
-        
             CargarSolicitudesPendientes();
             CargarEventoMayorAsistencia();
 
-            // Carga de gráficos
+            // Cargar gráficos
             CargarGraficoEventosMes();
             CargarGraficoEstados();
         }
@@ -42,7 +41,6 @@ namespace LinkIT_
             cmd.Parameters.AddWithValue("@id", idJefeEvento);
             labelSubtituloTotalEventos.Text = cmd.ExecuteScalar().ToString();
             con.CerrarConexion();
-            
         }
 
         private void CargarEventosActivos()
@@ -50,13 +48,10 @@ namespace LinkIT_
             Conexion con = new Conexion();
             SqlCommand cmd = new SqlCommand(
                     "SELECT COUNT(*) FROM Evento WHERE id_Usuario = @id AND estado = 'Activo'", con.AbrirConexion());
-                cmd.Parameters.AddWithValue("@id", idJefeEvento);
-                labelSubtituloEventoActivo.Text = cmd.ExecuteScalar().ToString();
-                con.CerrarConexion();
-            
+            cmd.Parameters.AddWithValue("@id", idJefeEvento);
+            labelSubtituloEventoActivo.Text = cmd.ExecuteScalar().ToString();
+            con.CerrarConexion();
         }
-
-       
 
         private void CargarSolicitudesPendientes()
         {
@@ -68,7 +63,6 @@ namespace LinkIT_
             cmd.Parameters.AddWithValue("@id", idJefeEvento);
             labelSubtituloSolicitudesPendientes.Text = cmd.ExecuteScalar().ToString();
             con.CerrarConexion();
-            
         }
 
         private void CargarEventoMayorAsistencia()
@@ -85,10 +79,7 @@ namespace LinkIT_
             object resultado = cmd.ExecuteScalar();
             labelSubtituloEventoMayorAsistencia.Text = resultado != null ? resultado.ToString() : "Sin datos";
             con.CerrarConexion();
-            
         }
-
-
 
         private void CargarGraficoEventosMes()
         {
@@ -127,8 +118,6 @@ namespace LinkIT_
                     int total = Convert.ToInt32(dr["Total"]);
                     serieMes.Points.AddXY(mes, total);
                 }
-
-                
             }
             chartEventosMes.Series.Add(serieMes);
             chartEventosMes.ChartAreas[0].AxisX.Interval = 1;
@@ -182,6 +171,5 @@ namespace LinkIT_
             chartAsistenciaMensual.Legends.Add(leg);
             con.CerrarConexion();
         }
-
     }
 }

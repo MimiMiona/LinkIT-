@@ -18,74 +18,70 @@ namespace LinkIT_
     esto se van invocando al apretar el boton.
 
     tambien se le agrego un efecto hover a los botones del menu lateral para mejorar la experiencia del usuario, cambiando el color de fondo del boton cuando el mouse entra y sale del area del boton.
-
      */
     public partial class JefeEventos : Form
     {
+        // Constructor del formulario JefeEventos
         public JefeEventos()
         {
-            InitializeComponent();
+            InitializeComponent();  // Inicializa los componentes del formulario
         }
 
+        // Método que carga un UserControl dentro del panel principal (panelJefeEvento)
         public void LoadUserControl(UserControl uc)
         {
-            panelJefeEvento.Controls.Clear();
-            uc.Dock = DockStyle.Fill;
-            panelJefeEvento.Controls.Add(uc);
-
+            panelJefeEvento.Controls.Clear();  // Limpia el contenido actual del panel
+            uc.Dock = DockStyle.Fill;  // Ajusta el UserControl al tamaño del panel
+            panelJefeEvento.Controls.Add(uc);  // Agrega el UserControl al panel
         }
 
+        // Evento que ocurre cuando se carga el formulario
         private void FormJefeEventos_Load(object sender, EventArgs e)
         {
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            lblUsuario.Text = "Usuario: " + Login.Sesion.Nombre;
-            LoadUserControl(new UCDashboardJefeEvento(Login.Sesion.IdUsuario));
+            lblUsuario.Text = "Usuario: " + Login.Sesion.Nombre;  // Muestra el nombre del usuario actual en el label
+            LoadUserControl(new UCDashboardJefeEvento(Login.Sesion.IdUsuario));  // Carga el UserControl del dashboard
         }
 
+        // Efecto hover sobre el botón "Mis Eventos" (cuando el mouse entra)
         private void BotonMisEventos_MouseEnter(object sender, EventArgs e)
         {
-            BotonMisEventos.BackColor = Color.SeaGreen;
+            BotonMisEventos.BackColor = Color.SeaGreen;  // Cambia el color de fondo al pasar el mouse
         }
 
+        // Efecto hover sobre el botón "Mis Eventos" (cuando el mouse sale)
         private void BotonMisEventos_MouseLeave(object sender, EventArgs e)
         {
-            BotonMisEventos.BackColor = Color.MediumSeaGreen;
+            BotonMisEventos.BackColor = Color.MediumSeaGreen;  // Vuelve al color original cuando el mouse sale
         }
 
-
-
-
+        // Efecto hover sobre el botón "Calendario" (cuando el mouse entra)
         private void buttonCalendario_MouseEnter(object sender, EventArgs e)
         {
-            //aca se cambia el color de fondo del boton del calendario cuando el mouse entra en el area del boton, para dar un efecto hover.
-            buttonCalendario.BackColor = Color.SeaGreen;
+            buttonCalendario.BackColor = Color.SeaGreen;  // Cambia el color de fondo al pasar el mouse
         }
 
+        // Efecto hover sobre el botón "Calendario" (cuando el mouse sale)
         private void buttonCalendario_MouseLeave(object sender, EventArgs e)
         {
-            //aca se cambia el color de fondo del boton del calendario cuando el mouse sale del area del boton, para dar un efecto hover.
-            buttonCalendario.BackColor = Color.MediumSeaGreen;
+            buttonCalendario.BackColor = Color.MediumSeaGreen;  // Vuelve al color original cuando el mouse sale
         }
 
+        // Evento que ocurre cuando se hace clic en el botón "Mis Eventos"
         private void BotonMisEventos_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new UCMisEventos("Jefe de Eventos"));
+            LoadUserControl(new UCMisEventos("Jefe de Eventos"));  // Carga el UserControl que muestra los eventos
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-
-
+        // Evento que ocurre cuando se hace clic en el botón "Calendario"
         private void buttonCalendario_Click(object sender, EventArgs e)
-        { // aca se carga el UserControl del calendario, que es el que muestra el calendario con los eventos y las fechas.
-            LoadUserControl(new UCCalendario("Jefe de Eventos", Login.Sesion.IdUsuario));
+        {
+            LoadUserControl(new UCCalendario("Jefe de Eventos", Login.Sesion.IdUsuario));  // Carga el UserControl del calendario
         }
 
+        // Evento que ocurre cuando se hace clic en el botón "Cerrar sesión"
         private void buttonCerrarSesion_Click(object sender, EventArgs e)
         {
+            // Muestra un mensaje de confirmación antes de cerrar sesión
             DialogResult result = MessageBox.Show(
                 "¿Seguro que desea cerrar sesión?",
                 "Confirmación",
@@ -95,23 +91,26 @@ namespace LinkIT_
 
             if (result == DialogResult.Yes)
             {
-                this.Close();
+                this.Close();  // Cierra el formulario si el usuario confirma
             }
         }
 
+        // Evento que ocurre cuando se hace clic en el botón "Usuarios"
         private void bUsuarios_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new UCRevisionUsuarios(Login.Sesion.IdUsuario));
+            LoadUserControl(new UCRevisionUsuarios(Login.Sesion.IdUsuario));  // Carga el UserControl para revisar usuarios
         }
 
+        // Evento que ocurre cuando se hace clic en el botón "Consultas"
         private void bConsultas_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new UCConsultas());
+            LoadUserControl(new UCConsultas());  // Carga el UserControl de consultas
         }
 
+        // Evento que ocurre cuando se hace clic en el botón "Dashboard"
         private void bDashboard_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new UCDashboardJefeEvento(Login.Sesion.IdUsuario));
+            LoadUserControl(new UCDashboardJefeEvento(Login.Sesion.IdUsuario));  // Carga el UserControl del dashboard
         }
     }
 }

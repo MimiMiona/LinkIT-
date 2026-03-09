@@ -7,9 +7,10 @@ namespace LinkIT_
 {
     public partial class UCConsultas : UserControl
     {
-      
-        private bool mostrandoPendientes = true;
-        private DataTable consultasDT;
+        private bool mostrandoPendientes = true; // Controla si estamos mostrando las consultas pendientes o atendidas
+        private DataTable consultasDT; // DataTable para manejar los datos de las consultas
+
+        // Constructor que inicializa el UserControl
         public UCConsultas()
         {
             InitializeComponent();
@@ -17,6 +18,7 @@ namespace LinkIT_
             CargarConsultas();
         }
 
+        // Configuración inicial del DataGridView
         private void InicializarDataGridView()
         {
             dataGridView1.Columns.Clear();
@@ -24,39 +26,52 @@ namespace LinkIT_
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            DataGridViewTextBoxColumn colNombre = new DataGridViewTextBoxColumn();
-            colNombre.Name = "Nombre";
-            colNombre.HeaderText = "Nombre";
-            colNombre.ReadOnly = true;
+            // Columna para el nombre del usuario
+            DataGridViewTextBoxColumn colNombre = new DataGridViewTextBoxColumn
+            {
+                Name = "Nombre",
+                HeaderText = "Nombre",
+                ReadOnly = true
+            };
             dataGridView1.Columns.Add(colNombre);
 
-            DataGridViewTextBoxColumn colCorreo = new DataGridViewTextBoxColumn();
-            colCorreo.Name = "Correo";
-            colCorreo.HeaderText = "Correo";
-            colCorreo.ReadOnly = true;
+            // Columna para el correo del usuario
+            DataGridViewTextBoxColumn colCorreo = new DataGridViewTextBoxColumn
+            {
+                Name = "Correo",
+                HeaderText = "Correo",
+                ReadOnly = true
+            };
             dataGridView1.Columns.Add(colCorreo);
 
-            DataGridViewTextBoxColumn colEstado = new DataGridViewTextBoxColumn();
-            colEstado.Name = "Estado";
-            colEstado.HeaderText = "Estado";
-            colEstado.ReadOnly = true;
+            // Columna para el estado de la consulta
+            DataGridViewTextBoxColumn colEstado = new DataGridViewTextBoxColumn
+            {
+                Name = "Estado",
+                HeaderText = "Estado",
+                ReadOnly = true
+            };
             dataGridView1.Columns.Add(colEstado);
 
-            DataGridViewButtonColumn colVer = new DataGridViewButtonColumn();
-            colVer.Name = "Accion";
-            colVer.HeaderText = "Acción";
-            colVer.Text = "Ver";
-            colVer.UseColumnTextForButtonValue = true;
+            // Columna para la acción de ver detalles de la consulta
+            DataGridViewButtonColumn colVer = new DataGridViewButtonColumn
+            {
+                Name = "Accion",
+                HeaderText = "Acción",
+                Text = "Ver",
+                UseColumnTextForButtonValue = true
+            };
             dataGridView1.Columns.Add(colVer);
 
-            dataGridView1.CellClick += dataGridView1_CellClick;
+            dataGridView1.CellClick += dataGridView1_CellClick; // Evento cuando se hace clic en una celda
         }
 
+        // Método que carga las consultas de la base de datos en el DataGridView
         private void CargarConsultas()
         {
             dataGridView1.Rows.Clear();
 
-            // Creamos el DataTable para guardar los datos y filtrar
+            // DataTable que se usará para filtrar y cargar las consultas
             consultasDT = new DataTable();
             consultasDT.Columns.Add("Nombre", typeof(string));
             consultasDT.Columns.Add("Correo", typeof(string));
@@ -65,9 +80,9 @@ namespace LinkIT_
             consultasDT.Columns.Add("descripcion", typeof(string));
 
             Conexion con = new Conexion();
+            string estado = mostrandoPendientes ? "pendiente" : "atendida"; // Filtrar por estado (pendiente o atendida)
 
-            string estado = mostrandoPendientes ? "pendiente" : "atendida";
-
+            // Consultar la base de datos según el estado de la consulta
             SqlCommand cmd = new SqlCommand(@"
             SELECT c.id_consulta, u.nombre, u.correo, c.descripcion, c.estado
             FROM Consulta c
@@ -86,34 +101,35 @@ namespace LinkIT_
             {
                 hayDatos = true;
 
+                // Leer los datos de cada consulta
                 string nombre = reader["nombre"].ToString();
                 string correo = reader["correo"].ToString();
                 string estadoRow = reader["estado"].ToString();
                 int idConsulta = Convert.ToInt32(reader["id_consulta"]);
                 string descripcion = reader["descripcion"].ToString();
 
-                int fila = dataGridView1.Rows.Add(
-                    nombre,
-                    correo,
-                    estadoRow
+                // Agregar los datos al DataGridView
+                int fila = dataGridView1.Rows.Add(nombre, correo, estadoRow);
 
-                );
-
+                // Asociar los datos de la consulta con cada fila (esto se usa al hacer clic en el botón "Ver")
                 dataGridView1.Rows[fila].Tag = new
                 {
                     idConsulta = idConsulta,
                     descripcion = descripcion
                 };
+
+                // Agregar los datos al DataTable para permitir filtrado
                 consultasDT.Rows.Add(nombre, correo, estadoRow, idConsulta, descripcion);
             }
 
             reader.Close();
             con.CerrarConexion();
 
-            // ocultar tabla si no hay datos
+            // Ocultar el DataGridView si no hay datos
             dataGridView1.Visible = hayDatos;
         }
 
+        // Filtrar las consultas a medida que se escribe en el campo de búsqueda
         private void textBoxBuscar_TextChanged(object sender, EventArgs e)
         {
             if (consultasDT == null) return;
@@ -122,6 +138,7 @@ namespace LinkIT_
 
             dataGridView1.Rows.Clear();
 
+            // Filtrar las filas de acuerdo con el texto introducido
             foreach (DataRow row in consultasDT.Rows)
             {
                 string nombre = row["Nombre"].ToString().ToLower();
@@ -136,6 +153,7 @@ namespace LinkIT_
                         row["Estado"]
                     );
 
+                    // Asociar los datos de la consulta con la fila
                     dataGridView1.Rows[fila].Tag = new
                     {
                         idConsulta = (int)row["idConsulta"],
@@ -144,10 +162,11 @@ namespace LinkIT_
                 }
             }
 
-            // ocultar tabla si no hay datos filtrados
+            // Ocultar el DataGridView si no hay resultados filtrados
             dataGridView1.Visible = dataGridView1.Rows.Count > 0;
         }
 
+        // Evento cuando se hace clic en el botón "Ver" de una consulta
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -158,6 +177,7 @@ namespace LinkIT_
 
             dynamic consulta = datos;
 
+            // Mostrar el formulario de detalles de la consulta
             FormVerConsulta form = new FormVerConsulta(
                 consulta.idConsulta,
                 consulta.descripcion,
@@ -168,13 +188,14 @@ namespace LinkIT_
 
             form.ShowDialog();
 
-            // recargar luego de atender
+            // Recargar las consultas después de que una consulta ha sido atendida
             CargarConsultas();
         }
 
+        // Cambiar entre mostrar las consultas pendientes y atendidas
         private void bMostrar_Click(object sender, EventArgs e)
         {
-            // alternar entre pendientes y atendidas
+            // Alternar entre pendientes y atendidas
             mostrandoPendientes = !mostrandoPendientes;
 
             if (mostrandoPendientes)
@@ -187,7 +208,8 @@ namespace LinkIT_
                 bMostrar.Text = "Mostrar pendientes";
                 labelSinConsultas.Text = "No Hay Consultas Atendidas";
             }
-    
+
+            // Recargar las consultas con el nuevo filtro
             CargarConsultas();
         }
     }

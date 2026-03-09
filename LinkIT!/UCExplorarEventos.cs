@@ -5,40 +5,47 @@ using System.Windows.Forms;
 
 namespace LinkIT_
 {
+    // Control de usuario para explorar eventos
     public partial class UCExplorarEventos : UserControl
     {
-        Color colorVerde = Color.FromArgb(76, 175, 80);
-        Color colorGrisTexto = Color.FromArgb(100, 100, 100);
+        // Colores para la interfaz
+        Color colorVerde = Color.FromArgb(76, 175, 80); // Verde para estado "Disponible"
+        Color colorGrisTexto = Color.FromArgb(100, 100, 100); // Gris para texto
 
         public UCExplorarEventos()
         {
-            InitializeComponent();
+            InitializeComponent(); // Inicializa los componentes del control de usuario
         }
 
+        // Evento que se ejecuta cuando se carga el control
         private void UCExplorarEventos_Load(object sender, EventArgs e)
         {
-            CargarEventos();
+            CargarEventos(); // Carga los eventos cuando se carga el control
         }
 
+        // Definición de la clase Evento que representa los eventos
         public class Evento
         {
-            public int IdEvento { get; set; }
-            public string Titulo { get; set; }
-            public string Descripcion { get; set; }
-            public DateTime Fecha { get; set; }
-            public TimeSpan HoraInicio { get; set; }
-            public TimeSpan HoraFin { get; set; }
-            public int Capacidad { get; set; }
-            public int Inscriptos { get; set; }
-            public string Estado { get; set; }
+            public int IdEvento { get; set; } // ID único del evento
+            public string Titulo { get; set; } // Título del evento
+            public string Descripcion { get; set; } // Descripción del evento
+            public DateTime Fecha { get; set; } // Fecha del evento
+            public TimeSpan HoraInicio { get; set; } // Hora de inicio del evento
+            public TimeSpan HoraFin { get; set; } // Hora de fin del evento
+            public int Capacidad { get; set; } // Capacidad máxima de participantes
+            public int Inscriptos { get; set; } // Número de inscriptos en el evento
+            public string Estado { get; set; } // Estado del evento (Disponible, Finalizado, Cancelado)
 
+            // Propiedad que calcula el porcentaje de ocupación del evento
             public int PorcentajeOcupacion
             {
                 get
                 {
-                    if (Capacidad == 0) return 0;
+                    if (Capacidad == 0) return 0; // Si la capacidad es 0, el porcentaje es 0
 
-                    int porcentaje = (Inscriptos * 100) / Capacidad;
+                    int porcentaje = (Inscriptos * 100) / Capacidad; // Calcula el porcentaje de ocupación
+
+                    // Si el porcentaje supera 100, se establece en 100
                     if (porcentaje > 100) porcentaje = 100;
 
                     return porcentaje;
@@ -46,12 +53,14 @@ namespace LinkIT_
             }
         }
 
+        // Método que carga los eventos y los muestra en el panel
         private void CargarEventos(string filtro = "")
         {
-            panelEventos.Controls.Clear();
+            panelEventos.Controls.Clear(); // Limpia los eventos previos
 
-            Conexion con = new Conexion();
+            Conexion con = new Conexion(); // Crea una nueva conexión a la base de datos
 
+            // Consulta SQL para obtener eventos, filtrados por el título
             string query = @"
             SELECT 
                 e.id_evento,
@@ -61,36 +70,33 @@ namespace LinkIT_
                 e.horario_inicio,
                 e.horario_fin,
                 e.capacidad_maxima,
-
                 CASE 
                     WHEN e.estado = 'Cancelado' THEN 'Cancelado'
                     WHEN e.fecha_evento < GETDATE() THEN 'Finalizado'
                     ELSE 'Disponible'
                 END AS estado,
-
                 (SELECT COUNT(*) 
                  FROM Inscripcion i 
                  WHERE i.id_evento = e.id_evento 
                  AND i.estado = 'Inscripto') AS inscriptos
-
             FROM Evento e
             WHERE e.estado <> 'Cancelado'
             AND e.titulo LIKE @filtro
             ORDER BY e.fecha_evento";
 
-            SqlCommand cmd = new SqlCommand(query, con.AbrirConexion());
-            cmd.Parameters.AddWithValue("@filtro", "%" + filtro + "%");
-            SqlDataReader reader = cmd.ExecuteReader();
+            SqlCommand cmd = new SqlCommand(query, con.AbrirConexion()); // Ejecuta la consulta
+            cmd.Parameters.AddWithValue("@filtro", "%" + filtro + "%"); // Agrega el parámetro de búsqueda
+            SqlDataReader reader = cmd.ExecuteReader(); // Ejecuta la consulta y obtiene los resultados
 
-            int x = 10;
-            int y = 10;
-            int columna = 0;
+            int x = 10; // Posición X inicial para la primera card
+            int y = 10; // Posición Y inicial para la primera card
+            int columna = 0; // Número de columnas para el diseño de las cards
 
-            int espacioX = 20;
-            int espacioY = 20;
+            int espacioX = 20; // Espacio entre las cards en el eje X
+            int espacioY = 20; // Espacio entre las cards en el eje Y
+            int cardWidth = 350; // Ancho de cada card
 
-            int cardWidth = 350;
-
+            // Recorre los resultados y crea una card para cada evento
             while (reader.Read())
             {
                 Evento evento = new Evento
@@ -106,40 +112,43 @@ namespace LinkIT_
                     Estado = reader["estado"].ToString()
                 };
 
+                // Crea la card para el evento
                 Panel card = CrearCard(evento);
+                card.Location = new Point(x, y); // Posiciona la card en el panel
 
-                card.Location = new Point(x, y);
+                panelEventos.Controls.Add(card); // Añade la card al panel
 
-                panelEventos.Controls.Add(card);
+                columna++; // Incrementa el contador de columnas
 
-                columna++;
-
+                // Organiza las cards en filas de 3
                 if (columna == 3)
                 {
-                    columna = 0;
-                    x = 10;
-                    y += card.Height + espacioY;
+                    columna = 0; // Reinicia el contador de columnas
+                    x = 10; // Reinicia la posición X
+                    y += card.Height + espacioY; // Baja a la siguiente fila
                 }
                 else
                 {
-                    x += cardWidth + espacioX;
+                    x += cardWidth + espacioX; // Pone la siguiente card en la misma fila
                 }
             }
 
-            reader.Close();
-            con.CerrarConexion();
+            reader.Close(); // Cierra el lector
+            con.CerrarConexion(); // Cierra la conexión a la base de datos
         }
 
+        // Método que crea una card visualmente para mostrar los detalles del evento
         private Panel CrearCard(Evento evento)
         {
             Panel card = new Panel
             {
-                Width = 350,
-                Height = 240,
-                BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle
+                Width = 350, // Ancho de la card
+                Height = 240, // Alto de la card
+                BackColor = Color.White, // Color de fondo blanco
+                BorderStyle = BorderStyle.FixedSingle // Borde simple
             };
 
+            // Título del evento
             Label lblTitulo = new Label
             {
                 Text = evento.Titulo,
@@ -148,6 +157,7 @@ namespace LinkIT_
                 AutoSize = true
             };
 
+            // Estado del evento (Disponible, Finalizado, Cancelado)
             Label lblEstado = new Label
             {
                 Text = evento.Estado,
@@ -158,6 +168,7 @@ namespace LinkIT_
                 ForeColor = colorVerde
             };
 
+            // Descripción del evento
             Label lblDescripcion = new Label
             {
                 Text = evento.Descripcion,
@@ -167,6 +178,7 @@ namespace LinkIT_
                 Size = new Size(310, 40)
             };
 
+            // Fecha del evento
             Label lblFecha = new Label
             {
                 Text = $"📅 {evento.Fecha:yyyy-MM-dd}",
@@ -176,6 +188,7 @@ namespace LinkIT_
                 AutoSize = true
             };
 
+            // Hora de inicio y fin del evento
             Label lblHora = new Label
             {
                 Text = $"🕒 {evento.HoraInicio:hh\\:mm}-{evento.HoraFin:hh\\:mm}",
@@ -185,6 +198,7 @@ namespace LinkIT_
                 AutoSize = true
             };
 
+            // Inscripción actual
             Label lblInscriptos = new Label
             {
                 Text = $"👥 {evento.Inscriptos}/{evento.Capacidad}",
@@ -194,6 +208,7 @@ namespace LinkIT_
                 AutoSize = true
             };
 
+            // Barra de progreso de ocupación
             ProgressBar progress = new ProgressBar
             {
                 Width = 300,
@@ -203,6 +218,7 @@ namespace LinkIT_
                 Value = evento.PorcentajeOcupacion
             };
 
+            // Botón para inscribirse al evento
             Button btnUnirme = new Button
             {
                 Text = "Inscribirme",
@@ -214,7 +230,7 @@ namespace LinkIT_
                 FlatStyle = FlatStyle.Flat
             };
 
-            // verificar si ya está inscripto
+            // Verificar si el usuario ya está inscrito
             Conexion con = new Conexion();
             SqlCommand check = new SqlCommand(@"
             SELECT COUNT(*) 
@@ -229,13 +245,14 @@ namespace LinkIT_
 
             con.CerrarConexion();
 
+            // Si el usuario ya está inscrito, desactivar el botón
             if (existe > 0)
             {
                 btnUnirme.Enabled = false;
                 btnUnirme.Visible = false;
-                
             }
 
+            // Acción para inscribirse al evento
             btnUnirme.Click += (s, e) =>
             {
                 Conexion con2 = new Conexion();
@@ -248,15 +265,16 @@ namespace LinkIT_
                 cmd.Parameters.AddWithValue("@usuario", Login.Sesion.IdUsuario);
                 cmd.Parameters.AddWithValue("@evento", evento.IdEvento);
 
-                cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery(); // Ejecuta la inscripción
 
                 con2.CerrarConexion();
 
                 MessageBox.Show("Te inscribiste al evento");
 
-                CargarEventos();
+                CargarEventos(); // Recarga los eventos
             };
 
+            // Añadir los controles a la card
             card.Controls.Add(lblTitulo);
             card.Controls.Add(lblEstado);
             card.Controls.Add(lblDescripcion);
@@ -266,17 +284,13 @@ namespace LinkIT_
             card.Controls.Add(progress);
             card.Controls.Add(btnUnirme);
 
-            card.Layout += (s, e) =>
-            {
-                lblEstado.Location = new Point(lblTitulo.Right + 10, lblTitulo.Top);
-            };
-
-            return card;
+            return card; // Retorna la card
         }
 
+        // Evento que maneja el texto del buscador
         private void bBuscador_TextChanged(object sender, EventArgs e)
         {
-            CargarEventos(textBoxBucar.Text);
+            CargarEventos(textBoxBucar.Text); // Filtra los eventos según el texto ingresado
         }
     }
 }

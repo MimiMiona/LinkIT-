@@ -11,11 +11,13 @@ namespace LinkIT_
     {
         private Color colorGrisTexto = Color.FromArgb(100, 100, 100);
 
+        // Constructor del UserControl
         public UCDashboard()
         {
             InitializeComponent();
         }
 
+        // Cargar los indicadores y gráficos cuando el dashboard se carga
         private void UCDashboard_Load(object sender, EventArgs e)
         {
             labelSubtitulo.ForeColor = colorGrisTexto;
@@ -30,11 +32,11 @@ namespace LinkIT_
             CargarEventoMayorAsistencia();
             CargarTasaOcupacion();
 
-            // Carga de gráficos (Estructura mejorada)
+            // Cargar los gráficos de eventos y asistencia
             CargarGraficosDashboard();
         }
 
-
+        // Cargar el total de eventos
         private void CargarTotalEventos()
         {
             Conexion con = new Conexion();
@@ -43,6 +45,7 @@ namespace LinkIT_
             con.CerrarConexion();
         }
 
+        // Cargar el total de eventos activos
         private void CargarEventosActivos()
         {
             Conexion con = new Conexion();
@@ -51,6 +54,7 @@ namespace LinkIT_
             con.CerrarConexion();
         }
 
+        // Cargar el total de eventos finalizados
         private void CargarEventosFinalizados()
         {
             Conexion con = new Conexion();
@@ -59,6 +63,7 @@ namespace LinkIT_
             con.CerrarConexion();
         }
 
+        // Cargar el total de usuarios registrados
         private void CargarUsuarios()
         {
             Conexion con = new Conexion();
@@ -67,6 +72,7 @@ namespace LinkIT_
             con.CerrarConexion();
         }
 
+        // Cargar el total de solicitudes pendientes
         private void CargarSolicitudes()
         {
             Conexion con = new Conexion();
@@ -75,6 +81,7 @@ namespace LinkIT_
             con.CerrarConexion();
         }
 
+        // Cargar el total de jefes de eventos
         private void CargarJefesEventos()
         {
             Conexion con = new Conexion();
@@ -83,6 +90,7 @@ namespace LinkIT_
             con.CerrarConexion();
         }
 
+        // Cargar el evento con mayor asistencia
         private void CargarEventoMayorAsistencia()
         {
             Conexion con = new Conexion();
@@ -98,12 +106,12 @@ namespace LinkIT_
             con.CerrarConexion();
         }
 
+        // Cargar la tasa de ocupación de eventos
         private void CargarTasaOcupacion()
         {
             try
             {
                 Conexion con = new Conexion();
-                // Cálculo corregido: COUNT en lugar de SUM de IDs
                 SqlCommand cmd = new SqlCommand(@"
                     SELECT 
                         ISNULL(CAST(COUNT(I.id_inscripcion) AS FLOAT) * 100 / 
@@ -114,16 +122,20 @@ namespace LinkIT_
                 labelSubtituloTasaOcupacion.Text = Math.Round(tasa, 2) + " %";
                 con.CerrarConexion();
             }
-            catch { labelSubtituloTasaOcupacion.Text = "0 %"; }
+            catch
+            {
+                labelSubtituloTasaOcupacion.Text = "0 %"; // En caso de error, mostrar 0%
+            }
         }
 
+        // Cargar los gráficos del dashboard
         private void CargarGraficosDashboard()
         {
             if (chartEventosMes == null || chartAsistenciaMensual == null) return;
 
             try
             {
-                // Limpieza segura
+                // Limpieza segura de gráficos previos
                 chartEventosMes.Series.Clear();
                 chartEventosMes.Legends.Clear();
                 chartAsistenciaMensual.Series.Clear();
@@ -157,19 +169,18 @@ namespace LinkIT_
                             int mes = Convert.ToInt32(dr["MesNumero"]);
                             int total = Convert.ToInt32(dr["Total"]);
                             serieMes.Points.AddXY(mes, total);
-                            
                         }
                     }
                 }
 
                 chartEventosMes.Series.Add(serieMes);
 
-                // Configuración del eje
+                // Configuración de los ejes
                 chartEventosMes.ChartAreas[0].AxisX.Title = "Meses";
                 chartEventosMes.ChartAreas[0].AxisY.Title = "Cantidad de Eventos";
                 chartEventosMes.ChartAreas[0].RecalculateAxesScale();
 
-                // --- GRÁFICO TORTA (NO TOCADO) ---
+                // --- GRÁFICO TORTA (Eventos por asistencia) ---
                 Series serieTorta = new Series("EventosTorta")
                 {
                     ChartType = SeriesChartType.Pie,
@@ -203,18 +214,19 @@ namespace LinkIT_
 
                 chartAsistenciaMensual.Series.Add(serieTorta);
 
-                Legend leg = new Legend("Legend1");
-                leg.Docking = Docking.Right;
+                // Configuración de la leyenda para el gráfico de torta
+                Legend leg = new Legend("Legend1")
+                {
+                    Docking = Docking.Right
+                };
 
                 chartAsistenciaMensual.Legends.Add(leg);
                 serieTorta.Legend = "Legend1";
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message); // Mostrar mensaje en caso de error
             }
         }
-
-
     }
 }

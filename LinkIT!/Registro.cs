@@ -11,16 +11,18 @@ namespace LinkIT_
     {
         public Registro()
         {
-            InitializeComponent();
+            InitializeComponent();  // Inicializa los componentes del formulario
         }
 
+        // Evento que se dispara cuando se hace clic en el botón "Volver"
         private void bVolver_Click(object sender, EventArgs e)
         {
             Login login = new Login();
-            login.Show();
-            this.Close();
+            login.Show();  // Abre el formulario de Login
+            this.Close();  // Cierra el formulario de Registro
         }
 
+        // Evento que se dispara cuando se hace clic en el botón "Guardar"
         private void bGuardar_Click(object sender, EventArgs e)
         {
             string nombre = textNombre.Text.Trim();
@@ -117,8 +119,8 @@ namespace LinkIT_
                 MessageBox.Show("Solicitud enviada. Debe ser aprobada por un administrador.");
 
                 Login login = new Login();
-                login.Show();
-                this.Close();
+                login.Show();  // Abre el formulario de Login
+                this.Close();  // Cierra el formulario de Registro
             }
             catch (Exception ex)
             {
@@ -126,6 +128,7 @@ namespace LinkIT_
             }
         }
 
+        // Método para hashear la contraseña con SHA256
         private string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -142,6 +145,7 @@ namespace LinkIT_
             }
         }
 
+        // Evento que se dispara cuando se hace clic en el botón "Limpiar"
         private void bLimpiar_Click(object sender, EventArgs e)
         {
             textNombre.Clear();

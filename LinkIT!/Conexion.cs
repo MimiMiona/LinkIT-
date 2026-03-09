@@ -5,9 +5,11 @@ namespace LinkIT_
 {
     public class Conexion
     {
+        // Cadena de conexión a la base de datos LinkIT
         private SqlConnection conexion = new SqlConnection(
             @"Server=localhost\SQLEXPRESS;Database=LinkIT;Trusted_Connection=True;TrustServerCertificate=True;");
 
+        // Método para abrir la conexión a la base de datos
         public SqlConnection AbrirConexion()
         {
             if (conexion.State == System.Data.ConnectionState.Closed)
@@ -15,6 +17,7 @@ namespace LinkIT_
             return conexion;
         }
 
+        // Método para cerrar la conexión a la base de datos
         public SqlConnection CerrarConexion()
         {
             if (conexion.State == System.Data.ConnectionState.Open)
@@ -22,6 +25,7 @@ namespace LinkIT_
             return conexion;
         }
 
+        // Método para realizar un backup de la base de datos LinkIT
         public void HacerBackup(string ruta)
         {
             SqlConnection conn = new SqlConnection(
@@ -37,6 +41,7 @@ namespace LinkIT_
             conn.Close();
         }
 
+        // Método para restaurar la base de datos LinkIT desde un backup
         public void RestoreBackup(string ruta)
         {
             SqlConnection conn = new SqlConnection(
