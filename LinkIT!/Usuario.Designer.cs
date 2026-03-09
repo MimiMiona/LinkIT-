@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            bBuscador = new Button();
             lblUsuario = new Label();
             buttonCalendario = new Button();
-            buttonInscriptos = new Button();
+            BotonMisEventos = new Button();
             panel3 = new Panel();
             label1 = new Label();
             buttonCerrarSesion = new Button();
-            BotonMisEventos = new Button();
+            BotonExplorarEventos = new Button();
             panel2 = new Panel();
             Nombre = new Label();
             pictureBox1 = new PictureBox();
             panelUsuario = new Panel();
-            bConsultas = new Button();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -50,18 +50,33 @@
             // panel1
             // 
             panel1.BackColor = Color.MintCream;
-            panel1.Controls.Add(bConsultas);
+            panel1.Controls.Add(bBuscador);
             panel1.Controls.Add(lblUsuario);
             panel1.Controls.Add(buttonCalendario);
-            panel1.Controls.Add(buttonInscriptos);
+            panel1.Controls.Add(BotonMisEventos);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(buttonCerrarSesion);
-            panel1.Controls.Add(BotonMisEventos);
+            panel1.Controls.Add(BotonExplorarEventos);
             panel1.Controls.Add(panel2);
             panel1.Location = new Point(1, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(208, 694);
             panel1.TabIndex = 1;
+            // 
+            // bBuscador
+            // 
+            bBuscador.BackColor = Color.MediumSeaGreen;
+            bBuscador.FlatAppearance.BorderSize = 0;
+            bBuscador.FlatStyle = FlatStyle.Flat;
+            bBuscador.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bBuscador.ForeColor = Color.White;
+            bBuscador.Location = new Point(11, 214);
+            bBuscador.Name = "bBuscador";
+            bBuscador.Size = new Size(169, 33);
+            bBuscador.TabIndex = 11;
+            bBuscador.Text = "📎Consultas";
+            bBuscador.UseVisualStyleBackColor = false;
+            bBuscador.Click += bConsultas_Click;
             // 
             // lblUsuario
             // 
@@ -86,21 +101,22 @@
             buttonCalendario.TabIndex = 8;
             buttonCalendario.Text = "🗓️ Calendario";
             buttonCalendario.UseVisualStyleBackColor = false;
+            buttonCalendario.Click += buttonCalendario_Click;
             // 
-            // buttonInscriptos
+            // BotonMisEventos
             // 
-            buttonInscriptos.BackColor = Color.MediumSeaGreen;
-            buttonInscriptos.FlatAppearance.BorderSize = 0;
-            buttonInscriptos.FlatStyle = FlatStyle.Flat;
-            buttonInscriptos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonInscriptos.ForeColor = Color.White;
-            buttonInscriptos.Location = new Point(11, 136);
-            buttonInscriptos.Name = "buttonInscriptos";
-            buttonInscriptos.Size = new Size(169, 33);
-            buttonInscriptos.TabIndex = 7;
-            buttonInscriptos.Text = "❤️ Mis Eventos";
-            buttonInscriptos.UseVisualStyleBackColor = false;
-            buttonInscriptos.Click += buttonInscriptos_Click;
+            BotonMisEventos.BackColor = Color.MediumSeaGreen;
+            BotonMisEventos.FlatAppearance.BorderSize = 0;
+            BotonMisEventos.FlatStyle = FlatStyle.Flat;
+            BotonMisEventos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BotonMisEventos.ForeColor = Color.White;
+            BotonMisEventos.Location = new Point(11, 136);
+            BotonMisEventos.Name = "BotonMisEventos";
+            BotonMisEventos.Size = new Size(169, 33);
+            BotonMisEventos.TabIndex = 7;
+            BotonMisEventos.Text = "❤️ Mis Eventos";
+            BotonMisEventos.UseVisualStyleBackColor = false;
+            BotonMisEventos.Click += BotonMisEventos_Click;
             // 
             // panel3
             // 
@@ -134,20 +150,20 @@
             buttonCerrarSesion.UseVisualStyleBackColor = false;
             buttonCerrarSesion.Click += buttonCerrarSesion_Click;
             // 
-            // BotonMisEventos
+            // BotonExplorarEventos
             // 
-            BotonMisEventos.BackColor = Color.MediumSeaGreen;
-            BotonMisEventos.FlatAppearance.BorderSize = 0;
-            BotonMisEventos.FlatStyle = FlatStyle.Flat;
-            BotonMisEventos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BotonMisEventos.ForeColor = Color.White;
-            BotonMisEventos.Location = new Point(11, 97);
-            BotonMisEventos.Name = "BotonMisEventos";
-            BotonMisEventos.Size = new Size(169, 33);
-            BotonMisEventos.TabIndex = 0;
-            BotonMisEventos.Text = "🔍 Explorar Eventos ";
-            BotonMisEventos.UseVisualStyleBackColor = true;
-            BotonMisEventos.Click += BotonMisEventos_Click;
+            BotonExplorarEventos.BackColor = Color.MediumSeaGreen;
+            BotonExplorarEventos.FlatAppearance.BorderSize = 0;
+            BotonExplorarEventos.FlatStyle = FlatStyle.Flat;
+            BotonExplorarEventos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BotonExplorarEventos.ForeColor = Color.White;
+            BotonExplorarEventos.Location = new Point(11, 97);
+            BotonExplorarEventos.Name = "BotonExplorarEventos";
+            BotonExplorarEventos.Size = new Size(169, 33);
+            BotonExplorarEventos.TabIndex = 0;
+            BotonExplorarEventos.Text = "🔍 Explorar Eventos ";
+            BotonExplorarEventos.UseVisualStyleBackColor = true;
+            BotonExplorarEventos.Click += BotonExplorarEventos_Click;
             // 
             // panel2
             // 
@@ -185,21 +201,6 @@
             panelUsuario.Size = new Size(1173, 697);
             panelUsuario.TabIndex = 2;
             // 
-            // bConsultas
-            // 
-            bConsultas.BackColor = Color.MediumSeaGreen;
-            bConsultas.FlatAppearance.BorderSize = 0;
-            bConsultas.FlatStyle = FlatStyle.Flat;
-            bConsultas.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bConsultas.ForeColor = Color.White;
-            bConsultas.Location = new Point(11, 214);
-            bConsultas.Name = "bConsultas";
-            bConsultas.Size = new Size(169, 33);
-            bConsultas.TabIndex = 11;
-            bConsultas.Text = "📎Consultas";
-            bConsultas.UseVisualStyleBackColor = false;
-            bConsultas.Click += bConsultas_Click;
-            // 
             // Usuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -226,9 +227,9 @@
 
         private Panel panel1;
         private Button buttonCalendario;
-        private Button buttonInscriptos;
-        private Button buttonCerrarSesion;
         private Button BotonMisEventos;
+        private Button buttonCerrarSesion;
+        private Button BotonExplorarEventos;
         private Panel panel2;
         private Label Nombre;
         private PictureBox pictureBox1;
@@ -237,5 +238,6 @@
         private Panel panel3;
         private Label label1;
         private Button bConsultas;
+        private Button bBuscador;
     }
 }

@@ -42,6 +42,8 @@
             labelClave = new Label();
             label3 = new Label();
             label4 = new Label();
+            button1 = new Button();
+            textBoxBuscar = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -72,6 +74,7 @@
             textClave.Name = "textClave";
             textClave.Size = new Size(324, 23);
             textClave.TabIndex = 3;
+            textClave.UseSystemPasswordChar = true;
             // 
             // bGuardar
             // 
@@ -93,12 +96,12 @@
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.BackgroundColor = Color.Khaki;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 243);
+            dataGridView1.Location = new Point(12, 290);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(1128, 422);
+            dataGridView1.Size = new Size(1138, 388);
             dataGridView1.TabIndex = 5;
             dataGridView1.CellClick += dataGridView1_CellClick;
             // 
@@ -190,11 +193,38 @@
             label4.TabIndex = 13;
             label4.Text = "Correo";
             // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.Window;
+            button1.Enabled = false;
+            button1.FlatStyle = FlatStyle.Popup;
+            button1.ForeColor = SystemColors.ControlText;
+            button1.Location = new Point(1104, 259);
+            button1.Margin = new Padding(0);
+            button1.Name = "button1";
+            button1.Size = new Size(46, 25);
+            button1.TabIndex = 15;
+            button1.TabStop = false;
+            button1.Text = "🔍";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // textBoxBuscar
+            // 
+            textBoxBuscar.Font = new Font("Segoe UI", 10F);
+            textBoxBuscar.ForeColor = SystemColors.ActiveCaptionText;
+            textBoxBuscar.Location = new Point(12, 259);
+            textBoxBuscar.Name = "textBoxBuscar";
+            textBoxBuscar.Size = new Size(1067, 25);
+            textBoxBuscar.TabIndex = 14;
+            textBoxBuscar.TextChanged += textBoxBuscar_TextChanged;
+            // 
             // UCUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Ivory;
+            Controls.Add(button1);
+            Controls.Add(textBoxBuscar);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(labelClave);
@@ -232,5 +262,7 @@
         private Label labelClave;
         private Label label3;
         private Label label4;
+        private Button button1;
+        private TextBox textBoxBuscar;
     }
 }

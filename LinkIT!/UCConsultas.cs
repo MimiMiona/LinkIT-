@@ -1,44 +1,47 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace LinkIT_
 {
     public partial class UCConsultas : UserControl
     {
+      
+        private bool mostrandoPendientes = true;
+        private DataTable consultasDT;
         public UCConsultas()
         {
             InitializeComponent();
-            InicializarDataGridView(); // Configurar columnas al inicio
+            InicializarDataGridView();
             CargarConsultas();
         }
 
-        // Configura las columnas del DataGridView
         private void InicializarDataGridView()
         {
             dataGridView1.Columns.Clear();
             dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.AllowUserToAddRows = false; // Evitar fila vacía al final
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // Columna Nombre
             DataGridViewTextBoxColumn colNombre = new DataGridViewTextBoxColumn();
             colNombre.Name = "Nombre";
             colNombre.HeaderText = "Nombre";
-            colNombre.DataPropertyName = "Nombre";
             colNombre.ReadOnly = true;
             dataGridView1.Columns.Add(colNombre);
 
-            // Columna Estado
+            DataGridViewTextBoxColumn colCorreo = new DataGridViewTextBoxColumn();
+            colCorreo.Name = "Correo";
+            colCorreo.HeaderText = "Correo";
+            colCorreo.ReadOnly = true;
+            dataGridView1.Columns.Add(colCorreo);
+
             DataGridViewTextBoxColumn colEstado = new DataGridViewTextBoxColumn();
             colEstado.Name = "Estado";
             colEstado.HeaderText = "Estado";
-            colEstado.DataPropertyName = "Estado";
             colEstado.ReadOnly = true;
             dataGridView1.Columns.Add(colEstado);
 
-            // Columna Ver (Botón)
             DataGridViewButtonColumn colVer = new DataGridViewButtonColumn();
             colVer.Name = "Accion";
             colVer.HeaderText = "Acción";
@@ -46,65 +49,146 @@ namespace LinkIT_
             colVer.UseColumnTextForButtonValue = true;
             dataGridView1.Columns.Add(colVer);
 
-            // Evento para click en botones
             dataGridView1.CellClick += dataGridView1_CellClick;
         }
 
         private void CargarConsultas()
         {
+            dataGridView1.Rows.Clear();
+
+            // Creamos el DataTable para guardar los datos y filtrar
+            consultasDT = new DataTable();
+            consultasDT.Columns.Add("Nombre", typeof(string));
+            consultasDT.Columns.Add("Correo", typeof(string));
+            consultasDT.Columns.Add("Estado", typeof(string));
+            consultasDT.Columns.Add("idConsulta", typeof(int));
+            consultasDT.Columns.Add("descripcion", typeof(string));
+
             Conexion con = new Conexion();
 
+            string estado = mostrandoPendientes ? "pendiente" : "atendida";
+
             SqlCommand cmd = new SqlCommand(@"
-    SELECT c.id_consulta, u.nombre, c.descripcion, c.estado
-    FROM Consulta c
-    INNER JOIN Usuario u ON c.id_usuario = u.id_usuario
-    ORDER BY c.estado", con.AbrirConexion());
+            SELECT c.id_consulta, u.nombre, u.correo, c.descripcion, c.estado
+            FROM Consulta c
+            INNER JOIN Usuario u ON c.id_usuario = u.id_usuario
+            WHERE c.estado = @estado
+            ORDER BY c.id_consulta DESC
+            ", con.AbrirConexion());
+
+            cmd.Parameters.AddWithValue("@estado", estado);
 
             SqlDataReader reader = cmd.ExecuteReader();
 
+            bool hayDatos = false;
+
             while (reader.Read())
             {
+                hayDatos = true;
+
+                string nombre = reader["nombre"].ToString();
+                string correo = reader["correo"].ToString();
+                string estadoRow = reader["estado"].ToString();
+                int idConsulta = Convert.ToInt32(reader["id_consulta"]);
+                string descripcion = reader["descripcion"].ToString();
+
                 int fila = dataGridView1.Rows.Add(
-                    reader["nombre"].ToString(),
-                    reader["estado"].ToString()
+                    nombre,
+                    correo,
+                    estadoRow
+
                 );
 
                 dataGridView1.Rows[fila].Tag = new
                 {
-                    idConsulta = Convert.ToInt32(reader["id_consulta"]),
-                    descripcion = reader["descripcion"].ToString()
+                    idConsulta = idConsulta,
+                    descripcion = descripcion
                 };
+                consultasDT.Rows.Add(nombre, correo, estadoRow, idConsulta, descripcion);
             }
 
             reader.Close();
             con.CerrarConexion();
-        }
-        
 
-        // Evento cuando se hace click en el botón "Ver"
+            // ocultar tabla si no hay datos
+            dataGridView1.Visible = hayDatos;
+        }
+
+        private void textBoxBuscar_TextChanged(object sender, EventArgs e)
+        {
+            if (consultasDT == null) return;
+
+            string filtro = textBoxBuscar.Text.Trim().ToLower();
+
+            dataGridView1.Rows.Clear();
+
+            foreach (DataRow row in consultasDT.Rows)
+            {
+                string nombre = row["Nombre"].ToString().ToLower();
+                string correo = row["Correo"].ToString().ToLower();
+                string estado = row["Estado"].ToString().ToLower();
+
+                if (nombre.Contains(filtro) || correo.Contains(filtro) || estado.Contains(filtro))
+                {
+                    int fila = dataGridView1.Rows.Add(
+                        row["Nombre"],
+                        row["Correo"],
+                        row["Estado"]
+                    );
+
+                    dataGridView1.Rows[fila].Tag = new
+                    {
+                        idConsulta = (int)row["idConsulta"],
+                        descripcion = row["descripcion"].ToString()
+                    };
+                }
+            }
+
+            // ocultar tabla si no hay datos filtrados
+            dataGridView1.Visible = dataGridView1.Rows.Count > 0;
+        }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return; // Evitar cabecera
+            if (e.RowIndex < 0) return;
+            if (dataGridView1.Columns[e.ColumnIndex].Name != "Accion") return;
 
-            if (dataGridView1.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
-            {
-                var datos = dataGridView1.Rows[e.RowIndex].Tag;
-                dynamic consulta = datos;
+            var datos = dataGridView1.Rows[e.RowIndex].Tag;
+            if (datos == null) return;
 
-                FormVerConsulta form = new FormVerConsulta(
-                    consulta.idConsulta,
-                    consulta.descripcion
-                );
+            dynamic consulta = datos;
 
-                form.ShowDialog();
+            FormVerConsulta form = new FormVerConsulta(
+                consulta.idConsulta,
+                consulta.descripcion,
+                dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(),
+                dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString(),
+                dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString()
+            );
 
-                // Recargar después de cerrar
-                CargarConsultas();
-            }
+            form.ShowDialog();
+
+            // recargar luego de atender
+            CargarConsultas();
         }
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
+        private void bMostrar_Click(object sender, EventArgs e)
+        {
+            // alternar entre pendientes y atendidas
+            mostrandoPendientes = !mostrandoPendientes;
+
+            if (mostrandoPendientes)
+            {
+                bMostrar.Text = "Mostrar atendidas";
+                labelSinConsultas.Text = "No Hay Consultas Pendientes";
+            }
+            else
+            {
+                bMostrar.Text = "Mostrar pendientes";
+                labelSinConsultas.Text = "No Hay Consultas Atendidas";
+            }
+    
+            CargarConsultas();
         }
     }
 }

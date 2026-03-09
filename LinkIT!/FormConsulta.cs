@@ -50,5 +50,10 @@ namespace LinkIT_
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
+        private void bCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

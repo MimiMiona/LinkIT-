@@ -29,31 +29,21 @@
         private void InitializeComponent()
         {
             textBoxBucar = new TextBox();
-            flowEventos = new FlowLayoutPanel();
             label1 = new Label();
             labelSubtitulo = new Label();
+            panelEventos = new Panel();
+            button1 = new Button();
             SuspendLayout();
             // 
             // textBoxBucar
             // 
             textBoxBucar.Font = new Font("Segoe UI", 10F);
-            textBoxBucar.ForeColor = SystemColors.AppWorkspace;
+            textBoxBucar.ForeColor = SystemColors.ActiveCaptionText;
             textBoxBucar.Location = new Point(23, 90);
             textBoxBucar.Name = "textBoxBucar";
-            textBoxBucar.Size = new Size(1118, 25);
+            textBoxBucar.Size = new Size(1054, 25);
             textBoxBucar.TabIndex = 6;
-            textBoxBucar.Text = "🔍 Buscar eventos por titulos o descripcion...";
-            // 
-            // flowEventos
-            // 
-            flowEventos.AutoScroll = true;
-            flowEventos.BackColor = Color.Ivory;
-            flowEventos.FlowDirection = FlowDirection.TopDown;
-            flowEventos.Location = new Point(0, 120);
-            flowEventos.Name = "flowEventos";
-            flowEventos.Size = new Size(1173, 697);
-            flowEventos.TabIndex = 7;
-            flowEventos.WrapContents = false;
+            textBoxBucar.TextChanged += bBuscador_TextChanged;
             // 
             // label1
             // 
@@ -76,13 +66,36 @@
             labelSubtitulo.TabIndex = 8;
             labelSubtitulo.Text = "Descubre los eventos disponibles y unete a los que te interesen";
             // 
+            // panelEventos
+            // 
+            panelEventos.Location = new Point(23, 121);
+            panelEventos.Name = "panelEventos";
+            panelEventos.Size = new Size(1118, 551);
+            panelEventos.TabIndex = 9;
+            // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.Window;
+            button1.Enabled = false;
+            button1.FlatStyle = FlatStyle.Popup;
+            button1.ForeColor = SystemColors.ControlText;
+            button1.Location = new Point(1083, 90);
+            button1.Margin = new Padding(0);
+            button1.Name = "button1";
+            button1.Size = new Size(46, 25);
+            button1.TabIndex = 10;
+            button1.TabStop = false;
+            button1.Text = "🔍";
+            button1.UseVisualStyleBackColor = false;
+            // 
             // UCExplorarEventos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(button1);
+            Controls.Add(panelEventos);
             Controls.Add(labelSubtitulo);
             Controls.Add(label1);
-            Controls.Add(flowEventos);
             Controls.Add(textBoxBucar);
             Name = "UCExplorarEventos";
             Size = new Size(1173, 697);
@@ -93,8 +106,9 @@
 
         #endregion
         private TextBox textBoxBucar;
-        private FlowLayoutPanel flowEventos;
         private Label label1;
         private Label labelSubtitulo;
+        private Panel panelEventos;
+        private Button button1;
     }
 }

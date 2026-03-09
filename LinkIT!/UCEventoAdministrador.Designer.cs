@@ -31,6 +31,8 @@
             labelSubtitulo = new Label();
             labelTitulo = new Label();
             panelEventos = new Panel();
+            button1 = new Button();
+            textBoxBuscar = new TextBox();
             SuspendLayout();
             // 
             // labelSubtitulo
@@ -58,17 +60,44 @@
             // 
             panelEventos.AutoScroll = true;
             panelEventos.BackColor = Color.White;
-            panelEventos.Location = new Point(0, 101);
+            panelEventos.Location = new Point(0, 133);
             panelEventos.Name = "panelEventos";
-            panelEventos.Size = new Size(1173, 593);
+            panelEventos.Size = new Size(1173, 561);
             panelEventos.TabIndex = 13;
+            // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.Window;
+            button1.Enabled = false;
+            button1.FlatStyle = FlatStyle.Popup;
+            button1.ForeColor = SystemColors.ControlText;
+            button1.Location = new Point(1088, 102);
+            button1.Margin = new Padding(0);
+            button1.Name = "button1";
+            button1.Size = new Size(46, 25);
+            button1.TabIndex = 15;
+            button1.TabStop = false;
+            button1.Text = "🔍";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // textBoxBuscar
+            // 
+            textBoxBuscar.Font = new Font("Segoe UI", 10F);
+            textBoxBuscar.ForeColor = SystemColors.ActiveCaptionText;
+            textBoxBuscar.Location = new Point(20, 102);
+            textBoxBuscar.Name = "textBoxBuscar";
+            textBoxBuscar.Size = new Size(1054, 25);
+            textBoxBuscar.TabIndex = 14;
+            textBoxBuscar.TextChanged += textBoxBuscar_TextChanged;
             // 
             // UCEventoAdministrador
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
+            Controls.Add(button1);
             Controls.Add(panelEventos);
+            Controls.Add(textBoxBuscar);
             Controls.Add(labelSubtitulo);
             Controls.Add(labelTitulo);
             Name = "UCEventoAdministrador";
@@ -83,5 +112,7 @@
         private Label labelSubtitulo;
         private Label labelTitulo;
         private Panel panelEventos;
+        private Button button1;
+        private TextBox textBoxBuscar;
     }
 }

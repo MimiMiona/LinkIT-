@@ -28,40 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            monthCalendar1 = new MonthCalendar();
-            listBox1 = new ListBox();
-            panel1 = new Panel();
+            CalendarioEvento = new MonthCalendar();
+            panelEventos = new Panel();
             labelPrincipal = new Label();
             labelSubtitulo = new Label();
-            panel1.SuspendLayout();
+            panel2 = new Panel();
+            labelEventosDia = new Label();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
-            // monthCalendar1
+            // CalendarioEvento
             // 
-            monthCalendar1.CalendarDimensions = new Size(3, 4);
-            monthCalendar1.Location = new Point(9, 85);
-            monthCalendar1.MaxDate = new DateTime(2026, 12, 31, 0, 0, 0, 0);
-            monthCalendar1.MinDate = new DateTime(2026, 1, 1, 0, 0, 0, 0);
-            monthCalendar1.Name = "monthCalendar1";
-            monthCalendar1.ShowToday = false;
-            monthCalendar1.TabIndex = 0;
-            monthCalendar1.DateChanged += monthCalendar1_DateChanged;
+            CalendarioEvento.CalendarDimensions = new Size(3, 4);
+            CalendarioEvento.Location = new Point(9, 85);
+            CalendarioEvento.MaxDate = new DateTime(2026, 12, 31, 0, 0, 0, 0);
+            CalendarioEvento.MinDate = new DateTime(2026, 1, 1, 0, 0, 0, 0);
+            CalendarioEvento.Name = "CalendarioEvento";
+            CalendarioEvento.ShowToday = false;
+            CalendarioEvento.TabIndex = 0;
+            CalendarioEvento.DateChanged += monthCalendar1_DateChanged;
             // 
-            // listBox1
+            // panelEventos
             // 
-            listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(10, 0);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(397, 544);
-            listBox1.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(listBox1);
-            panel1.Location = new Point(730, 115);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(407, 544);
-            panel1.TabIndex = 2;
+            panelEventos.AutoScroll = true;
+            panelEventos.Location = new Point(0, 50);
+            panelEventos.Name = "panelEventos";
+            panelEventos.Size = new Size(410, 497);
+            panelEventos.TabIndex = 2;
             // 
             // labelPrincipal
             // 
@@ -84,29 +77,54 @@
             labelSubtitulo.TabIndex = 4;
             labelSubtitulo.Text = "Vista anual de eventos programados";
             // 
+            // panel2
+            // 
+            panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(labelEventosDia);
+            panel2.Controls.Add(panelEventos);
+            panel2.Location = new Point(710, 118);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(408, 544);
+            panel2.TabIndex = 5;
+            // 
+            // labelEventosDia
+            // 
+            labelEventosDia.AutoSize = true;
+            labelEventosDia.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelEventosDia.ForeColor = SystemColors.ActiveCaptionText;
+            labelEventosDia.Location = new Point(14, 17);
+            labelEventosDia.Name = "labelEventosDia";
+            labelEventosDia.Size = new Size(89, 20);
+            labelEventosDia.TabIndex = 6;
+            labelEventosDia.Text = "Eventos del";
+            // 
             // UCCalendario
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.Ivory;
+            Controls.Add(panel2);
             Controls.Add(labelSubtitulo);
             Controls.Add(labelPrincipal);
-            Controls.Add(panel1);
-            Controls.Add(monthCalendar1);
+            Controls.Add(CalendarioEvento);
             Name = "UCCalendario";
             Size = new Size(1173, 697);
             Load += UCCalendario_Load;
-            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private MonthCalendar monthCalendar1;
-        private ListBox listBox1;
+        private MonthCalendar CalendarioEvento;
+        private ListBox listEventos;
         private Panel panel1;
         private Label labelPrincipal;
         private Label labelSubtitulo;
+        private Panel panelEventos;
+        private Panel panel2;
+        private Label labelEventosDia;
     }
 }

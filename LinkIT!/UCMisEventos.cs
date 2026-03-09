@@ -11,7 +11,7 @@ namespace LinkIT_
         private string rolVista;
         private Color colorVerdePrincipal = Color.MediumSeaGreen;
         private Color colorGrisTexto = Color.FromArgb(100, 100, 100);
-
+        private List<Evento> eventosLista;
         public UCMisEventos(string rol)
         {
             InitializeComponent();
@@ -24,7 +24,33 @@ namespace LinkIT_
             CargarEventos();
         }
 
+        private void textBoxBuscar_TextChanged(object sender, EventArgs e)
+        {
+            if (eventosLista == null)
+                return;
 
+            string filtro = textBoxBuscar.Text.Trim().ToLower();
+
+            panelEventos.Controls.Clear();
+
+            int y = 10;
+            bool hayEventosFiltrados = false;
+
+            foreach (var evento in eventosLista)
+            {
+                if (evento.Titulo.ToLower().Contains(filtro) || evento.Descripcion.ToLower().Contains(filtro))
+                {
+                    Panel card = CrearCard(evento);
+                    card.Location = new Point(10, y);
+                    panelEventos.Controls.Add(card);
+                    y += card.Height + 10;
+                    hayEventosFiltrados = true;
+                }
+            }
+
+            if (!hayEventosFiltrados)
+                MostrarMensajeSinEventos();
+        }
 
         private void ConfigurarCabecera()
         {
@@ -58,6 +84,9 @@ namespace LinkIT_
 
         private void CargarEventos()
         {
+            eventosLista = new List<Evento>();
+
+
             panelEventos.Controls.Clear();
             int y = 10;
 
@@ -81,7 +110,7 @@ namespace LinkIT_
            (SELECT COUNT(*) 
             FROM Inscripcion i 
             WHERE i.id_evento = e.id_evento 
-            AND i.estado = 'Activo') AS inscriptos
+            AND i.estado = 'inscripto') AS inscriptos
 
         FROM Evento e
         WHERE e.id_usuario = @id"
@@ -104,15 +133,13 @@ namespace LinkIT_
             (SELECT COUNT(*) 
              FROM Inscripcion i 
              WHERE i.id_evento = e.id_evento 
-             AND i.estado = 'Activo') AS inscriptos
+             AND i.estado = 'inscripto') AS inscriptos
 
         FROM Evento e
         INNER JOIN Inscripcion ins ON e.id_evento = ins.id_evento
 
         WHERE ins.id_usuario = @id 
-        AND ins.estado = 'Activo'
-
-        -- 👇 ESTA ES LA LINEA IMPORTANTE
+        AND ins.estado = 'inscripto'
         AND e.fecha_evento >= CAST(GETDATE() AS DATE)";
 
             SqlCommand cmd = new SqlCommand(query, con.AbrirConexion());
@@ -125,6 +152,8 @@ namespace LinkIT_
             {
                 hayEventos = true;
                 Evento evento = MapearEvento(reader);
+
+                eventosLista.Add(evento);
 
                 Panel card = CrearCard(evento);
                 card.Location = new Point(10, y);

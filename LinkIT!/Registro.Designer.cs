@@ -97,6 +97,7 @@
             textClave.Name = "textClave";
             textClave.Size = new Size(324, 23);
             textClave.TabIndex = 17;
+            textClave.UseSystemPasswordChar = true;
             // 
             // textNombre
             // 

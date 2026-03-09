@@ -30,12 +30,12 @@ namespace LinkIT_
         /// </summary>
         private void InitializeComponent()
         {
-            ChartArea chartArea1 = new ChartArea();
-            Legend legend1 = new Legend();
-            Series series1 = new Series();
-            ChartArea chartArea2 = new ChartArea();
-            Legend legend2 = new Legend();
-            Series series2 = new Series();
+            ChartArea chartArea3 = new ChartArea();
+            Legend legend3 = new Legend();
+            Series series3 = new Series();
+            ChartArea chartArea4 = new ChartArea();
+            Legend legend4 = new Legend();
+            Series series4 = new Series();
             label1 = new Label();
             labelSubtitulo = new Label();
             chartEventosMes = new Chart();
@@ -46,10 +46,6 @@ namespace LinkIT_
             panel2 = new Panel();
             label11 = new Label();
             label15 = new Label();
-            panel3 = new Panel();
-            labelSubtituloTotalEventos = new Label();
-            pictureBox1 = new PictureBox();
-            labelTotalEventos = new Label();
             panel4 = new Panel();
             labelSubtituloEventoActivo = new Label();
             label3 = new Label();
@@ -78,12 +74,14 @@ namespace LinkIT_
             labelSubtituloJefesEventos = new Label();
             label6 = new Label();
             pictureBox5 = new PictureBox();
+            labelTotalEventos = new Label();
+            pictureBox1 = new PictureBox();
+            labelSubtituloTotalEventos = new Label();
+            panel3 = new Panel();
             ((System.ComponentModel.ISupportInitialize)chartEventosMes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chartAsistenciaMensual).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
-            panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel5.SuspendLayout();
@@ -98,6 +96,8 @@ namespace LinkIT_
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -123,32 +123,32 @@ namespace LinkIT_
             // 
             // chartEventosMes
             // 
-            chartArea1.Name = "ChartArea1";
-            chartEventosMes.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            chartEventosMes.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            chartEventosMes.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            chartEventosMes.Legends.Add(legend3);
             chartEventosMes.Location = new Point(-1, 70);
             chartEventosMes.Name = "chartEventosMes";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            chartEventosMes.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            chartEventosMes.Series.Add(series3);
             chartEventosMes.Size = new Size(528, 227);
             chartEventosMes.TabIndex = 9;
             chartEventosMes.Text = "chart1";
             // 
             // chartAsistenciaMensual
             // 
-            chartArea2.Name = "ChartArea1";
-            chartAsistenciaMensual.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            chartAsistenciaMensual.Legends.Add(legend2);
+            chartArea4.Name = "ChartArea1";
+            chartAsistenciaMensual.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            chartAsistenciaMensual.Legends.Add(legend4);
             chartAsistenciaMensual.Location = new Point(-1, 70);
             chartAsistenciaMensual.Name = "chartAsistenciaMensual";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            chartAsistenciaMensual.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            chartAsistenciaMensual.Series.Add(series4);
             chartAsistenciaMensual.Size = new Size(528, 227);
             chartAsistenciaMensual.TabIndex = 10;
             chartAsistenciaMensual.Text = "chart2";
@@ -218,49 +218,6 @@ namespace LinkIT_
             label15.Size = new Size(202, 25);
             label15.TabIndex = 17;
             label15.Text = "Inscriptos por Evento";
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.PaleGreen;
-            panel3.BorderStyle = BorderStyle.FixedSingle;
-            panel3.Controls.Add(labelSubtituloTotalEventos);
-            panel3.Controls.Add(pictureBox1);
-            panel3.Controls.Add(labelTotalEventos);
-            panel3.Location = new Point(20, 116);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(247, 79);
-            panel3.TabIndex = 13;
-            // 
-            // labelSubtituloTotalEventos
-            // 
-            labelSubtituloTotalEventos.AutoSize = true;
-            labelSubtituloTotalEventos.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelSubtituloTotalEventos.Location = new Point(72, 40);
-            labelSubtituloTotalEventos.Name = "labelSubtituloTotalEventos";
-            labelSubtituloTotalEventos.Size = new Size(57, 21);
-            labelSubtituloTotalEventos.TabIndex = 15;
-            labelSubtituloTotalEventos.Text = "label2";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.calendario;
-            pictureBox1.Location = new Point(3, 15);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(63, 50);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 15;
-            pictureBox1.TabStop = false;
-            // 
-            // labelTotalEventos
-            // 
-            labelTotalEventos.AutoSize = true;
-            labelTotalEventos.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelTotalEventos.ForeColor = SystemColors.WindowFrame;
-            labelTotalEventos.Location = new Point(71, 15);
-            labelTotalEventos.Name = "labelTotalEventos";
-            labelTotalEventos.Size = new Size(98, 15);
-            labelTotalEventos.TabIndex = 15;
-            labelTotalEventos.Text = "Total de Eventos";
             // 
             // panel4
             // 
@@ -564,6 +521,49 @@ namespace LinkIT_
             pictureBox5.TabIndex = 19;
             pictureBox5.TabStop = false;
             // 
+            // labelTotalEventos
+            // 
+            labelTotalEventos.AutoSize = true;
+            labelTotalEventos.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelTotalEventos.ForeColor = SystemColors.WindowFrame;
+            labelTotalEventos.Location = new Point(71, 15);
+            labelTotalEventos.Name = "labelTotalEventos";
+            labelTotalEventos.Size = new Size(98, 15);
+            labelTotalEventos.TabIndex = 15;
+            labelTotalEventos.Text = "Total de Eventos";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.calendario;
+            pictureBox1.Location = new Point(3, 15);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(63, 50);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 15;
+            pictureBox1.TabStop = false;
+            // 
+            // labelSubtituloTotalEventos
+            // 
+            labelSubtituloTotalEventos.AutoSize = true;
+            labelSubtituloTotalEventos.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelSubtituloTotalEventos.Location = new Point(72, 40);
+            labelSubtituloTotalEventos.Name = "labelSubtituloTotalEventos";
+            labelSubtituloTotalEventos.Size = new Size(57, 21);
+            labelSubtituloTotalEventos.TabIndex = 15;
+            labelSubtituloTotalEventos.Text = "label2";
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.PaleGreen;
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(labelSubtituloTotalEventos);
+            panel3.Controls.Add(pictureBox1);
+            panel3.Controls.Add(labelTotalEventos);
+            panel3.Location = new Point(20, 116);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(247, 79);
+            panel3.TabIndex = 13;
+            // 
             // UCDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -590,9 +590,6 @@ namespace LinkIT_
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -614,6 +611,9 @@ namespace LinkIT_
             panel10.ResumeLayout(false);
             panel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -625,15 +625,11 @@ namespace LinkIT_
         private System.Windows.Forms.DataVisualization.Charting.Chart chartAsistenciaMensual;
         private Panel panel1;
         private Panel panel2;
-        private Panel panel3;
         private Panel panel4;
         private Panel panel5;
         private Panel panel6;
         private Panel panel7;
         private Panel panel8;
-        private Label labelSubtituloTotalEventos;
-        private PictureBox pictureBox1;
-        private Label labelTotalEventos;
         private Panel panel9;
         private Panel panel10;
         private Label labelSubtituloEventoActivo;
@@ -664,5 +660,9 @@ namespace LinkIT_
         private Label label10;
         private Label label11;
         private Label label15;
+        private Label labelTotalEventos;
+        private PictureBox pictureBox1;
+        private Label labelSubtituloTotalEventos;
+        private Panel panel3;
     }
 }

@@ -12,6 +12,7 @@ namespace LinkIT_
         private int idSeleccionado = 0;
         private string rolVista;
         bool mostrandoActivos = true;
+        private DataTable usuariosDT;
 
         public UCUsuarios(string rol)
         {
@@ -21,6 +22,21 @@ namespace LinkIT_
 
             ConfigurarVista();
             MostrarUsuarios(rolVista);
+        }
+
+        private void textBoxBuscar_TextChanged(object sender, EventArgs e)
+        {
+            if (usuariosDT == null)
+                return;
+
+            string filtro = textBoxBuscar.Text.Trim().Replace("'", "''"); // Evitar errores por comillas
+
+            DataView dv = new DataView(usuariosDT);
+
+            // Filtramos por nombre, correo o DNI (puedes agregar más columnas)
+            dv.RowFilter = $"nombre LIKE '%{filtro}%' OR correo LIKE '%{filtro}%' OR Convert(DNI, 'System.String') LIKE '%{filtro}%'";
+
+            dataGridView1.DataSource = dv;
         }
 
         private void ConfigurarVista()
@@ -72,10 +88,13 @@ namespace LinkIT_
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
+            usuariosDT = dt;
 
             dataGridView1.DataSource = dt;
 
             con.CerrarConexion();
+
+
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)

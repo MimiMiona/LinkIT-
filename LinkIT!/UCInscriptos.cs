@@ -9,6 +9,7 @@ namespace LinkIT_
     public partial class UCInscriptos : UserControl
     {
         private UCMisEventos.Evento eventoActual; // Evento actual
+        private DataTable inscriptosDT;
         public UCInscriptos(UCMisEventos.Evento evento = null)
         {
             InitializeComponent();
@@ -23,6 +24,7 @@ namespace LinkIT_
             dataGridView1.CellClick += DataGridView1_CellClick;
         }
 
+
         private void ActualizarDatosEvento()
         {
             Conexion con = new Conexion();
@@ -30,7 +32,7 @@ namespace LinkIT_
             SqlCommand cmd = new SqlCommand(
                 @"SELECT COUNT(*) 
           FROM Inscripcion 
-          WHERE id_evento = @idEvento AND estado = 'Activo'",
+          WHERE id_evento = @idEvento AND estado = 'Inscripto'",
                 con.AbrirConexion()
             );
 
@@ -56,31 +58,75 @@ namespace LinkIT_
         {
             dataGridView1.Rows.Clear();
 
+            // Creamos el DataTable para guardar los datos y filtrar
+            inscriptosDT = new DataTable();
+            inscriptosDT.Columns.Add("Participante", typeof(string));
+            inscriptosDT.Columns.Add("Correo", typeof(string));
+            inscriptosDT.Columns.Add("Fecha", typeof(string));
+            inscriptosDT.Columns.Add("idUsuario", typeof(int));
+
             Conexion con = new Conexion();
             SqlCommand cmd = new SqlCommand(@"
-                SELECT i.id_usuario, u.nombre AS participante, u.correo, i.fecha_inscripcion, i.estado
-                FROM Inscripcion i
-                INNER JOIN Usuario u ON i.id_usuario = u.id_usuario
-                WHERE i.id_evento = @idEvento AND i.estado = 'Activo'", con.AbrirConexion());
+        SELECT i.id_usuario, u.nombre AS participante, u.correo, i.fecha_inscripcion, i.estado
+        FROM Inscripcion i
+        INNER JOIN Usuario u ON i.id_usuario = u.id_usuario
+        WHERE i.id_evento = @idEvento AND i.estado = 'Inscripto'", con.AbrirConexion());
             cmd.Parameters.AddWithValue("@idEvento", eventoActual.IdEvento);
 
             SqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
+                string participante = reader["participante"].ToString();
+                string correo = reader["correo"].ToString();
+                string fecha = Convert.ToDateTime(reader["fecha_inscripcion"]).ToString("yyyy-MM-dd");
+                int idUsuario = Convert.ToInt32(reader["id_usuario"]);
+
+                // Agregamos al DataGridView
                 int filaIndex = dataGridView1.Rows.Add(
-                    reader["participante"].ToString(),
-                    reader["correo"].ToString(),
-                    Convert.ToDateTime(reader["fecha_inscripcion"]).ToString("yyyy-MM-dd"),
+                    participante,
+                    correo,
+                    fecha,
                     "Dar de Baja" // Botón
                 );
 
                 // Guardamos el id_usuario en la fila para usarlo después
-                dataGridView1.Rows[filaIndex].Tag = Convert.ToInt32(reader["id_usuario"]);
+                dataGridView1.Rows[filaIndex].Tag = idUsuario;
+
+                // Guardamos también en el DataTable para poder filtrar después
+                inscriptosDT.Rows.Add(participante, correo, fecha, idUsuario);
             }
 
             reader.Close();
             con.CerrarConexion();
+        }
+
+        private void textBoxBuscar_TextChanged(object sender, EventArgs e)
+        {
+            if (inscriptosDT == null) return;
+
+            string filtro = textBoxBuscar.Text.Trim().ToLower();
+
+            dataGridView1.Rows.Clear();
+
+            foreach (DataRow row in inscriptosDT.Rows)
+            {
+                string participante = row["Participante"].ToString().ToLower();
+                string correo = row["Correo"].ToString().ToLower();
+                string fecha = row["Fecha"].ToString().ToLower();
+
+                if (participante.Contains(filtro) || correo.Contains(filtro) || fecha.Contains(filtro))
+                {
+                    int filaIndex = dataGridView1.Rows.Add(
+                        row["Participante"],
+                        row["Correo"],
+                        row["Fecha"],
+                        "Dar de Baja"
+                    );
+
+                    dataGridView1.Rows[filaIndex].Tag = (int)row["idUsuario"];
+                }
+            }
         }
 
         // Evento al hacer click en botón Dar de Baja

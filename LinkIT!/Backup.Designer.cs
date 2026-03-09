@@ -71,6 +71,7 @@
             txtClave.PasswordChar = '*';
             txtClave.Size = new Size(432, 23);
             txtClave.TabIndex = 4;
+            txtClave.UseSystemPasswordChar = true;
             // 
             // Backup
             // 

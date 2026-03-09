@@ -10,20 +10,57 @@ namespace LinkIT_
         // Colores que usamos en la interfaz
         Color colorVerdePrincipal = Color.MediumSeaGreen;
         Color colorGrisTexto = Color.FromArgb(100, 100, 100);
-
+        private List<Evento> eventosLista; 
         public UCEventoAdministrador()
         {
             InitializeComponent();
         }
 
-        // Cuando se carga el UserControl
         private void UCEventoAdministrador_Load(object sender, EventArgs e)
         {
-            // Llamamos al método que carga los eventos desde la base
             CargarEventos();
         }
 
-        // Clase que usamos para guardar los datos de cada evento
+        private void textBoxBuscar_TextChanged(object sender, EventArgs e)
+        {
+            if (eventosLista == null) return;
+
+            string filtro = textBoxBuscar.Text.Trim().ToLower();
+
+            panelEventos.Controls.Clear();
+
+            int x = 10;
+            int y = 10;
+            int columna = 0;
+
+            int espacioX = 20;
+            int espacioY = 20;
+            int cardWidth = 350;
+
+            foreach (var evento in eventosLista)
+            {
+                if (evento.Titulo.ToLower().Contains(filtro) || evento.Descripcion.ToLower().Contains(filtro))
+                {
+                    Panel card = CrearCard(evento);
+                    card.Location = new Point(x, y);
+                    panelEventos.Controls.Add(card);
+
+                    columna++;
+
+                    if (columna == 3)
+                    {
+                        columna = 0;
+                        x = 10;
+                        y += card.Height + espacioY;
+                    }
+                    else
+                    {
+                        x += cardWidth + espacioX;
+                    }
+                }
+            }
+        }
+
         public class Evento
         {
             public int IdEvento { get; set; }
@@ -126,11 +163,11 @@ namespace LinkIT_
                     Responsable = reader["responsable"].ToString()
                 };
 
-                // Creamos la card visual
-                Panel card = CrearCard(evento);
+                eventosLista ??= new List<Evento>();
+                eventosLista.Add(evento);  // <-- guardamos para filtrar
 
-                // Ubicación en el panel
-                card.Location = new Point(x, y);
+                Panel card = CrearCard(evento);// Creamos la card visualmente
+                card.Location = new Point(x, y);// Posicionamos la card
 
                 panelEventos.Controls.Add(card);
 

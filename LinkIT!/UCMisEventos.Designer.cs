@@ -18,15 +18,17 @@
             labelSubtitulo = new Label();
             labelTitulo = new Label();
             BotonCrearEvento = new Button();
+            button1 = new Button();
+            textBoxBuscar = new TextBox();
             SuspendLayout();
             // 
             // panelEventos
             // 
             panelEventos.AutoScroll = true;
             panelEventos.BackColor = Color.White;
-            panelEventos.Location = new Point(0, 104);
+            panelEventos.Location = new Point(0, 132);
             panelEventos.Name = "panelEventos";
-            panelEventos.Size = new Size(1173, 593);
+            panelEventos.Size = new Size(1173, 565);
             panelEventos.TabIndex = 0;
             // 
             // labelSubtitulo
@@ -65,12 +67,39 @@
             BotonCrearEvento.UseVisualStyleBackColor = true;
             BotonCrearEvento.Click += BotonCrearEvento_Click;
             // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.Window;
+            button1.Enabled = false;
+            button1.FlatStyle = FlatStyle.Popup;
+            button1.ForeColor = SystemColors.ControlText;
+            button1.Location = new Point(1083, 101);
+            button1.Margin = new Padding(0);
+            button1.Name = "button1";
+            button1.Size = new Size(46, 25);
+            button1.TabIndex = 12;
+            button1.TabStop = false;
+            button1.Text = "🔍";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // textBoxBuscar
+            // 
+            textBoxBuscar.Font = new Font("Segoe UI", 10F);
+            textBoxBuscar.ForeColor = SystemColors.ActiveCaptionText;
+            textBoxBuscar.Location = new Point(20, 101);
+            textBoxBuscar.Name = "textBoxBuscar";
+            textBoxBuscar.Size = new Size(1054, 25);
+            textBoxBuscar.TabIndex = 11;
+            textBoxBuscar.TextChanged += textBoxBuscar_TextChanged;
+            // 
             // UCMisEventos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Ivory;
+            Controls.Add(button1);
             Controls.Add(BotonCrearEvento);
+            Controls.Add(textBoxBuscar);
             Controls.Add(labelSubtitulo);
             Controls.Add(labelTitulo);
             Controls.Add(panelEventos);
@@ -84,5 +113,7 @@
         private Label labelSubtitulo;
         private Label labelTitulo;
         private Button BotonCrearEvento;
+        private Button button1;
+        private TextBox textBoxBuscar;
     }
 }

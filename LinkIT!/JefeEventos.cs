@@ -81,7 +81,7 @@ namespace LinkIT_
 
         private void buttonCalendario_Click(object sender, EventArgs e)
         { // aca se carga el UserControl del calendario, que es el que muestra el calendario con los eventos y las fechas.
-            LoadUserControl(new UCCalendario());
+            LoadUserControl(new UCCalendario("Jefe de Eventos", Login.Sesion.IdUsuario));
         }
 
         private void buttonCerrarSesion_Click(object sender, EventArgs e)
@@ -101,12 +101,17 @@ namespace LinkIT_
 
         private void bUsuarios_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new UCRevisionUsuarios());
+            LoadUserControl(new UCRevisionUsuarios(Login.Sesion.IdUsuario));
         }
 
         private void bConsultas_Click(object sender, EventArgs e)
         {
             LoadUserControl(new UCConsultas());
+        }
+
+        private void bDashboard_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

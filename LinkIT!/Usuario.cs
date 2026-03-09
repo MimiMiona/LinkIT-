@@ -30,12 +30,12 @@ namespace LinkIT_
             LoadUserControl(new UCExplorarEventos());
         }
 
-        private void BotonMisEventos_Click(object sender, EventArgs e)
+        private void BotonExplorarEventos_Click(object sender, EventArgs e)
         {
             LoadUserControl(new UCExplorarEventos());
         }
 
-        private void buttonInscriptos_Click(object sender, EventArgs e)
+        private void BotonMisEventos_Click(object sender, EventArgs e)
         {
             LoadUserControl(new UCMisEventos("Usuario"));
         }
@@ -49,6 +49,11 @@ namespace LinkIT_
         {
             FormConsulta consulta = new FormConsulta();
             consulta.ShowDialog();
+        }
+
+        private void buttonCalendario_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UCCalendario("Usuario", Login.Sesion.IdUsuario));
         }
     }
 }

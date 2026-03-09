@@ -41,6 +41,7 @@
             panel3 = new Panel();
             lblUsuario = new Label();
             label1 = new Label();
+            bDashboard = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -50,6 +51,7 @@
             // panel1
             // 
             panel1.BackColor = Color.MintCream;
+            panel1.Controls.Add(bDashboard);
             panel1.Controls.Add(bConsultas);
             panel1.Controls.Add(bUsuarios);
             panel1.Controls.Add(buttonCalendario);
@@ -69,11 +71,11 @@
             bConsultas.FlatStyle = FlatStyle.Flat;
             bConsultas.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             bConsultas.ForeColor = Color.White;
-            bConsultas.Location = new Point(11, 214);
+            bConsultas.Location = new Point(11, 230);
             bConsultas.Name = "bConsultas";
             bConsultas.Size = new Size(169, 33);
             bConsultas.TabIndex = 10;
-            bConsultas.Text = "Consultas";
+            bConsultas.Text = "📎Consultas";
             bConsultas.UseVisualStyleBackColor = false;
             bConsultas.Click += bConsultas_Click;
             // 
@@ -84,11 +86,11 @@
             bUsuarios.FlatStyle = FlatStyle.Flat;
             bUsuarios.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             bUsuarios.ForeColor = Color.White;
-            bUsuarios.Location = new Point(11, 175);
+            bUsuarios.Location = new Point(11, 191);
             bUsuarios.Name = "bUsuarios";
             bUsuarios.Size = new Size(169, 33);
             bUsuarios.TabIndex = 9;
-            bUsuarios.Text = "Solicitudes de Registro";
+            bUsuarios.Text = "➕ Registros";
             bUsuarios.UseVisualStyleBackColor = false;
             bUsuarios.Click += bUsuarios_Click;
             // 
@@ -99,11 +101,11 @@
             buttonCalendario.FlatStyle = FlatStyle.Flat;
             buttonCalendario.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonCalendario.ForeColor = Color.White;
-            buttonCalendario.Location = new Point(11, 136);
+            buttonCalendario.Location = new Point(11, 152);
             buttonCalendario.Name = "buttonCalendario";
             buttonCalendario.Size = new Size(169, 33);
             buttonCalendario.TabIndex = 8;
-            buttonCalendario.Text = "Calendario";
+            buttonCalendario.Text = "🗓️ Calendario";
             buttonCalendario.UseVisualStyleBackColor = false;
             buttonCalendario.Click += buttonCalendario_Click;
             buttonCalendario.MouseEnter += buttonCalendario_MouseEnter;
@@ -129,11 +131,11 @@
             BotonMisEventos.FlatStyle = FlatStyle.Flat;
             BotonMisEventos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BotonMisEventos.ForeColor = Color.White;
-            BotonMisEventos.Location = new Point(11, 97);
+            BotonMisEventos.Location = new Point(11, 113);
             BotonMisEventos.Name = "BotonMisEventos";
             BotonMisEventos.Size = new Size(169, 33);
             BotonMisEventos.TabIndex = 0;
-            BotonMisEventos.Text = "Mis Eventos";
+            BotonMisEventos.Text = "❤️ Mis Eventos";
             BotonMisEventos.UseVisualStyleBackColor = true;
             BotonMisEventos.Click += BotonMisEventos_Click;
             BotonMisEventos.MouseEnter += BotonMisEventos_MouseEnter;
@@ -205,6 +207,21 @@
             label1.TabIndex = 13;
             label1.Text = "Jefe de Eventos";
             // 
+            // bDashboard
+            // 
+            bDashboard.BackColor = Color.MediumSeaGreen;
+            bDashboard.FlatAppearance.BorderSize = 0;
+            bDashboard.FlatStyle = FlatStyle.Flat;
+            bDashboard.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bDashboard.ForeColor = Color.White;
+            bDashboard.Location = new Point(11, 74);
+            bDashboard.Name = "bDashboard";
+            bDashboard.Size = new Size(169, 33);
+            bDashboard.TabIndex = 13;
+            bDashboard.Text = "💻 Dashboard";
+            bDashboard.UseVisualStyleBackColor = true;
+            bDashboard.Click += bDashboard_Click;
+            // 
             // JefeEventos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -242,5 +259,6 @@
         private Panel panel3;
         private Label label1;
         private Label lblUsuario;
+        private Button bDashboard;
     }
 }
