@@ -37,6 +37,8 @@
             textNombre = new TextBox();
             textDNI = new TextBox();
             textCorreo = new TextBox();
+            bGuardar = new Button();
+            bLimpiar = new Button();
             SuspendLayout();
             // 
             // bVolver
@@ -117,11 +119,33 @@
             textCorreo.Size = new Size(324, 23);
             textCorreo.TabIndex = 14;
             // 
+            // bGuardar
+            // 
+            bGuardar.Location = new Point(164, 248);
+            bGuardar.Name = "bGuardar";
+            bGuardar.Size = new Size(176, 57);
+            bGuardar.TabIndex = 22;
+            bGuardar.Text = "Guardar";
+            bGuardar.UseVisualStyleBackColor = true;
+            bGuardar.Click += bGuardar_Click;
+            // 
+            // bLimpiar
+            // 
+            bLimpiar.Location = new Point(433, 248);
+            bLimpiar.Name = "bLimpiar";
+            bLimpiar.Size = new Size(176, 57);
+            bLimpiar.TabIndex = 23;
+            bLimpiar.Text = "Limpiar";
+            bLimpiar.UseVisualStyleBackColor = true;
+            bLimpiar.Click += bLimpiar_Click;
+            // 
             // Registro
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(bLimpiar);
+            Controls.Add(bGuardar);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(labelClave);
@@ -148,5 +172,7 @@
         private TextBox textNombre;
         private TextBox textDNI;
         private TextBox textCorreo;
+        private Button bGuardar;
+        private Button bLimpiar;
     }
 }

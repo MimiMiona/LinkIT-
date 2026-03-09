@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -65,11 +66,13 @@ namespace LinkIT_
         // ================================
         public class Evento
         {
+            public int IdEvento { get; set; }
             public string Titulo { get; set; }
             public string Estado { get; set; }
             public string Descripcion { get; set; }
-            public string Fecha { get; set; }
-            public string Horario { get; set; }
+            public DateTime Fecha { get; set; }
+            public TimeSpan HoraInicio { get; set; }
+            public TimeSpan HoraFin { get; set; }
             public int Inscriptos { get; set; }
             public int Capacidad { get; set; }
 
@@ -84,41 +87,57 @@ namespace LinkIT_
         {
             flowEventos.Controls.Clear();
 
-            List<Evento> eventos = new List<Evento>
-            {
-                new Evento {
-                    Titulo = "Seminario de Inteligencia Artificial",
-                    Estado = "Disponible",
-                    Descripcion = "Seminario introductorio sobre las bases de la IA.",
-                    Fecha = "15/03/2026",
-                    Horario = "09:00 - 12:00",
-                    Inscriptos = 42,
-                    Capacidad = 50
-                },
-                new Evento {
-                    Titulo = "Taller de Desarrollo Web",
-                    Estado = "Disponible",
-                    Descripcion = "Taller práctico con React y Tailwind.",
-                    Fecha = "22/03/2026",
-                    Horario = "14:00 - 18:00",
-                    Inscriptos = 28,
-                    Capacidad = 30
-                },
-                new Evento {
-                    Titulo = "Conferencia de Ciberseguridad",
-                    Estado = "Disponible",
-                    Descripcion = "Conferencia magistral sobre seguridad digital.",
-                    Fecha = "05/04/2026",
-                    Horario = "10:00 - 13:00",
-                    Inscriptos = 65,
-                    Capacidad = 80
-                }
-            };
+            Conexion con = new Conexion();
 
-            foreach (var evento in eventos)
+            string query = @"
+    SELECT 
+    e.id_evento,
+    e.titulo,
+    e.descripcion,
+    e.fecha_evento,
+    e.horario_inicio,
+    e.horario_fin,
+    e.capacidad_maxima,
+
+    CASE 
+        WHEN e.estado = 'Cancelado' THEN 'Cancelado'
+        WHEN CAST(e.fecha_evento AS DATETIME) + CAST(e.horario_fin AS DATETIME) < GETDATE() THEN 'Finalizado'
+        ELSE 'Disponible'
+    END AS estado,
+
+    (SELECT COUNT(*) 
+     FROM Inscripcion i 
+     WHERE i.id_evento = e.id_evento 
+     AND i.estado = 'Inscripto') AS inscriptos
+
+FROM Evento e
+WHERE e.estado <> 'Cancelado'
+ORDER BY e.fecha_evento";
+
+            SqlCommand cmd = new SqlCommand(query, con.AbrirConexion());
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
             {
+                Evento evento = new Evento
+                {
+                    IdEvento = Convert.ToInt32(reader["id_evento"]),
+                    Titulo = reader["titulo"].ToString(),
+                    Descripcion = reader["descripcion"].ToString(),
+                    Fecha = Convert.ToDateTime(reader["fecha_evento"]),
+                    HoraInicio = ((DateTime)reader["horario_inicio"]).TimeOfDay,
+                    HoraFin = ((DateTime)reader["horario_fin"]).TimeOfDay,
+                    Capacidad = Convert.ToInt32(reader["capacidad_maxima"]),
+                    Inscriptos = Convert.ToInt32(reader["inscriptos"]),
+                    Estado = reader["estado"].ToString()
+                };
+
                 flowEventos.Controls.Add(CrearCard(evento));
             }
+
+            reader.Close();
+            con.CerrarConexion();
 
             CentrarCards();
         }
@@ -166,7 +185,7 @@ namespace LinkIT_
             lblDescripcion.Location = new Point(10, 30);
 
             Label lblInfo = new Label();
-            lblInfo.Text = $"{evento.Fecha}   |   {evento.Horario}   |   {evento.Inscriptos}/{evento.Capacidad}";
+            lblInfo.Text = $"{evento.Fecha:dd/MM/yyyy} | {evento.HoraInicio:hh\\:mm}-{evento.HoraFin:hh\\:mm} | {evento.Inscriptos}/{evento.Capacidad}";
             lblInfo.Font = new Font("Segoe UI", 8.5f);
             lblInfo.ForeColor = Color.Gray;
             lblInfo.AutoSize = true;
@@ -209,6 +228,25 @@ namespace LinkIT_
 
             btnUnirme.MouseLeave += (s, e) =>
                 btnUnirme.BackColor = colorVerde;
+            btnUnirme.Click += (s, e) =>
+            {
+                Conexion con = new Conexion();
+
+                SqlCommand cmd = new SqlCommand(@"
+                    INSERT INTO Inscripcion (id_usuario, id_evento, estado)
+                    VALUES (@usuario, @evento, 'Inscripto')",
+                con.AbrirConexion());
+
+                cmd.Parameters.AddWithValue("@usuario", Login.Sesion.IdUsuario);
+                cmd.Parameters.AddWithValue("@evento", evento.IdEvento);
+
+                cmd.ExecuteNonQuery();
+                con.CerrarConexion();
+
+                MessageBox.Show("Te inscribiste al evento");
+
+                CargarEventos();
+            };
 
             card.Controls.Add(lblTitulo);
             card.Controls.Add(lblEstado);

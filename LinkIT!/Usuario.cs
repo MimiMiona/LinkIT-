@@ -39,5 +39,16 @@ namespace LinkIT_
         {
             LoadUserControl(new UCMisEventos("Usuario"));
         }
+
+        private void buttonCerrarSesion_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void bConsultas_Click(object sender, EventArgs e)
+        {
+            FormConsulta consulta = new FormConsulta();
+            consulta.ShowDialog();
+        }
     }
 }

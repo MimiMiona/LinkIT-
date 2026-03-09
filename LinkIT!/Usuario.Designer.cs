@@ -40,6 +40,7 @@
             Nombre = new Label();
             pictureBox1 = new PictureBox();
             panelUsuario = new Panel();
+            bConsultas = new Button();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -49,6 +50,7 @@
             // panel1
             // 
             panel1.BackColor = Color.MintCream;
+            panel1.Controls.Add(bConsultas);
             panel1.Controls.Add(lblUsuario);
             panel1.Controls.Add(buttonCalendario);
             panel1.Controls.Add(buttonInscriptos);
@@ -130,6 +132,7 @@
             buttonCerrarSesion.TabIndex = 5;
             buttonCerrarSesion.Text = "Cerrar Sesion ";
             buttonCerrarSesion.UseVisualStyleBackColor = false;
+            buttonCerrarSesion.Click += buttonCerrarSesion_Click;
             // 
             // BotonMisEventos
             // 
@@ -182,6 +185,21 @@
             panelUsuario.Size = new Size(1173, 697);
             panelUsuario.TabIndex = 2;
             // 
+            // bConsultas
+            // 
+            bConsultas.BackColor = Color.MediumSeaGreen;
+            bConsultas.FlatAppearance.BorderSize = 0;
+            bConsultas.FlatStyle = FlatStyle.Flat;
+            bConsultas.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bConsultas.ForeColor = Color.White;
+            bConsultas.Location = new Point(11, 214);
+            bConsultas.Name = "bConsultas";
+            bConsultas.Size = new Size(169, 33);
+            bConsultas.TabIndex = 11;
+            bConsultas.Text = "📎Consultas";
+            bConsultas.UseVisualStyleBackColor = false;
+            bConsultas.Click += bConsultas_Click;
+            // 
             // Usuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -218,5 +236,6 @@
         private Label lblUsuario;
         private Panel panel3;
         private Label label1;
+        private Button bConsultas;
     }
 }

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            button1 = new Button();
+            bConsultas = new Button();
             bUsuarios = new Button();
             buttonCalendario = new Button();
             buttonCerrarSesion = new Button();
@@ -50,7 +50,7 @@
             // panel1
             // 
             panel1.BackColor = Color.MintCream;
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(bConsultas);
             panel1.Controls.Add(bUsuarios);
             panel1.Controls.Add(buttonCalendario);
             panel1.Controls.Add(buttonCerrarSesion);
@@ -62,19 +62,20 @@
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
             // 
-            // button1
+            // bConsultas
             // 
-            button1.BackColor = Color.MediumSeaGreen;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(11, 214);
-            button1.Name = "button1";
-            button1.Size = new Size(169, 33);
-            button1.TabIndex = 10;
-            button1.Text = "Consultas";
-            button1.UseVisualStyleBackColor = false;
+            bConsultas.BackColor = Color.MediumSeaGreen;
+            bConsultas.FlatAppearance.BorderSize = 0;
+            bConsultas.FlatStyle = FlatStyle.Flat;
+            bConsultas.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bConsultas.ForeColor = Color.White;
+            bConsultas.Location = new Point(11, 214);
+            bConsultas.Name = "bConsultas";
+            bConsultas.Size = new Size(169, 33);
+            bConsultas.TabIndex = 10;
+            bConsultas.Text = "Consultas";
+            bConsultas.UseVisualStyleBackColor = false;
+            bConsultas.Click += bConsultas_Click;
             // 
             // bUsuarios
             // 
@@ -89,6 +90,7 @@
             bUsuarios.TabIndex = 9;
             bUsuarios.Text = "Solicitudes de Registro";
             bUsuarios.UseVisualStyleBackColor = false;
+            bUsuarios.Click += bUsuarios_Click;
             // 
             // buttonCalendario
             // 
@@ -235,7 +237,7 @@
         private Button buttonCerrarSesion;
         private Button BotonMisEventos;
         private Button buttonCalendario;
-        private Button button1;
+        private Button bConsultas;
         private Button bUsuarios;
         private Panel panel3;
         private Label label1;

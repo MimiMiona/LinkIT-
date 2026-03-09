@@ -52,9 +52,9 @@ namespace LinkIT_
             BotonMisEventos.BackColor = Color.MediumSeaGreen;
         }
 
-        
 
-        
+
+
         private void buttonCalendario_MouseEnter(object sender, EventArgs e)
         {
             //aca se cambia el color de fondo del boton del calendario cuando el mouse entra en el area del boton, para dar un efecto hover.
@@ -77,7 +77,7 @@ namespace LinkIT_
 
         }
 
-    
+
 
         private void buttonCalendario_Click(object sender, EventArgs e)
         { // aca se carga el UserControl del calendario, que es el que muestra el calendario con los eventos y las fechas.
@@ -97,6 +97,16 @@ namespace LinkIT_
             {
                 this.Close();
             }
+        }
+
+        private void bUsuarios_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UCRevisionUsuarios());
+        }
+
+        private void bConsultas_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UCConsultas());
         }
     }
 }
